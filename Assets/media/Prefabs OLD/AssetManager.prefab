@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &553537631787690953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 311885672185851761}
+  - component: {fileID: 4470653345692470755}
+  m_Layer: 0
+  m_Name: AssetManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &311885672185851761
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553537631787690953}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4470653345692470755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553537631787690953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c170f1cbaf631484eaa5540cbd444f61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Taxi: {fileID: 198244945698061480, guid: facf6986f1a344b468fec5cb44f956e6, type: 3}
+  Van: {fileID: 1971128033328186346, guid: 707d07f1e8b73074084279be68943f5d, type: 3}
+  Ambulance: {fileID: 177441855946691870, guid: 623cbf908f754994cbd2b32e7475861b, type: 3}
+  TaxiSign: {fileID: 8591971414546800995, guid: f733f56cb9b235a4da119c69dd1a7dc1, type: 3}
+  VanSign: {fileID: 7250579514150907251, guid: 0097250727b260643afe9c695434acf5, type: 3}
+  AmbulanceSign: {fileID: 568580997589635644, guid: 0df505d7639faa246a01c42b91f07f02, type: 3}
+  TaxiSignPool: {fileID: 0}
+  VanSignPool: {fileID: 0}
+  AmbulanceSignPool: {fileID: 0}
+  CarDestroEffect: {fileID: 6896925956443348495, guid: cb28ed2759f031046a28c1bb962d3b20, type: 3}
+  CarDestroEffectPool: {fileID: 0}
+  TaxiPool: {fileID: 0}
+  VanPool: {fileID: 0}
+  AmbulancePool: {fileID: 0}
+  ErrorClip: {fileID: 8300000, guid: d86f8d6159cfad047b8ca32b7bea6730, type: 3}
+  SmallTownAmbient: {fileID: 8300000, guid: a30c55e7c7a2d5e4c8396ac0565f150a, type: 3}
+  ForestAmbient: {fileID: 8300000, guid: 1d5ae5c44d65f474388b612de2f9614e, type: 3}
+  DesertAmbient: {fileID: 8300000, guid: defecec9dc93ca64b9512dc589b45ba6, type: 3}
+  hornClip: {fileID: 8300000, guid: 4a4b838e45bc8a647822868e8eb55277, type: 3}
+  hornDoubleClip: {fileID: 8300000, guid: 901d75526b0c8a742b3a96a42e0ad007, type: 3}
+  ambuSirenClip: {fileID: 8300000, guid: 82d5053bc63f3324cac4753e164618a5, type: 3}
+  sirenClip: {fileID: 8300000, guid: 189e22fa566adbe40a8f9058d72ee907, type: 3}
+  specSignalClip: {fileID: 8300000, guid: 645d8ca331265164a9fa41b65bbbe8dd, type: 3}
+  motorSoundLightClip: {fileID: 8300000, guid: 704cf873ef77e404ebb841aa6022c8b6, type: 3}
+  motorSoundHeavyClip: {fileID: 8300000, guid: f763ef2d738aab44fbcaf5591d90c254, type: 3}
+  positiveSoundClip: {fileID: 8300000, guid: c27cbc7f56a4f41499363f7671a0e672, type: 3}
+  ErrorBiggerClip: {fileID: 8300000, guid: 1a1632f9caf8d564dbc48414bc714682, type: 3}
+  Swallow: {fileID: 8300000, guid: 8d8031e48ed259c40860a0a5f443eb4b, type: 3}
+  Tick: {fileID: 8300000, guid: b89c98a633bf8d549bed4c299d249eeb, type: 3}
+  Pop: {fileID: 8300000, guid: 27bd786a5301fad43b70a936ffb95c0d, type: 3}
+  Click: {fileID: 8300000, guid: 271ff8a0b7e70d94c887322dec6a2935, type: 3}
+  Win: {fileID: 8300000, guid: 94e0d4439bfcc6e43857031c757a2d54, type: 3}
+  Lose: {fileID: 8300000, guid: a0929d2a5a37fa24d99623d88d369ca8, type: 3}

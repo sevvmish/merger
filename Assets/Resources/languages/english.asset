@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb8312c76f942845bc274a9afaf3686, type: 3}
+  m_Name: english
+  m_EditorClassIdentifier: 
+  PlayText: PLAY!
+  PressFirstLevelText_MainMenu: Press the level image to continue!
+  Level1_Tutorial: 'Your mission: carry the vehicles from the departure point to
+    the destination point.'
+  Level1_Tutorial_2: You can spin the road region by clicking left or right part
+    of the region.
+  Level1_Tutorial_3: Current progress and goals are on the upper right of the screen.
+  Level1_Tutorial_4: Spin the road region so that the vehicle can ride through.
+  Level1_Tutorial_5: 'Remember: the game time is limited by the timer!'
+  Level1_Tutorial_preclick: Let's train the rotation.
+  Level1_Tutorial_leftClick: Press the left part to rotate to the left in order to
+    match the arrows.
+  Level1_Tutorial_rightClick: And now press the right part to rotate to the right
+    to match the arrows.
+  Level2_Tutorial: Rotate any region marked with flashing border.
+  Level5_Tutorial: The same type vehicles on one road are not obstacle or danger
+    to one another.
+  Level5_Tutorial_1: The road can hold any amount of vehicles.
+  Level11_Tutorial: Collision of different types of vehicles leads to accident and
+    destroys all vehicles around.
+  Level11_Tutorial_1: Avoid getting wrong vehicle type to destination point. It's
+    a mistake!
+  Level12_Tutorial: Pay attention to the yellow taxi as it moves faster than the
+    others!
+  SpeedOfGameWinMenu: 'Speed:'
+  MistakesOfGameWinMenu: 'Mistakes:'
+  AccidentsOfGameWinMenu: 'Accidents:'
+  NextOfGameWinMenu: Next
+  WinText: YOU WIN!
+  LoseText: BAD LUCK!
+  GetMoreTextReward: Continue and gain
+  SecondsText: seconds!
+  GetMoreStars: You have not enought stars for this level. Try collect more stars
+    in previous levels.
+  PlusStarInfoPanelText: You want to get +1 star for watching advertising?
+  AllProgressWillBeReset: You are going to reset all game progress. Continue?
+  ForEducationSpectator: Spectating the best game.
+  ForEducationStartButton: Do you want to watch how to win this level?
+  ForEducationEndButton: Now your turn to repeat!
