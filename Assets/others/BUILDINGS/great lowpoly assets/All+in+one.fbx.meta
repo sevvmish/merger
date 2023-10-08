@@ -1,940 +1,1874 @@
 fileFormatVersion: 2
 guid: 633d74c49318ea54091c22bbfadf6160
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: building00
-    100004: building01
-    100006: building02
-    100008: building03
-    100010: building04
-    100012: building05
-    100014: building06
-    100016: building07
-    100018: building08
-    100020: building09
-    100022: building10
-    100024: building11
-    100026: building12
-    100028: building13
-    100030: building14
-    100032: building15
-    100034: building16
-    100036: building17
-    100038: building18
-    100040: building19
-    100042: building20
-    100044: building21
-    100046: building22
-    100048: building23
-    100050: building24
-    100052: building25
-    100054: building26
-    100056: building27
-    100058: building28
-    100060: building29
-    100062: building30
-    100064: building31
-    100066: building32
-    100068: building33
-    100070: building34
-    100072: building35
-    100074: building36
-    100076: building37
-    100078: building38
-    100080: building39
-    100082: building40
-    100084: building41
-    100086: building42
-    100088: building43
-    100090: building44
-    100092: castle00
-    100094: castle01
-    100096: castle02
-    100098: castle03
-    100100: castle04
-    100102: castle05
-    100104: castle06
-    100106: castle07
-    100108: castle08
-    100110: castle09
-    100112: castle12
-    100114: castle13
-    100116: castle14
-    100118: castle15
-    100120: castle16
-    100122: city-decor00
-    100124: city-decor01
-    100126: city-decor02
-    100128: city-decor03
-    100130: city-decor04
-    100132: city-decor05
-    100134: city-decor06
-    100136: city-decor07
-    100138: city-decor08
-    100140: city-decor09
-    100142: city-decor10
-    100144: city-decor11
-    100146: city-decor13
-    100148: city-decor14
-    100150: city-decor15
-    100152: forest00
-    100154: forest01
-    100156: forest07
-    100158: forest08
-    100160: forest09
-    100162: forest13
-    100164: forest15
-    100166: forest16
-    100168: forest17
-    100170: village-decor00
-    100172: village-decor01
-    100174: village-decor02
-    100176: village-decor03
-    100178: village-decor04
-    100180: village-decor05
-    100182: village-decor06
-    100184: village-decor07
-    100186: village-decor08
-    400000: //RootNode
-    400002: building00
-    400004: building01
-    400006: building02
-    400008: building03
-    400010: building04
-    400012: building05
-    400014: building06
-    400016: building07
-    400018: building08
-    400020: building09
-    400022: building10
-    400024: building11
-    400026: building12
-    400028: building13
-    400030: building14
-    400032: building15
-    400034: building16
-    400036: building17
-    400038: building18
-    400040: building19
-    400042: building20
-    400044: building21
-    400046: building22
-    400048: building23
-    400050: building24
-    400052: building25
-    400054: building26
-    400056: building27
-    400058: building28
-    400060: building29
-    400062: building30
-    400064: building31
-    400066: building32
-    400068: building33
-    400070: building34
-    400072: building35
-    400074: building36
-    400076: building37
-    400078: building38
-    400080: building39
-    400082: building40
-    400084: building41
-    400086: building42
-    400088: building43
-    400090: building44
-    400092: castle00
-    400094: castle01
-    400096: castle02
-    400098: castle03
-    400100: castle04
-    400102: castle05
-    400104: castle06
-    400106: castle07
-    400108: castle08
-    400110: castle09
-    400112: castle12
-    400114: castle13
-    400116: castle14
-    400118: castle15
-    400120: castle16
-    400122: city-decor00
-    400124: city-decor01
-    400126: city-decor02
-    400128: city-decor03
-    400130: city-decor04
-    400132: city-decor05
-    400134: city-decor06
-    400136: city-decor07
-    400138: city-decor08
-    400140: city-decor09
-    400142: city-decor10
-    400144: city-decor11
-    400146: city-decor13
-    400148: city-decor14
-    400150: city-decor15
-    400152: forest00
-    400154: forest01
-    400156: forest07
-    400158: forest08
-    400160: forest09
-    400162: forest13
-    400164: forest15
-    400166: forest16
-    400168: forest17
-    400170: village-decor00
-    400172: village-decor01
-    400174: village-decor02
-    400176: village-decor03
-    400178: village-decor04
-    400180: village-decor05
-    400182: village-decor06
-    400184: village-decor07
-    400186: village-decor08
-    2300000: building00
-    2300002: building01
-    2300004: building02
-    2300006: building03
-    2300008: building04
-    2300010: building05
-    2300012: building06
-    2300014: building07
-    2300016: building08
-    2300018: building09
-    2300020: building10
-    2300022: building11
-    2300024: building12
-    2300026: building13
-    2300028: building14
-    2300030: building15
-    2300032: building16
-    2300034: building17
-    2300036: building18
-    2300038: building19
-    2300040: building20
-    2300042: building21
-    2300044: building22
-    2300046: building23
-    2300048: building24
-    2300050: building25
-    2300052: building26
-    2300054: building27
-    2300056: building28
-    2300058: building29
-    2300060: building30
-    2300062: building31
-    2300064: building32
-    2300066: building33
-    2300068: building34
-    2300070: building35
-    2300072: building36
-    2300074: building37
-    2300076: building38
-    2300078: building39
-    2300080: building40
-    2300082: building41
-    2300084: building42
-    2300086: building43
-    2300088: building44
-    2300090: castle00
-    2300092: castle01
-    2300094: castle02
-    2300096: castle03
-    2300098: castle04
-    2300100: castle05
-    2300102: castle06
-    2300104: castle07
-    2300106: castle08
-    2300108: castle09
-    2300110: castle12
-    2300112: castle13
-    2300114: castle14
-    2300116: castle15
-    2300118: castle16
-    2300120: city-decor00
-    2300122: city-decor01
-    2300124: city-decor02
-    2300126: city-decor03
-    2300128: city-decor04
-    2300130: city-decor05
-    2300132: city-decor06
-    2300134: city-decor07
-    2300136: city-decor08
-    2300138: city-decor09
-    2300140: city-decor10
-    2300142: city-decor11
-    2300144: city-decor13
-    2300146: city-decor14
-    2300148: city-decor15
-    2300150: forest00
-    2300152: forest01
-    2300154: forest07
-    2300156: forest08
-    2300158: forest09
-    2300160: forest13
-    2300162: forest15
-    2300164: forest16
-    2300166: forest17
-    2300168: village-decor00
-    2300170: village-decor01
-    2300172: village-decor02
-    2300174: village-decor03
-    2300176: village-decor04
-    2300178: village-decor05
-    2300180: village-decor06
-    2300182: village-decor07
-    2300184: village-decor08
-    3300000: building00
-    3300002: building01
-    3300004: building02
-    3300006: building03
-    3300008: building04
-    3300010: building05
-    3300012: building06
-    3300014: building07
-    3300016: building08
-    3300018: building09
-    3300020: building10
-    3300022: building11
-    3300024: building12
-    3300026: building13
-    3300028: building14
-    3300030: building15
-    3300032: building16
-    3300034: building17
-    3300036: building18
-    3300038: building19
-    3300040: building20
-    3300042: building21
-    3300044: building22
-    3300046: building23
-    3300048: building24
-    3300050: building25
-    3300052: building26
-    3300054: building27
-    3300056: building28
-    3300058: building29
-    3300060: building30
-    3300062: building31
-    3300064: building32
-    3300066: building33
-    3300068: building34
-    3300070: building35
-    3300072: building36
-    3300074: building37
-    3300076: building38
-    3300078: building39
-    3300080: building40
-    3300082: building41
-    3300084: building42
-    3300086: building43
-    3300088: building44
-    3300090: castle00
-    3300092: castle01
-    3300094: castle02
-    3300096: castle03
-    3300098: castle04
-    3300100: castle05
-    3300102: castle06
-    3300104: castle07
-    3300106: castle08
-    3300108: castle09
-    3300110: castle12
-    3300112: castle13
-    3300114: castle14
-    3300116: castle15
-    3300118: castle16
-    3300120: city-decor00
-    3300122: city-decor01
-    3300124: city-decor02
-    3300126: city-decor03
-    3300128: city-decor04
-    3300130: city-decor05
-    3300132: city-decor06
-    3300134: city-decor07
-    3300136: city-decor08
-    3300138: city-decor09
-    3300140: city-decor10
-    3300142: city-decor11
-    3300144: city-decor13
-    3300146: city-decor14
-    3300148: city-decor15
-    3300150: forest00
-    3300152: forest01
-    3300154: forest07
-    3300156: forest08
-    3300158: forest09
-    3300160: forest13
-    3300162: forest15
-    3300164: forest16
-    3300166: forest17
-    3300168: village-decor00
-    3300170: village-decor01
-    3300172: village-decor02
-    3300174: village-decor03
-    3300176: village-decor04
-    3300178: village-decor05
-    3300180: village-decor06
-    3300182: village-decor07
-    3300184: village-decor08
-    4300000: building00
-    4300002: building01
-    4300004: castle00
-    4300006: castle01
-    4300008: castle02
-    4300010: building02
-    4300012: castle03
-    4300014: castle04
-    4300016: building03
-    4300018: castle05
-    4300020: castle06
-    4300022: castle07
-    4300024: castle08
-    4300026: castle09
-    4300028: building04
-    4300030: building05
-    4300032: building06
-    4300034: building07
-    4300036: building08
-    4300038: building09
-    4300040: building10
-    4300042: building11
-    4300044: building12
-    4300046: building13
-    4300048: building14
-    4300050: building15
-    4300052: building16
-    4300054: building17
-    4300056: building18
-    4300058: building19
-    4300060: building20
-    4300062: building21
-    4300064: building22
-    4300066: building23
-    4300068: building24
-    4300070: forest00
-    4300072: forest01
-    4300074: city-decor00
-    4300076: village-decor00
-    4300078: village-decor01
-    4300080: village-decor02
-    4300082: village-decor03
-    4300084: village-decor04
-    4300086: village-decor05
-    4300088: village-decor06
-    4300090: city-decor01
-    4300092: city-decor02
-    4300094: village-decor07
-    4300096: village-decor08
-    4300098: city-decor03
-    4300100: city-decor04
-    4300102: city-decor05
-    4300104: city-decor06
-    4300106: building25
-    4300108: forest07
-    4300110: forest08
-    4300112: forest09
-    4300114: forest13
-    4300116: city-decor07
-    4300118: city-decor08
-    4300120: city-decor09
-    4300122: city-decor10
-    4300124: castle12
-    4300126: castle13
-    4300128: castle14
-    4300130: city-decor11
-    4300132: building26
-    4300134: city-decor13
-    4300136: building27
-    4300138: building28
-    4300140: building29
-    4300142: building30
-    4300144: building31
-    4300146: building32
-    4300148: building33
-    4300150: building34
-    4300152: building35
-    4300154: building36
-    4300156: building37
-    4300158: forest15
-    4300160: forest16
-    4300162: building38
-    4300164: building39
-    4300166: building40
-    4300168: building41
-    4300170: castle15
-    4300172: castle16
-    4300174: building42
-    4300176: building43
-    4300178: building44
-    4300180: city-decor14
-    4300182: city-decor15
-    4300184: forest17
+  serializedVersion: 22200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: building00
+  - first:
+      1: 100004
+    second: building01
+  - first:
+      1: 100006
+    second: building02
+  - first:
+      1: 100008
+    second: building03
+  - first:
+      1: 100010
+    second: building04
+  - first:
+      1: 100012
+    second: building05
+  - first:
+      1: 100014
+    second: building06
+  - first:
+      1: 100016
+    second: building07
+  - first:
+      1: 100018
+    second: building08
+  - first:
+      1: 100020
+    second: building09
+  - first:
+      1: 100022
+    second: building10
+  - first:
+      1: 100024
+    second: building11
+  - first:
+      1: 100026
+    second: building12
+  - first:
+      1: 100028
+    second: building13
+  - first:
+      1: 100030
+    second: building14
+  - first:
+      1: 100032
+    second: building15
+  - first:
+      1: 100034
+    second: building16
+  - first:
+      1: 100036
+    second: building17
+  - first:
+      1: 100038
+    second: building18
+  - first:
+      1: 100040
+    second: building19
+  - first:
+      1: 100042
+    second: building20
+  - first:
+      1: 100044
+    second: building21
+  - first:
+      1: 100046
+    second: building22
+  - first:
+      1: 100048
+    second: building23
+  - first:
+      1: 100050
+    second: building24
+  - first:
+      1: 100052
+    second: building25
+  - first:
+      1: 100054
+    second: building26
+  - first:
+      1: 100056
+    second: building27
+  - first:
+      1: 100058
+    second: building28
+  - first:
+      1: 100060
+    second: building29
+  - first:
+      1: 100062
+    second: building30
+  - first:
+      1: 100064
+    second: building31
+  - first:
+      1: 100066
+    second: building32
+  - first:
+      1: 100068
+    second: building33
+  - first:
+      1: 100070
+    second: building34
+  - first:
+      1: 100072
+    second: building35
+  - first:
+      1: 100074
+    second: building36
+  - first:
+      1: 100076
+    second: building37
+  - first:
+      1: 100078
+    second: building38
+  - first:
+      1: 100080
+    second: building39
+  - first:
+      1: 100082
+    second: building40
+  - first:
+      1: 100084
+    second: building41
+  - first:
+      1: 100086
+    second: building42
+  - first:
+      1: 100088
+    second: building43
+  - first:
+      1: 100090
+    second: building44
+  - first:
+      1: 100092
+    second: castle00
+  - first:
+      1: 100094
+    second: castle01
+  - first:
+      1: 100096
+    second: castle02
+  - first:
+      1: 100098
+    second: castle03
+  - first:
+      1: 100100
+    second: castle04
+  - first:
+      1: 100102
+    second: castle05
+  - first:
+      1: 100104
+    second: castle06
+  - first:
+      1: 100106
+    second: castle07
+  - first:
+      1: 100108
+    second: castle08
+  - first:
+      1: 100110
+    second: castle09
+  - first:
+      1: 100112
+    second: castle12
+  - first:
+      1: 100114
+    second: castle13
+  - first:
+      1: 100116
+    second: castle14
+  - first:
+      1: 100118
+    second: castle15
+  - first:
+      1: 100120
+    second: castle16
+  - first:
+      1: 100122
+    second: city-decor00
+  - first:
+      1: 100124
+    second: city-decor01
+  - first:
+      1: 100126
+    second: city-decor02
+  - first:
+      1: 100128
+    second: city-decor03
+  - first:
+      1: 100130
+    second: city-decor04
+  - first:
+      1: 100132
+    second: city-decor05
+  - first:
+      1: 100134
+    second: city-decor06
+  - first:
+      1: 100136
+    second: city-decor07
+  - first:
+      1: 100138
+    second: city-decor08
+  - first:
+      1: 100140
+    second: city-decor09
+  - first:
+      1: 100142
+    second: city-decor10
+  - first:
+      1: 100144
+    second: city-decor11
+  - first:
+      1: 100146
+    second: city-decor13
+  - first:
+      1: 100148
+    second: city-decor14
+  - first:
+      1: 100150
+    second: city-decor15
+  - first:
+      1: 100152
+    second: forest00
+  - first:
+      1: 100154
+    second: forest01
+  - first:
+      1: 100156
+    second: forest07
+  - first:
+      1: 100158
+    second: forest08
+  - first:
+      1: 100160
+    second: forest09
+  - first:
+      1: 100162
+    second: forest13
+  - first:
+      1: 100164
+    second: forest15
+  - first:
+      1: 100166
+    second: forest16
+  - first:
+      1: 100168
+    second: forest17
+  - first:
+      1: 100170
+    second: village-decor00
+  - first:
+      1: 100172
+    second: village-decor01
+  - first:
+      1: 100174
+    second: village-decor02
+  - first:
+      1: 100176
+    second: village-decor03
+  - first:
+      1: 100178
+    second: village-decor04
+  - first:
+      1: 100180
+    second: village-decor05
+  - first:
+      1: 100182
+    second: village-decor06
+  - first:
+      1: 100184
+    second: village-decor07
+  - first:
+      1: 100186
+    second: village-decor08
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: building00
+  - first:
+      4: 400004
+    second: building01
+  - first:
+      4: 400006
+    second: building02
+  - first:
+      4: 400008
+    second: building03
+  - first:
+      4: 400010
+    second: building04
+  - first:
+      4: 400012
+    second: building05
+  - first:
+      4: 400014
+    second: building06
+  - first:
+      4: 400016
+    second: building07
+  - first:
+      4: 400018
+    second: building08
+  - first:
+      4: 400020
+    second: building09
+  - first:
+      4: 400022
+    second: building10
+  - first:
+      4: 400024
+    second: building11
+  - first:
+      4: 400026
+    second: building12
+  - first:
+      4: 400028
+    second: building13
+  - first:
+      4: 400030
+    second: building14
+  - first:
+      4: 400032
+    second: building15
+  - first:
+      4: 400034
+    second: building16
+  - first:
+      4: 400036
+    second: building17
+  - first:
+      4: 400038
+    second: building18
+  - first:
+      4: 400040
+    second: building19
+  - first:
+      4: 400042
+    second: building20
+  - first:
+      4: 400044
+    second: building21
+  - first:
+      4: 400046
+    second: building22
+  - first:
+      4: 400048
+    second: building23
+  - first:
+      4: 400050
+    second: building24
+  - first:
+      4: 400052
+    second: building25
+  - first:
+      4: 400054
+    second: building26
+  - first:
+      4: 400056
+    second: building27
+  - first:
+      4: 400058
+    second: building28
+  - first:
+      4: 400060
+    second: building29
+  - first:
+      4: 400062
+    second: building30
+  - first:
+      4: 400064
+    second: building31
+  - first:
+      4: 400066
+    second: building32
+  - first:
+      4: 400068
+    second: building33
+  - first:
+      4: 400070
+    second: building34
+  - first:
+      4: 400072
+    second: building35
+  - first:
+      4: 400074
+    second: building36
+  - first:
+      4: 400076
+    second: building37
+  - first:
+      4: 400078
+    second: building38
+  - first:
+      4: 400080
+    second: building39
+  - first:
+      4: 400082
+    second: building40
+  - first:
+      4: 400084
+    second: building41
+  - first:
+      4: 400086
+    second: building42
+  - first:
+      4: 400088
+    second: building43
+  - first:
+      4: 400090
+    second: building44
+  - first:
+      4: 400092
+    second: castle00
+  - first:
+      4: 400094
+    second: castle01
+  - first:
+      4: 400096
+    second: castle02
+  - first:
+      4: 400098
+    second: castle03
+  - first:
+      4: 400100
+    second: castle04
+  - first:
+      4: 400102
+    second: castle05
+  - first:
+      4: 400104
+    second: castle06
+  - first:
+      4: 400106
+    second: castle07
+  - first:
+      4: 400108
+    second: castle08
+  - first:
+      4: 400110
+    second: castle09
+  - first:
+      4: 400112
+    second: castle12
+  - first:
+      4: 400114
+    second: castle13
+  - first:
+      4: 400116
+    second: castle14
+  - first:
+      4: 400118
+    second: castle15
+  - first:
+      4: 400120
+    second: castle16
+  - first:
+      4: 400122
+    second: city-decor00
+  - first:
+      4: 400124
+    second: city-decor01
+  - first:
+      4: 400126
+    second: city-decor02
+  - first:
+      4: 400128
+    second: city-decor03
+  - first:
+      4: 400130
+    second: city-decor04
+  - first:
+      4: 400132
+    second: city-decor05
+  - first:
+      4: 400134
+    second: city-decor06
+  - first:
+      4: 400136
+    second: city-decor07
+  - first:
+      4: 400138
+    second: city-decor08
+  - first:
+      4: 400140
+    second: city-decor09
+  - first:
+      4: 400142
+    second: city-decor10
+  - first:
+      4: 400144
+    second: city-decor11
+  - first:
+      4: 400146
+    second: city-decor13
+  - first:
+      4: 400148
+    second: city-decor14
+  - first:
+      4: 400150
+    second: city-decor15
+  - first:
+      4: 400152
+    second: forest00
+  - first:
+      4: 400154
+    second: forest01
+  - first:
+      4: 400156
+    second: forest07
+  - first:
+      4: 400158
+    second: forest08
+  - first:
+      4: 400160
+    second: forest09
+  - first:
+      4: 400162
+    second: forest13
+  - first:
+      4: 400164
+    second: forest15
+  - first:
+      4: 400166
+    second: forest16
+  - first:
+      4: 400168
+    second: forest17
+  - first:
+      4: 400170
+    second: village-decor00
+  - first:
+      4: 400172
+    second: village-decor01
+  - first:
+      4: 400174
+    second: village-decor02
+  - first:
+      4: 400176
+    second: village-decor03
+  - first:
+      4: 400178
+    second: village-decor04
+  - first:
+      4: 400180
+    second: village-decor05
+  - first:
+      4: 400182
+    second: village-decor06
+  - first:
+      4: 400184
+    second: village-decor07
+  - first:
+      4: 400186
+    second: village-decor08
+  - first:
+      23: 2300000
+    second: building00
+  - first:
+      23: 2300002
+    second: building01
+  - first:
+      23: 2300004
+    second: building02
+  - first:
+      23: 2300006
+    second: building03
+  - first:
+      23: 2300008
+    second: building04
+  - first:
+      23: 2300010
+    second: building05
+  - first:
+      23: 2300012
+    second: building06
+  - first:
+      23: 2300014
+    second: building07
+  - first:
+      23: 2300016
+    second: building08
+  - first:
+      23: 2300018
+    second: building09
+  - first:
+      23: 2300020
+    second: building10
+  - first:
+      23: 2300022
+    second: building11
+  - first:
+      23: 2300024
+    second: building12
+  - first:
+      23: 2300026
+    second: building13
+  - first:
+      23: 2300028
+    second: building14
+  - first:
+      23: 2300030
+    second: building15
+  - first:
+      23: 2300032
+    second: building16
+  - first:
+      23: 2300034
+    second: building17
+  - first:
+      23: 2300036
+    second: building18
+  - first:
+      23: 2300038
+    second: building19
+  - first:
+      23: 2300040
+    second: building20
+  - first:
+      23: 2300042
+    second: building21
+  - first:
+      23: 2300044
+    second: building22
+  - first:
+      23: 2300046
+    second: building23
+  - first:
+      23: 2300048
+    second: building24
+  - first:
+      23: 2300050
+    second: building25
+  - first:
+      23: 2300052
+    second: building26
+  - first:
+      23: 2300054
+    second: building27
+  - first:
+      23: 2300056
+    second: building28
+  - first:
+      23: 2300058
+    second: building29
+  - first:
+      23: 2300060
+    second: building30
+  - first:
+      23: 2300062
+    second: building31
+  - first:
+      23: 2300064
+    second: building32
+  - first:
+      23: 2300066
+    second: building33
+  - first:
+      23: 2300068
+    second: building34
+  - first:
+      23: 2300070
+    second: building35
+  - first:
+      23: 2300072
+    second: building36
+  - first:
+      23: 2300074
+    second: building37
+  - first:
+      23: 2300076
+    second: building38
+  - first:
+      23: 2300078
+    second: building39
+  - first:
+      23: 2300080
+    second: building40
+  - first:
+      23: 2300082
+    second: building41
+  - first:
+      23: 2300084
+    second: building42
+  - first:
+      23: 2300086
+    second: building43
+  - first:
+      23: 2300088
+    second: building44
+  - first:
+      23: 2300090
+    second: castle00
+  - first:
+      23: 2300092
+    second: castle01
+  - first:
+      23: 2300094
+    second: castle02
+  - first:
+      23: 2300096
+    second: castle03
+  - first:
+      23: 2300098
+    second: castle04
+  - first:
+      23: 2300100
+    second: castle05
+  - first:
+      23: 2300102
+    second: castle06
+  - first:
+      23: 2300104
+    second: castle07
+  - first:
+      23: 2300106
+    second: castle08
+  - first:
+      23: 2300108
+    second: castle09
+  - first:
+      23: 2300110
+    second: castle12
+  - first:
+      23: 2300112
+    second: castle13
+  - first:
+      23: 2300114
+    second: castle14
+  - first:
+      23: 2300116
+    second: castle15
+  - first:
+      23: 2300118
+    second: castle16
+  - first:
+      23: 2300120
+    second: city-decor00
+  - first:
+      23: 2300122
+    second: city-decor01
+  - first:
+      23: 2300124
+    second: city-decor02
+  - first:
+      23: 2300126
+    second: city-decor03
+  - first:
+      23: 2300128
+    second: city-decor04
+  - first:
+      23: 2300130
+    second: city-decor05
+  - first:
+      23: 2300132
+    second: city-decor06
+  - first:
+      23: 2300134
+    second: city-decor07
+  - first:
+      23: 2300136
+    second: city-decor08
+  - first:
+      23: 2300138
+    second: city-decor09
+  - first:
+      23: 2300140
+    second: city-decor10
+  - first:
+      23: 2300142
+    second: city-decor11
+  - first:
+      23: 2300144
+    second: city-decor13
+  - first:
+      23: 2300146
+    second: city-decor14
+  - first:
+      23: 2300148
+    second: city-decor15
+  - first:
+      23: 2300150
+    second: forest00
+  - first:
+      23: 2300152
+    second: forest01
+  - first:
+      23: 2300154
+    second: forest07
+  - first:
+      23: 2300156
+    second: forest08
+  - first:
+      23: 2300158
+    second: forest09
+  - first:
+      23: 2300160
+    second: forest13
+  - first:
+      23: 2300162
+    second: forest15
+  - first:
+      23: 2300164
+    second: forest16
+  - first:
+      23: 2300166
+    second: forest17
+  - first:
+      23: 2300168
+    second: village-decor00
+  - first:
+      23: 2300170
+    second: village-decor01
+  - first:
+      23: 2300172
+    second: village-decor02
+  - first:
+      23: 2300174
+    second: village-decor03
+  - first:
+      23: 2300176
+    second: village-decor04
+  - first:
+      23: 2300178
+    second: village-decor05
+  - first:
+      23: 2300180
+    second: village-decor06
+  - first:
+      23: 2300182
+    second: village-decor07
+  - first:
+      23: 2300184
+    second: village-decor08
+  - first:
+      33: 3300000
+    second: building00
+  - first:
+      33: 3300002
+    second: building01
+  - first:
+      33: 3300004
+    second: building02
+  - first:
+      33: 3300006
+    second: building03
+  - first:
+      33: 3300008
+    second: building04
+  - first:
+      33: 3300010
+    second: building05
+  - first:
+      33: 3300012
+    second: building06
+  - first:
+      33: 3300014
+    second: building07
+  - first:
+      33: 3300016
+    second: building08
+  - first:
+      33: 3300018
+    second: building09
+  - first:
+      33: 3300020
+    second: building10
+  - first:
+      33: 3300022
+    second: building11
+  - first:
+      33: 3300024
+    second: building12
+  - first:
+      33: 3300026
+    second: building13
+  - first:
+      33: 3300028
+    second: building14
+  - first:
+      33: 3300030
+    second: building15
+  - first:
+      33: 3300032
+    second: building16
+  - first:
+      33: 3300034
+    second: building17
+  - first:
+      33: 3300036
+    second: building18
+  - first:
+      33: 3300038
+    second: building19
+  - first:
+      33: 3300040
+    second: building20
+  - first:
+      33: 3300042
+    second: building21
+  - first:
+      33: 3300044
+    second: building22
+  - first:
+      33: 3300046
+    second: building23
+  - first:
+      33: 3300048
+    second: building24
+  - first:
+      33: 3300050
+    second: building25
+  - first:
+      33: 3300052
+    second: building26
+  - first:
+      33: 3300054
+    second: building27
+  - first:
+      33: 3300056
+    second: building28
+  - first:
+      33: 3300058
+    second: building29
+  - first:
+      33: 3300060
+    second: building30
+  - first:
+      33: 3300062
+    second: building31
+  - first:
+      33: 3300064
+    second: building32
+  - first:
+      33: 3300066
+    second: building33
+  - first:
+      33: 3300068
+    second: building34
+  - first:
+      33: 3300070
+    second: building35
+  - first:
+      33: 3300072
+    second: building36
+  - first:
+      33: 3300074
+    second: building37
+  - first:
+      33: 3300076
+    second: building38
+  - first:
+      33: 3300078
+    second: building39
+  - first:
+      33: 3300080
+    second: building40
+  - first:
+      33: 3300082
+    second: building41
+  - first:
+      33: 3300084
+    second: building42
+  - first:
+      33: 3300086
+    second: building43
+  - first:
+      33: 3300088
+    second: building44
+  - first:
+      33: 3300090
+    second: castle00
+  - first:
+      33: 3300092
+    second: castle01
+  - first:
+      33: 3300094
+    second: castle02
+  - first:
+      33: 3300096
+    second: castle03
+  - first:
+      33: 3300098
+    second: castle04
+  - first:
+      33: 3300100
+    second: castle05
+  - first:
+      33: 3300102
+    second: castle06
+  - first:
+      33: 3300104
+    second: castle07
+  - first:
+      33: 3300106
+    second: castle08
+  - first:
+      33: 3300108
+    second: castle09
+  - first:
+      33: 3300110
+    second: castle12
+  - first:
+      33: 3300112
+    second: castle13
+  - first:
+      33: 3300114
+    second: castle14
+  - first:
+      33: 3300116
+    second: castle15
+  - first:
+      33: 3300118
+    second: castle16
+  - first:
+      33: 3300120
+    second: city-decor00
+  - first:
+      33: 3300122
+    second: city-decor01
+  - first:
+      33: 3300124
+    second: city-decor02
+  - first:
+      33: 3300126
+    second: city-decor03
+  - first:
+      33: 3300128
+    second: city-decor04
+  - first:
+      33: 3300130
+    second: city-decor05
+  - first:
+      33: 3300132
+    second: city-decor06
+  - first:
+      33: 3300134
+    second: city-decor07
+  - first:
+      33: 3300136
+    second: city-decor08
+  - first:
+      33: 3300138
+    second: city-decor09
+  - first:
+      33: 3300140
+    second: city-decor10
+  - first:
+      33: 3300142
+    second: city-decor11
+  - first:
+      33: 3300144
+    second: city-decor13
+  - first:
+      33: 3300146
+    second: city-decor14
+  - first:
+      33: 3300148
+    second: city-decor15
+  - first:
+      33: 3300150
+    second: forest00
+  - first:
+      33: 3300152
+    second: forest01
+  - first:
+      33: 3300154
+    second: forest07
+  - first:
+      33: 3300156
+    second: forest08
+  - first:
+      33: 3300158
+    second: forest09
+  - first:
+      33: 3300160
+    second: forest13
+  - first:
+      33: 3300162
+    second: forest15
+  - first:
+      33: 3300164
+    second: forest16
+  - first:
+      33: 3300166
+    second: forest17
+  - first:
+      33: 3300168
+    second: village-decor00
+  - first:
+      33: 3300170
+    second: village-decor01
+  - first:
+      33: 3300172
+    second: village-decor02
+  - first:
+      33: 3300174
+    second: village-decor03
+  - first:
+      33: 3300176
+    second: village-decor04
+  - first:
+      33: 3300178
+    second: village-decor05
+  - first:
+      33: 3300180
+    second: village-decor06
+  - first:
+      33: 3300182
+    second: village-decor07
+  - first:
+      33: 3300184
+    second: village-decor08
+  - first:
+      43: 4300000
+    second: building00
+  - first:
+      43: 4300002
+    second: building01
+  - first:
+      43: 4300004
+    second: castle00
+  - first:
+      43: 4300006
+    second: castle01
+  - first:
+      43: 4300008
+    second: castle02
+  - first:
+      43: 4300010
+    second: building02
+  - first:
+      43: 4300012
+    second: castle03
+  - first:
+      43: 4300014
+    second: castle04
+  - first:
+      43: 4300016
+    second: building03
+  - first:
+      43: 4300018
+    second: castle05
+  - first:
+      43: 4300020
+    second: castle06
+  - first:
+      43: 4300022
+    second: castle07
+  - first:
+      43: 4300024
+    second: castle08
+  - first:
+      43: 4300026
+    second: castle09
+  - first:
+      43: 4300028
+    second: building04
+  - first:
+      43: 4300030
+    second: building05
+  - first:
+      43: 4300032
+    second: building06
+  - first:
+      43: 4300034
+    second: building07
+  - first:
+      43: 4300036
+    second: building08
+  - first:
+      43: 4300038
+    second: building09
+  - first:
+      43: 4300040
+    second: building10
+  - first:
+      43: 4300042
+    second: building11
+  - first:
+      43: 4300044
+    second: building12
+  - first:
+      43: 4300046
+    second: building13
+  - first:
+      43: 4300048
+    second: building14
+  - first:
+      43: 4300050
+    second: building15
+  - first:
+      43: 4300052
+    second: building16
+  - first:
+      43: 4300054
+    second: building17
+  - first:
+      43: 4300056
+    second: building18
+  - first:
+      43: 4300058
+    second: building19
+  - first:
+      43: 4300060
+    second: building20
+  - first:
+      43: 4300062
+    second: building21
+  - first:
+      43: 4300064
+    second: building22
+  - first:
+      43: 4300066
+    second: building23
+  - first:
+      43: 4300068
+    second: building24
+  - first:
+      43: 4300070
+    second: forest00
+  - first:
+      43: 4300072
+    second: forest01
+  - first:
+      43: 4300074
+    second: city-decor00
+  - first:
+      43: 4300076
+    second: village-decor00
+  - first:
+      43: 4300078
+    second: village-decor01
+  - first:
+      43: 4300080
+    second: village-decor02
+  - first:
+      43: 4300082
+    second: village-decor03
+  - first:
+      43: 4300084
+    second: village-decor04
+  - first:
+      43: 4300086
+    second: village-decor05
+  - first:
+      43: 4300088
+    second: village-decor06
+  - first:
+      43: 4300090
+    second: city-decor01
+  - first:
+      43: 4300092
+    second: city-decor02
+  - first:
+      43: 4300094
+    second: village-decor07
+  - first:
+      43: 4300096
+    second: village-decor08
+  - first:
+      43: 4300098
+    second: city-decor03
+  - first:
+      43: 4300100
+    second: city-decor04
+  - first:
+      43: 4300102
+    second: city-decor05
+  - first:
+      43: 4300104
+    second: city-decor06
+  - first:
+      43: 4300106
+    second: building25
+  - first:
+      43: 4300108
+    second: forest07
+  - first:
+      43: 4300110
+    second: forest08
+  - first:
+      43: 4300112
+    second: forest09
+  - first:
+      43: 4300114
+    second: forest13
+  - first:
+      43: 4300116
+    second: city-decor07
+  - first:
+      43: 4300118
+    second: city-decor08
+  - first:
+      43: 4300120
+    second: city-decor09
+  - first:
+      43: 4300122
+    second: city-decor10
+  - first:
+      43: 4300124
+    second: castle12
+  - first:
+      43: 4300126
+    second: castle13
+  - first:
+      43: 4300128
+    second: castle14
+  - first:
+      43: 4300130
+    second: city-decor11
+  - first:
+      43: 4300132
+    second: building26
+  - first:
+      43: 4300134
+    second: city-decor13
+  - first:
+      43: 4300136
+    second: building27
+  - first:
+      43: 4300138
+    second: building28
+  - first:
+      43: 4300140
+    second: building29
+  - first:
+      43: 4300142
+    second: building30
+  - first:
+      43: 4300144
+    second: building31
+  - first:
+      43: 4300146
+    second: building32
+  - first:
+      43: 4300148
+    second: building33
+  - first:
+      43: 4300150
+    second: building34
+  - first:
+      43: 4300152
+    second: building35
+  - first:
+      43: 4300154
+    second: building36
+  - first:
+      43: 4300156
+    second: building37
+  - first:
+      43: 4300158
+    second: forest15
+  - first:
+      43: 4300160
+    second: forest16
+  - first:
+      43: 4300162
+    second: building38
+  - first:
+      43: 4300164
+    second: building39
+  - first:
+      43: 4300166
+    second: building40
+  - first:
+      43: 4300168
+    second: building41
+  - first:
+      43: 4300170
+    second: castle15
+  - first:
+      43: 4300172
+    second: castle16
+  - first:
+      43: 4300174
+    second: building42
+  - first:
+      43: 4300176
+    second: building43
+  - first:
+      43: 4300178
+    second: building44
+  - first:
+      43: 4300180
+    second: city-decor14
+  - first:
+      43: 4300182
+    second: city-decor15
+  - first:
+      43: 4300184
+    second: forest17
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #100'
+      name: Material #100
     second: {fileID: 2100000, guid: 726a6cde19aa84648a80658619c66490, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #102'
+      name: Material #102
     second: {fileID: 2100000, guid: ff085bbf17a1ed843b6795086ca8e836, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #103'
+      name: Material #103
     second: {fileID: 2100000, guid: 934370ce27f250649925a0e6cd55fc0e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #104'
+      name: Material #104
     second: {fileID: 2100000, guid: 806e56d30062ca4429efbae1d40a6add, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #105'
+      name: Material #105
     second: {fileID: 2100000, guid: 1d0ad1ce76933a149b02cb4a1629ad72, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #106'
+      name: Material #106
     second: {fileID: 2100000, guid: c9834554cf8bfd4468112c8f25f1857e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #107'
+      name: Material #107
     second: {fileID: 2100000, guid: b37ac47105d81f24faf25eab7463a3e1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #109'
+      name: Material #109
     second: {fileID: 2100000, guid: 17979c1aa0e7e61418084d25a1067a20, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #110'
+      name: Material #110
     second: {fileID: 2100000, guid: 105ed003cf76a5349b78fc1771f57290, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #116'
+      name: Material #116
     second: {fileID: 2100000, guid: 768107b6445d15e4384499108718ed42, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #119'
+      name: Material #119
     second: {fileID: 2100000, guid: c28a95eb1928e9944a1b79d96f8bdf18, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #120'
+      name: Material #120
     second: {fileID: 2100000, guid: 23ee8b4c69667ad46a38d993b5084513, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #121'
+      name: Material #121
     second: {fileID: 2100000, guid: 031d06266e70b8340b9178ea35bb1be9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #126'
+      name: Material #126
     second: {fileID: 2100000, guid: af37d1f9121277d47aa3a5c6a051b971, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #131'
+      name: Material #131
     second: {fileID: 2100000, guid: c0180de94254bd3488142d86a93f2eb8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #132'
+      name: Material #132
     second: {fileID: 2100000, guid: b58514500f90660439d62817d727972a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #133'
+      name: Material #133
     second: {fileID: 2100000, guid: ce7e30be92334174b88bff0b1170d2f3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #134'
+      name: Material #134
     second: {fileID: 2100000, guid: 6632d630c1455af4ab2b453fb33faff1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #135'
+      name: Material #135
     second: {fileID: 2100000, guid: a238bcd0f0797d046be410471b085a4d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #136'
+      name: Material #136
     second: {fileID: 2100000, guid: 1b35af4d964ff3340970abd043c2b54f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #138'
+      name: Material #138
     second: {fileID: 2100000, guid: 44de992da9f9f9246af6670f3a576db1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #139'
+      name: Material #139
     second: {fileID: 2100000, guid: 8c5d429fdd9c6d7438308aaa20450396, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #141'
+      name: Material #141
     second: {fileID: 2100000, guid: f52d3753684eeb04f991d0bee4641238, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #142'
+      name: Material #142
     second: {fileID: 2100000, guid: a5d3ad68c57c50e45b138b8325f34359, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #144'
+      name: Material #144
     second: {fileID: 2100000, guid: 7f36b58a48952584481cfefc4ed13b47, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #145'
+      name: Material #145
     second: {fileID: 2100000, guid: 8cbf768b513e7eb439fac71ae241702b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #146'
+      name: Material #146
     second: {fileID: 2100000, guid: b76e3e82e776f884e951d235ef7437d4, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #147'
+      name: Material #147
     second: {fileID: 2100000, guid: 9d5499334c485c74a9ba8d9c64af77af, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #148'
+      name: Material #148
     second: {fileID: 2100000, guid: 98fc9cc9ed5ea2c459d9bc25b3bf7e1f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #149'
+      name: Material #149
     second: {fileID: 2100000, guid: 9aaedea9bd9077e4cbfdab74484d01bf, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #150'
+      name: Material #150
     second: {fileID: 2100000, guid: 07fff62ef8cf32942905fbd585b34ada, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #151'
+      name: Material #151
     second: {fileID: 2100000, guid: b4174267608e598468dabd62dd78e154, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #152'
+      name: Material #152
     second: {fileID: 2100000, guid: 68b53f16712b6274495e901de4e2f710, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #153'
+      name: Material #153
     second: {fileID: 2100000, guid: 765a912abfeed6e428a221f28f9ff173, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #154'
+      name: Material #154
     second: {fileID: 2100000, guid: fc46cf1cec1a4d842a0af272382ad1a7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #155'
+      name: Material #155
     second: {fileID: 2100000, guid: b3989a5cf13d3b441ad778957d62aa7a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #156'
+      name: Material #156
     second: {fileID: 2100000, guid: da317d026387bd84a8778a8041d945e5, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #157'
+      name: Material #157
     second: {fileID: 2100000, guid: 1f823f8347634c04d89f403b59dcb375, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #158'
+      name: Material #158
     second: {fileID: 2100000, guid: bafb7e3c7bd8c494dbd902f6415b351f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #159'
+      name: Material #159
     second: {fileID: 2100000, guid: d2d59fa646302294b88d8d7605cfff92, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #160'
+      name: Material #160
     second: {fileID: 2100000, guid: 36c282dcb96d894458fdd38eb1ed115c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #161'
+      name: Material #161
     second: {fileID: 2100000, guid: 750b9e69547f4ab4c97d6919e95c8fa7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #162'
+      name: Material #162
     second: {fileID: 2100000, guid: a8ba8223fdda72442bd8fa0a722dde25, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #163'
+      name: Material #163
     second: {fileID: 2100000, guid: a7dfce63b0b356749ac26b4657fdeb57, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #164'
+      name: Material #164
     second: {fileID: 2100000, guid: f88e98f0938506b4c9d4529977fc565b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #166'
+      name: Material #166
     second: {fileID: 2100000, guid: 4c603cd2380f26f43bcceffc217811a9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #167'
+      name: Material #167
     second: {fileID: 2100000, guid: 7a96ae1bfdd098c47b32e691825fe38f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #168'
+      name: Material #168
     second: {fileID: 2100000, guid: f0f985e5d1d2ad74382a553c013374e0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #169'
+      name: Material #169
     second: {fileID: 2100000, guid: 942bc6b5c00e7ea48bb1330bbe25b38f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #28'
+      name: Material #28
     second: {fileID: 2100000, guid: e41d98ed0360f56429f8179ceb42598d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #29'
+      name: Material #29
     second: {fileID: 2100000, guid: 5a1b298e94a0ee041be2abf73ae4282e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #30'
+      name: Material #30
     second: {fileID: 2100000, guid: 9c05daea6f0a3914a98f11d3e0fa8084, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #34'
+      name: Material #34
     second: {fileID: 2100000, guid: 14f9ceb5555dd7e4f926f51f3b49b6de, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #35'
+      name: Material #35
     second: {fileID: 2100000, guid: f33bc02bfa0672b4a989737df8ca6bd3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #36'
+      name: Material #36
     second: {fileID: 2100000, guid: 072bf93fdf4c9df48b9f67ca8b07cacf, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #37'
+      name: Material #37
     second: {fileID: 2100000, guid: 9d3724cccfde3974c94f846b74383529, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #38'
+      name: Material #38
     second: {fileID: 2100000, guid: 59badb121cc209140a4c9aca9081b27e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #39'
+      name: Material #39
     second: {fileID: 2100000, guid: 866e2f898411e974b99a7de1986a3229, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #52'
+      name: Material #52
     second: {fileID: 2100000, guid: e8e3e44e2769abc4090cd107a8554a23, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #53'
+      name: Material #53
     second: {fileID: 2100000, guid: 3128f8eeef3376240a60820b75a3bede, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #54'
+      name: Material #54
     second: {fileID: 2100000, guid: 17a4792dd4cac604dbdec398b7bdd1dc, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #56'
+      name: Material #56
     second: {fileID: 2100000, guid: fd1c9eddfb8dbb04c8f2349809c38473, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #57'
+      name: Material #57
     second: {fileID: 2100000, guid: 6fae57dbe0c896e4a8f3e7b6c0d10881, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #61'
+      name: Material #61
     second: {fileID: 2100000, guid: 2360a2691d26e6d408dd6c666747e5d4, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #62'
+      name: Material #62
     second: {fileID: 2100000, guid: a0adc341aa54b5b408ade4d817c85922, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #63'
+      name: Material #63
     second: {fileID: 2100000, guid: 4845991356f62c845b5fdd3664741eba, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #64'
+      name: Material #64
     second: {fileID: 2100000, guid: 86f971675a737bd4889a865306d7167d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #65'
+      name: Material #65
     second: {fileID: 2100000, guid: c9bd6ce0f6a61764a8e3260c75f4c7a3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #66'
+      name: Material #66
     second: {fileID: 2100000, guid: 697d2bf07337ea4449fdb652c70f751c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #67'
+      name: Material #67
     second: {fileID: 2100000, guid: 6727fd0a3ed6f6a44b8dc31837a8d010, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #68'
+      name: Material #68
     second: {fileID: 2100000, guid: c3d15cc52ca0c674f86f41df7ccac94c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #69'
+      name: Material #69
     second: {fileID: 2100000, guid: ea8e772e32376e24a8d8e447b379ba10, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #70'
+      name: Material #70
     second: {fileID: 2100000, guid: cf17a936742d0c44dbc5a7229e907ba4, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #71'
+      name: Material #71
     second: {fileID: 2100000, guid: 6f154b3d787182743b551044766d65af, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #72'
+      name: Material #72
     second: {fileID: 2100000, guid: 00ea55d9c2e03274c8a619158811a9c5, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #73'
+      name: Material #73
     second: {fileID: 2100000, guid: 0221837c7f70d304aa5cbc8b3d7188f3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #74'
+      name: Material #74
     second: {fileID: 2100000, guid: 5ab5dd3f7b641404c84323c883e76b11, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #75'
+      name: Material #75
     second: {fileID: 2100000, guid: fd17853795237504693316eb4a5fa394, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #76'
+      name: Material #76
     second: {fileID: 2100000, guid: 665801ff92db1e24abca9befc73fb3ca, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #77'
+      name: Material #77
     second: {fileID: 2100000, guid: 3003c4072557b234c951ad07c08ecfe2, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #78'
+      name: Material #78
     second: {fileID: 2100000, guid: 3a08fab1e320a0e44af671c4dad34d44, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #79'
+      name: Material #79
     second: {fileID: 2100000, guid: f26c7da8c2bcd6644916348326c9b1e7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #80'
+      name: Material #80
     second: {fileID: 2100000, guid: bf1643ccc7a9506429dd01f760246d60, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #81'
+      name: Material #81
     second: {fileID: 2100000, guid: d7cd96a95c556d049870104fb88431e5, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #88'
+      name: Material #88
     second: {fileID: 2100000, guid: 85419f454abb3514f9828a45388a7529, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #89'
+      name: Material #89
     second: {fileID: 2100000, guid: 556bcf9a8bf54f8439a3620475ab99ff, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #92'
+      name: Material #92
     second: {fileID: 2100000, guid: ec8c230cc4d106f4195892ba1b095c24, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #93'
+      name: Material #93
     second: {fileID: 2100000, guid: 55ddb1827f6e1c345b41a0a0c14b5bdd, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #94'
+      name: Material #94
     second: {fileID: 2100000, guid: b2f197451fe139949a59dc324324bbd7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #95'
+      name: Material #95
     second: {fileID: 2100000, guid: ff03fa7f3ddcfe043a80799c000354aa, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #96'
+      name: Material #96
     second: {fileID: 2100000, guid: 86fb7b37141722e409516ae4509575ec, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #97'
+      name: Material #97
     second: {fileID: 2100000, guid: 27bab27f6f4488e4f95f38f9ef727eab, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #98'
+      name: Material #98
     second: {fileID: 2100000, guid: 0a7d6337df68fca47ae1fcb474abdb72, type: 2}
   - first:
       type: UnityEngine:Texture2D
@@ -1382,7 +2316,7 @@ ModelImporter:
       name: s04_pama001
     second: {fileID: 2800000, guid: 6702bb3d7fa8a5c4790410969d21e321, type: 3}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -1391,6 +2325,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -1415,37 +2350,48 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
-    importVisibility: 1
-    importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
-    useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    useFileScale: 0
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -1455,13 +2401,19 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 0
   humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
