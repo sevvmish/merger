@@ -6,7 +6,6 @@ public class FrameMaker : MonoBehaviour
 {
     [Header("Basics")]
     [SerializeField] private Transform location;
-    [SerializeField] private GameObject frame;
     
         
     public void SetFrames(int hor, int ver, List<Frame> frames)
@@ -15,7 +14,7 @@ public class FrameMaker : MonoBehaviour
         {
             for (int j = 0; j < ver; j++)
             {
-                GameObject g = Instantiate(frame, location);
+                GameObject g = Instantiate(GameManager.Instance.GetAssets.Frame, location);
                 g.transform.localPosition = new Vector3(
                     i * Globals.BASE_FRAME_OFFSET - ((float)(hor * Globals.BASE_FRAME_OFFSET) / 2.5f),
                     0,

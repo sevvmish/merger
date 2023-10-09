@@ -6,8 +6,7 @@ using UnityEngine;
 public class SoundController : MonoBehaviour
 {
     public static SoundController Instance { get; private set; }
-
-    [SerializeField] private AssetManager assetManager;
+    private AssetManager assetManager;
     private AudioSource audioSource;
 
     private void Awake()
@@ -22,6 +21,11 @@ public class SoundController : MonoBehaviour
         }
 
         audioSource = GetComponent<AudioSource>();
+    }
+
+    private void Start()
+    {
+        assetManager = GameManager.Instance.GetAssets;
     }
 
     public void PlayUISound(SoundsUI _type)

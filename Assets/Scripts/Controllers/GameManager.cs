@@ -10,8 +10,16 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [Header("Win conditions")]
+    [SerializeField] private AssetManager assetManager;
+    [SerializeField] private Ambient ambient;
+    public AssetManager GetAssets => assetManager;
+    
     public float GameTime;
+
+    
+
+    public bool IsVisualBusy;
+    public float PointerClickedCount;
 
     private List<Frame> baseFrames;
     private HashSet<Frame> buildingToAct;
@@ -29,7 +37,8 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
-        
+        ambient.SetData(AmbientType.forest);
+
         baseFrames = new List<Frame>();
         buildingToAct = new HashSet<Frame> ();
         frameMaker = GetComponent<FrameMaker>();
@@ -56,14 +65,14 @@ public class GameManager : MonoBehaviour
         print(buildingToAct.Count);
 
         if (buildingToAct.Count > 2)
-        {
+        {            
             FrameTypes newFrame = (FrameTypes)((int)lastModifiedFrame.FrameType + 1);
             foreach (var item in buildingToAct)
             {
-                item.DeleteVisual();
+                item.DeleteVisual(lastModifiedFrame.transform.position);
             }
 
-            lastModifiedFrame.AddBuilding(newFrame);
+            lastModifiedFrame.AddBuilding(newFrame, true);
             UpdateState(lastModifiedFrame);
         }
     }
@@ -134,6 +143,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (PointerClickedCount > 0) PointerClickedCount -= Time.deltaTime;
+
         if (Input.GetKeyDown(KeyCode.A))
         {
             print("overall: " + buildingsLocations.Count);
@@ -142,6 +153,8 @@ public class GameManager : MonoBehaviour
                 print(item + ": " + buildingsLocations[item]);
             }
         }
+
+
     }
 
 

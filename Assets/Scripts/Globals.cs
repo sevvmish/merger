@@ -21,5 +21,6 @@ public class Globals : MonoBehaviour
     public const float REWARDED_COOLDOWN = 65f;
     public const float INTERSTITIAL_COOLDOWN = 65f;
 
-    public const float BASE_FRAME_OFFSET = 5f;    
+    public const float BASE_FRAME_OFFSET = 5f;
+    public const float CREATE_DELETE_TIME = 0.25f;
 }

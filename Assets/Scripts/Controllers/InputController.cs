@@ -11,11 +11,11 @@ public class InputController : MonoBehaviour
         
     private Ray ray;
     private RaycastHit hit;
-    private GameManager gameManager;
+    private GameManager gm;
 
     private void Start()
     {
-        gameManager = GameManager.Instance;
+        gm = GameManager.Instance;
     }
 
 
@@ -23,7 +23,7 @@ public class InputController : MonoBehaviour
     {        
        
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !gm.IsVisualBusy && gm.PointerClickedCount <= 0)
         {            
             ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                         
@@ -32,7 +32,7 @@ public class InputController : MonoBehaviour
                 
                 if (hit.collider.gameObject.TryGetComponent(out Frame frame))
                 {
-                    gameManager.AddBuildingByClick(frame, FrameTypes.one);
+                    gm.AddBuildingByClick(frame, FrameTypes.one);
                 }
                 
             }

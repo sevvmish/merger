@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Ambient : MonoBehaviour
 {
-    [SerializeField] private AssetManager assetManager;
+    private AssetManager assetManager;
     private AudioSource audioSource;
 
     public void SetData(AmbientType _type)
     {
+        assetManager = GameManager.Instance.GetAssets;
         if (audioSource == null) audioSource = GetComponent<AudioSource>();
 
         switch (_type)
@@ -17,6 +18,7 @@ public class Ambient : MonoBehaviour
                 audioSource.clip = assetManager.SmallTownAmbient;
                 audioSource.pitch = 0.5f;
                 audioSource.volume = 0.7f;
+                audioSource.loop = true;
                 audioSource.Play();
                 break;
 
@@ -24,6 +26,7 @@ public class Ambient : MonoBehaviour
                 audioSource.clip = assetManager.ForestAmbient;
                 audioSource.pitch = 0.5f;
                 audioSource.volume = 0.7f;
+                audioSource.loop = true;
                 audioSource.Play();
                 break;
 
@@ -31,6 +34,7 @@ public class Ambient : MonoBehaviour
                 audioSource.clip = assetManager.DesertAmbient;
                 audioSource.pitch = 0.9f;
                 audioSource.volume = 0.5f;
+                audioSource.loop = true;
                 audioSource.Play();
                 break;
         }
