@@ -21,7 +21,7 @@ public class OptionsMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        optionsButton.gameObject.SetActive(false);
+        //optionsButton.gameObject.SetActive(false);
         optionsPanel.SetActive(false);
 
         if (Globals.IsSoundOn)
@@ -74,6 +74,7 @@ public class OptionsMenu : MonoBehaviour
                 Globals.IsSoundOn = true;
                 soundButton.GetComponent<Image>().sprite = soundOnSprite;
                 AudioListener.volume = 1f;
+                GameStarter.Instance.StartAmbient();
             }
 
             SaveLoadManager.Save();
@@ -91,7 +92,7 @@ public class OptionsMenu : MonoBehaviour
     }
 
     public void TurnAllOn()
-    {
+    {        
         optionsPanel.SetActive(false);
         optionsButton.gameObject.SetActive(true);
     }

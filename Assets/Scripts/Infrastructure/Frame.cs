@@ -7,9 +7,11 @@ public class Frame : MonoBehaviour
 {
     [SerializeField] private GameObject visualsPack;
     [SerializeField] private GameObject appearEffect;
+    [SerializeField] private GameObject[] ghosts;
     public FrameTypes FrameType { get; private set; } = FrameTypes.none;
     public Vector2 Location => new Vector2(transform.localPosition.x, transform.localPosition.z);
     public bool IsEmpty() => FrameType == FrameTypes.none;
+    public bool IsBuildingGhostShown { get; private set; }
 
     private GameManager gm;
 
@@ -19,6 +21,26 @@ public class Frame : MonoBehaviour
         appearEffect.SetActive(false);
     }
 
+    public bool ShowGhost()
+    {
+        if (!IsEmpty() || IsBuildingGhostShown) return false;
+
+        FrameTypes _type = GameManager.IsEventBuildingType(gm.CurrentGameEventToProceed);
+
+        if (_type != FrameTypes.none)
+        {
+            IsBuildingGhostShown = true;
+            activateGhostByType(_type);
+        }
+
+        return true;
+    }
+
+    public void HideGhost()
+    {
+        if (!IsBuildingGhostShown) return;
+        resetGhost();
+    }
 
     public void AddBuilding(FrameTypes _type)
     {
@@ -27,6 +49,8 @@ public class Frame : MonoBehaviour
     public void AddBuilding(FrameTypes _type, bool isRemake)
     {
         if (!IsEmpty()) return;
+
+        resetGhost();
 
         if (isRemake)
         {
@@ -48,10 +72,19 @@ public class Frame : MonoBehaviour
             visualsPack.transform.GetChild(i).gameObject.SetActive(false);
         }
     }
+    private void resetGhost()
+    {
+        for (int i = 0; i < ghosts.Length; i++)
+        {
+            ghosts[i].SetActive(false);
+        }
+        IsBuildingGhostShown = false;
+    }
 
     private void hideVisual()
     {
         resetVisual();
+        resetGhost();
     }
 
     public void ShowNewVisual(FrameTypes _type, bool isRemake)
@@ -111,6 +144,11 @@ public class Frame : MonoBehaviour
     private void activateVisualByType(FrameTypes _type)
     {        
         visualsPack.transform.GetChild((int)_type).gameObject.SetActive(true);
+    }
+
+    private void activateGhostByType(FrameTypes _type)
+    {
+        ghosts[(int)(_type - 1)].SetActive(true);
     }
 
     private IEnumerator playShake(Transform _transform)

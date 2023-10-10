@@ -10,6 +10,16 @@ public class FrameMaker : MonoBehaviour
         
     public void SetFrames(int hor, int ver, List<Frame> frames)
     {        
+        //clean
+        if (location.childCount > 0)
+        {
+            for (int i = 0; i < location.childCount; i++)
+            {
+                Destroy(location.GetChild(i).gameObject);
+            }
+        }
+
+        //make
         for (int i = 0; i < hor; i++)
         {
             for (int j = 0; j < ver; j++)

@@ -4,7 +4,7 @@ using System.Linq;
 public class SaveLoadManager
 {
     
-    private const string ID = "Playerdata28";
+    private const string ID = "Player28";
 
     public static void Save()
     {        
@@ -65,8 +65,9 @@ public class SaveLoadManager
         }
         else
         {
+            
             fromSave = PlayerPrefs.GetString(ID);
-
+                        
             if (string.IsNullOrEmpty(fromSave))
             {
                 Globals.MainPlayerData = new PlayerData();
@@ -74,7 +75,7 @@ public class SaveLoadManager
             else
             {
                 Globals.MainPlayerData = JsonUtility.FromJson<PlayerData>(fromSave);
-            }                
+            }
         }       
     }
 

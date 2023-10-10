@@ -9,9 +9,11 @@ public class Globals : MonoBehaviour
     public static int Horizontals = 5;
     public static int Verticals = 5;
 
+    public static int CurrentLevel = 0;
+
     public static string CurrentLanguage = "ru";
     public static bool IsMobilePlatform = false;
-    public static bool IsSoundOn = true;
+    public static bool IsSoundOn;
     public static bool IsInitiated = false;
     public static DateTime TimeWhenStartedPlaying;
     public static DateTime TimeWhenLastInterstitialWas;
@@ -23,4 +25,6 @@ public class Globals : MonoBehaviour
 
     public const float BASE_FRAME_OFFSET = 5f;
     public const float CREATE_DELETE_TIME = 0.25f;
+    public const int EVENT_PACK_LIMIT = 5;
+    public const int MAX_BUILDINGS = 7;
 }
