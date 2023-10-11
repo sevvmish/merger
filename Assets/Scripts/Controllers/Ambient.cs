@@ -14,14 +14,7 @@ public class Ambient : MonoBehaviour
 
         switch (_type)
         {
-            case AmbientType.small_town:
-                audioSource.clip = assetManager.SmallTownAmbient;
-                audioSource.pitch = 0.5f;
-                audioSource.volume = 0.7f;
-                audioSource.loop = true;
-                audioSource.Play();
-                break;
-
+            
             case AmbientType.forest:
                 audioSource.clip = assetManager.ForestAmbient;
                 audioSource.pitch = 0.5f;
@@ -30,13 +23,7 @@ public class Ambient : MonoBehaviour
                 audioSource.Play();
                 break;
 
-            case AmbientType.desert:
-                audioSource.clip = assetManager.DesertAmbient;
-                audioSource.pitch = 0.9f;
-                audioSource.volume = 0.5f;
-                audioSource.loop = true;
-                audioSource.Play();
-                break;
+            
         }
     }
 }
@@ -44,7 +31,5 @@ public class Ambient : MonoBehaviour
 public enum AmbientType
 {
     none,
-    small_town,
-    forest,
-    desert
+    forest
 }

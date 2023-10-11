@@ -49,13 +49,6 @@ MonoBehaviour:
   SmallTownAmbient: {fileID: 8300000, guid: a30c55e7c7a2d5e4c8396ac0565f150a, type: 3}
   ForestAmbient: {fileID: 8300000, guid: 1d5ae5c44d65f474388b612de2f9614e, type: 3}
   DesertAmbient: {fileID: 8300000, guid: defecec9dc93ca64b9512dc589b45ba6, type: 3}
-  hornClip: {fileID: 8300000, guid: 4a4b838e45bc8a647822868e8eb55277, type: 3}
-  hornDoubleClip: {fileID: 8300000, guid: 901d75526b0c8a742b3a96a42e0ad007, type: 3}
-  ambuSirenClip: {fileID: 8300000, guid: 82d5053bc63f3324cac4753e164618a5, type: 3}
-  sirenClip: {fileID: 8300000, guid: 189e22fa566adbe40a8f9058d72ee907, type: 3}
-  specSignalClip: {fileID: 8300000, guid: 645d8ca331265164a9fa41b65bbbe8dd, type: 3}
-  motorSoundLightClip: {fileID: 8300000, guid: 704cf873ef77e404ebb841aa6022c8b6, type: 3}
-  motorSoundHeavyClip: {fileID: 8300000, guid: f763ef2d738aab44fbcaf5591d90c254, type: 3}
   positiveSoundClip: {fileID: 8300000, guid: c27cbc7f56a4f41499363f7671a0e672, type: 3}
   ErrorBiggerClip: {fileID: 8300000, guid: 1a1632f9caf8d564dbc48414bc714682, type: 3}
   Swallow: {fileID: 8300000, guid: 8d8031e48ed259c40860a0a5f443eb4b, type: 3}
@@ -64,3 +57,4 @@ MonoBehaviour:
   Click: {fileID: 8300000, guid: 271ff8a0b7e70d94c887322dec6a2935, type: 3}
   Win: {fileID: 8300000, guid: 94e0d4439bfcc6e43857031c757a2d54, type: 3}
   Lose: {fileID: 8300000, guid: a0929d2a5a37fa24d99623d88d369ca8, type: 3}
+  Bonus: {fileID: 8300000, guid: ab3ad31c91be58d45bcde734560b9635, type: 3}

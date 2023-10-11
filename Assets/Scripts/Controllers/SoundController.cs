@@ -8,6 +8,7 @@ public class SoundController : MonoBehaviour
     public static SoundController Instance { get; private set; }
     private AssetManager assetManager;
     private AudioSource audioSource;
+    private int rating;
 
     private void Awake()
     {
@@ -28,20 +29,29 @@ public class SoundController : MonoBehaviour
         assetManager = GameManager.Instance.GetAssets;
     }
 
-    public void PlayUISound(SoundsUI _type)
+    private void Update()
     {
+        if (!audioSource.isPlaying && rating != 0) rating = 0;
+    }
+
+    public void PlayUISound(SoundsUI _type)
+    {        
         switch(_type)
         {
             case SoundsUI.error:
+                if (rating > 2) return;
                 audioSource.Stop();
                 audioSource.clip = assetManager.ErrorClip;
                 audioSource.Play();
+                rating = 2;
                 break;
 
             case SoundsUI.positive:
+                if (rating > 3) return;
                 audioSource.Stop();
                 audioSource.clip = assetManager.positiveSoundClip;
                 audioSource.Play();
+                rating = 3;
                 break;
 
             case SoundsUI.error_big:
@@ -51,9 +61,11 @@ public class SoundController : MonoBehaviour
                 break;
 
             case SoundsUI.swallow:
+                if (rating > 2) return;
                 audioSource.Stop();
                 audioSource.clip = assetManager.Swallow;
                 audioSource.Play();
+                rating = 2;
                 break;
 
             case SoundsUI.tick:
@@ -63,9 +75,11 @@ public class SoundController : MonoBehaviour
                 break;
 
             case SoundsUI.pop:
+                if (rating > 1) return;
                 audioSource.Stop();
                 audioSource.clip = assetManager.Pop;
                 audioSource.Play();
+                rating = 1;
                 break;
 
             case SoundsUI.click:
@@ -75,15 +89,19 @@ public class SoundController : MonoBehaviour
                 break;
 
             case SoundsUI.win:
+                if (rating > 5) return;
                 audioSource.Stop();
                 audioSource.clip = assetManager.Win;
                 audioSource.Play();
+                rating = 5;
                 break;
 
             case SoundsUI.lose:
+                if (rating > 5) return;
                 audioSource.Stop();
                 audioSource.clip = assetManager.Lose;
                 audioSource.Play();
+                rating = 5;
                 break;
         }
     }
@@ -100,5 +118,6 @@ public enum SoundsUI
     pop,
     click,
     win,
-    lose
+    lose,
+    bonus
 }

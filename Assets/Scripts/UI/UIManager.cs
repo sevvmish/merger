@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform framePointer;
     [SerializeField] private RectTransform informerImage1;
     private Vector2 informerImage1Base;
+
+    [Header("Score")]
+    [SerializeField] private GameObject scorePanel;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    private int lastScore;
 
     [Header("Houses sprites")]
     [SerializeField] private Sprite eventOneSprite;
@@ -37,17 +43,26 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        gm = GameManager.Instance;
         informerPanel.SetActive(false);
         bonusButton.gameObject.SetActive(false);
         bonusFVX.SetActive(false);
+        scorePanel.SetActive(false);
 
         informerImage1 = informForFutureImages[0].GetComponent<RectTransform>();
         informerImage1Base = informerImage1.sizeDelta;
+
+        bonusButton.onClick.AddListener(() => 
+        {
+            if (gm.BonusProgress < 0.99f) return;
+                        
+            gm.SpendBonusActivated();
+        });
     }
 
     public void SetData(Queue<GameEventsType> gameEventsPack)
     {
-        gm = GameManager.Instance;
+        
         informerPanel.SetActive(true);
         bonusButton.gameObject.SetActive(true);
         bonusProgressImage.fillAmount = 0;
@@ -55,6 +70,9 @@ public class UIManager : MonoBehaviour
         gm.OnEventUpdated += eventUpdated;
         isInitial = false;
         isChangingInProgress = false;
+        scorePanel.SetActive(true);
+        scoreText.text = gm.Score.ToString();
+        lastScore = gm.Score;
 
         StartCoroutine(playShake(framePointer));
         eventUpdated();
@@ -98,6 +116,31 @@ public class UIManager : MonoBehaviour
         }
 
         isChangingInProgress = false;
+    }
+
+    private void Update()
+    {        
+        if (gm.IsGameStarted && lastScore != gm.Score)
+        {
+            scoreText.text = gm.Score.ToString();
+            lastScore = gm.Score;
+        }
+
+        if (gm.IsGameStarted)
+        {
+            bonusProgressImage.fillAmount = gm.BonusProgress;
+
+            if (gm.BonusProgress >= 0.99f && !bonusFVX.activeSelf)
+            {
+                bonusFVX.SetActive(true);
+                bonusButton.transform.DOShakeScale(0.75f, 0.5f, 30).SetEase(Ease.InOutElastic);
+                //SoundController.Instance.PlayUISound(SoundsUI.positive);
+            }
+            else if (gm.BonusProgress < 0.99f && bonusFVX.activeSelf)
+            {
+                bonusFVX.SetActive(false);
+            }
+        }
     }
 
     private Sprite getSpriteByGameEvent(GameEventsType _type) 

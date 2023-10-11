@@ -13,9 +13,7 @@ public class AssetManager : MonoBehaviour
 
     [Header("Sounds")]
     public AudioClip ErrorClip;
-    public AudioClip SmallTownAmbient;
     public AudioClip ForestAmbient;
-    public AudioClip DesertAmbient;
     public AudioClip positiveSoundClip;
     public AudioClip ErrorBiggerClip;
     public AudioClip Swallow;
@@ -24,6 +22,7 @@ public class AssetManager : MonoBehaviour
     public AudioClip Click;
     public AudioClip Win;
     public AudioClip Lose;
+    public AudioClip Bonus;
 
 
 

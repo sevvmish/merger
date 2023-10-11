@@ -5,22 +5,27 @@ using TMPro;
 using UnityEngine;
 
 public class InputController : MonoBehaviour
-{
-    [SerializeField] private Camera mainCamera;
-        
+{            
     private Ray ray;
     private RaycastHit hit;
     private GameManager gm;
     private Frame currentFrame;
+    private Camera mainCamera;
 
     private void Start()
     {
         gm = GameManager.Instance;
     }
 
+    public void SetData(Camera mainCamera)
+    {
+        this.mainCamera = mainCamera;
+    }
 
     void Update()
-    {         
+    {
+        if (!gm.IsGameStarted) return;
+
         if (Input.GetMouseButtonDown(0) && !gm.IsVisualBusy && gm.PointerClickedCount <= 0)
         {            
             ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -59,7 +64,12 @@ public class InputController : MonoBehaviour
         }
         else
         {
-            if (currentFrame != null) currentFrame.HideGhost();
+            if (currentFrame != null)
+            {
+                currentFrame.HideGhost();
+                currentFrame = null;
+            }
+                
         }
     }
 }

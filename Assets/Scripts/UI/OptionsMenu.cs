@@ -24,14 +24,7 @@ public class OptionsMenu : MonoBehaviour
         //optionsButton.gameObject.SetActive(false);
         optionsPanel.SetActive(false);
 
-        if (Globals.IsSoundOn)
-        {
-            soundButton.GetComponent<Image>().sprite = soundOnSprite;
-        }
-        else
-        {
-            soundButton.GetComponent<Image>().sprite = soundOffSprite;
-        }
+        
 
         SoundController _sound = SoundController.Instance;
         GameManager gm = GameManager.Instance;
@@ -39,6 +32,15 @@ public class OptionsMenu : MonoBehaviour
         //options
         optionsButton.onClick.AddListener(() =>
         {
+            if (Globals.IsSoundOn)
+            {
+                soundButton.GetComponent<Image>().sprite = soundOnSprite;
+            }
+            else
+            {
+                soundButton.GetComponent<Image>().sprite = soundOffSprite;
+            }
+
             _sound.PlayUISound(SoundsUI.click);
             optionsButton.gameObject.SetActive(false);
             optionsPanel.SetActive(true);

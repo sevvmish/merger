@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GamePush;
 
 public class Rewarded : MonoBehaviour
 {
@@ -9,16 +10,20 @@ public class Rewarded : MonoBehaviour
     public Action OnError;
         
     private bool isRewardedOK;
-    
+
+
+    private void Start()
+    {
+        GP_Ads.OnRewardedStart += rewardStarted;
+        GP_Ads.OnRewardedReward += rewardedClosedOK;
+        GP_Ads.OnRewardedClose += advRewardedClosed;
+    }
+
     public void ShowRewardedVideo()
     {
         isRewardedOK = false;
 
-        //YandexGame.OpenVideoEvent = rewardStarted;
-        //YandexGame.RewardVideoEvent = rewardedClosedOK;
-        //YandexGame.CloseVideoEvent = advRewardedClosed;
-        //YandexGame.ErrorVideoEvent = advRewardedError;
-        //YandexGame.RewVideoShow(155);
+        GP_Ads.ShowRewarded("rew");
         
     }
 
@@ -32,18 +37,19 @@ public class Rewarded : MonoBehaviour
         }
     }
 
-    private void rewardedClosedOK(int value)
+    private void rewardedClosedOK(string value)
     {
         //155
-        if (value == 155)
+        if (value == "rew")
         {
+            print("11111");
             isRewardedOK = true;
         }
 
         Globals.TimeWhenLastRewardedWas = DateTime.Now;
     }
 
-    private void advRewardedClosed()
+    private void advRewardedClosed(bool isOK)
     {
         //print("rewarded was closed ok");
         Time.timeScale = 1;
@@ -52,27 +58,17 @@ public class Rewarded : MonoBehaviour
             AudioListener.volume = 1;
         }
 
-        if (isRewardedOK)
+        if (isOK)
         {
+            print("2222");
             OnRewardedEndedOK?.Invoke();
         }
         else
         {
+            print("33333");
             OnError?.Invoke();
         }           
         
     }
 
-    private void advRewardedError()
-    {
-        //print("rewarded was ERROR!");
-        Time.timeScale = 1;
-        if (Globals.IsSoundOn)
-        {
-            AudioListener.volume = 1;
-        }
-
-        OnError?.Invoke();
-        
-    }
 }

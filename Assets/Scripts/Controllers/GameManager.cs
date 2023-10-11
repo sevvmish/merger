@@ -14,15 +14,36 @@ public class GameManager : MonoBehaviour
     [SerializeField] private OptionsMenu options;
     [SerializeField] private GameLogic gameLogic;
     [SerializeField] private UIManager UI;
+    [SerializeField] private Camera cameraMain;
+    [SerializeField] private InputController inputController;
 
-    public AssetManager GetAssets => assetManager;
-
-    public bool IsGameStarted;
+    public AssetManager GetAssets => assetManager;    
+    public bool IsGameStarted = false;
     public bool IsVisualBusy;
     public float PointerClickedCount;
+    
     public int Score { get; private set; }
+    public float BonusProgress => (float)CurrentBonus / ((float)bonusNeeded + 0.001f);
+    public int CurrentBonus {
+        get { return bonus; }
+        set { 
+            if (value < bonusNeeded)
+            {
+                bonus = value;
+            }
+            else
+            {
+                bonus = bonusNeeded;
+            }
+        }
+    }
+    private int bonus;
+    private int neededScore;
+    private int bonusNeeded;
+
     public GameEventsType CurrentGameEventToProceed { get; private set; }
     public Action OnEventUpdated;
+    public Action OnGameEnded;
 
     private List<Frame> baseFrames;
     private HashSet<Frame> buildingToAct;
@@ -47,6 +68,7 @@ public class GameManager : MonoBehaviour
         IsGameStarted = true;
 
         //different inits
+        inputController.SetData(cameraMain);
         OnEventUpdated = null;
         baseFrames = new List<Frame>();
         buildingToAct = new HashSet<Frame>();
@@ -54,10 +76,12 @@ public class GameManager : MonoBehaviour
         buildingsLocations = new Dictionary<Vector2, Frame>();
         gameEventsPack = new Queue<GameEventsType>();
         OnEventUpdated += showCurrentGameEvent;
+        neededScore = GameLogic.GetNeededScoreByLevel(Globals.CurrentLevel);
+        bonusNeeded = GameLogic.GetNeededBonusByLevel(Globals.CurrentLevel);
         //===================================
 
         options.TurnAllOn();
-        frameMaker.SetFrames(Globals.Horizontals, Globals.Verticals, baseFrames);
+        frameMaker.SetFrames(Globals.Horizontals, Globals.Verticals, baseFrames, cameraMain);
 
         for (int i = 0; i < baseFrames.Count; i++)
         {
@@ -82,16 +106,21 @@ public class GameManager : MonoBehaviour
         searchAllConnections(frame, buildingToAct);
 
         //print(buildingToAct.Count);
+        int scoreCount = 0;
 
         if (buildingToAct.Count > 2)
         {            
             FrameTypes newFrame = (FrameTypes)((int)lastModifiedFrame.FrameType + 1);
             foreach (var item in buildingToAct)
             {
+                scoreCount += (int)item.FrameType;
                 item.DeleteVisual(lastModifiedFrame.transform.position);
             }
 
-            lastModifiedFrame.AddBuilding(newFrame, true);
+            //print("score: " + scoreCount);
+            Score += scoreCount;
+            CurrentBonus += scoreCount;
+            lastModifiedFrame.AddBuilding(newFrame, true, buildingToAct.Count);
             UpdateState(lastModifiedFrame);
         }
     }
@@ -160,10 +189,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SpendBonusActivated()
+    {
+        if (CurrentBonus < bonusNeeded) return;
+
+        CurrentBonus = 0;
+    }
+
     private void Update()
     {        
-        if (PointerClickedCount > 0) PointerClickedCount -= Time.deltaTime;
-                            
+        if (PointerClickedCount > 0) PointerClickedCount -= Time.deltaTime;                            
     }
 
     public GameEventsType getNextGameEvent()

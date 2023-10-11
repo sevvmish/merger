@@ -7,6 +7,7 @@ public class Localization
     private Translation translation;
     private Localization(string lang) 
     {
+        /*
         switch(lang)
         {
             case "ru":
@@ -20,8 +21,22 @@ public class Localization
             default:
                 translation = Resources.Load<Translation>("languages/russian");
                 break;
+        }*/
+
+        switch (lang)
+        {
+            case "Russian":
+                translation = Resources.Load<Translation>("languages/russian");
+                break;
+
+            case "English":
+                translation = Resources.Load<Translation>("languages/english");
+                break;
+
+            default:
+                translation = Resources.Load<Translation>("languages/russian");
+                break;
         }
-        
     }
 
     private static Localization instance;

@@ -6,10 +6,13 @@ public class FrameMaker : MonoBehaviour
 {
     [Header("Basics")]
     [SerializeField] private Transform location;
-    
-        
-    public void SetFrames(int hor, int ver, List<Frame> frames)
-    {        
+    [SerializeField] private GameObject environment;
+
+
+    public void SetFrames(int hor, int ver, List<Frame> frames, Camera cameraMain)
+    {
+        environment.SetActive(true);
+
         //clean
         if (location.childCount > 0)
         {

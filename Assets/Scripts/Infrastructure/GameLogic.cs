@@ -40,7 +40,7 @@ public class GameLogic : MonoBehaviour
 
     private GameEventsType GetCurrentEvent()
     {
-        GameEventsType result = (GameEventsType)UnityEngine.Random.Range(1, Globals.MAX_BUILDINGS+1);
+        GameEventsType result = (GameEventsType)UnityEngine.Random.Range(1, 5);
         
         return result;
         /*
@@ -52,6 +52,20 @@ public class GameLogic : MonoBehaviour
         }*/
 
         return GameEventsType.none;
+    }
+
+    public static int GetNeededScoreByLevel(int level)
+    {
+        int[] scores = new int[] {1200, 50, 100, 150, 200 };
+
+        return scores[level];
+    }
+
+    public static int GetNeededBonusByLevel(int level)
+    {
+        int[] scores = new int[] { 20, 30, 40, 50, 60 };
+
+        return scores[level];
     }
 
 }

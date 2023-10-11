@@ -7,6 +7,7 @@ public class Frame : MonoBehaviour
 {
     [SerializeField] private GameObject visualsPack;
     [SerializeField] private GameObject appearEffect;
+    [SerializeField] private GameObject greatEffect;
     [SerializeField] private GameObject[] ghosts;
     public FrameTypes FrameType { get; private set; } = FrameTypes.none;
     public Vector2 Location => new Vector2(transform.localPosition.x, transform.localPosition.z);
@@ -19,6 +20,7 @@ public class Frame : MonoBehaviour
     {
         gm = GameManager.Instance;
         appearEffect.SetActive(false);
+        greatEffect.SetActive(false);
     }
 
     public bool ShowGhost()
@@ -41,28 +43,7 @@ public class Frame : MonoBehaviour
         if (!IsBuildingGhostShown) return;
         resetGhost();
     }
-
-    public void AddBuilding(FrameTypes _type)
-    {
-        AddBuilding(_type, false);
-    }
-    public void AddBuilding(FrameTypes _type, bool isRemake)
-    {
-        if (!IsEmpty()) return;
-
-        resetGhost();
-
-        if (isRemake)
-        {
-            SoundController.Instance.PlayUISound(SoundsUI.positive);
-        }
-        else
-        {
-            SoundController.Instance.PlayUISound(SoundsUI.pop);
-        }
-        
-        ShowNewVisual(_type, isRemake);
-    }
+       
 
 
     private void resetVisual()
@@ -87,25 +68,56 @@ public class Frame : MonoBehaviour
         resetGhost();
     }
 
-    public void ShowNewVisual(FrameTypes _type, bool isRemake)
+    public void AddBuilding(FrameTypes _type)
     {
+        AddBuilding(_type, false, 0);
+    }
+    public void AddBuilding(FrameTypes _type, bool isRemake, int amount)
+    {
+        if (!IsEmpty()) return;
+
+        resetGhost();
+
+        if (isRemake)
+        {
+            if (amount > 3)
+            {
+                SoundController.Instance.PlayUISound(SoundsUI.positive);
+            }
+            else
+            {
+                SoundController.Instance.PlayUISound(SoundsUI.swallow);
+            }
+            
+        }
+        else
+        {
+            SoundController.Instance.PlayUISound(SoundsUI.pop);
+        }
+
         FrameType = _type;
-        showVisual(isRemake);
+        StartCoroutine(playShow(isRemake, amount));
     }
-    private void showVisual(bool isRemake)
-    {        
-        StartCoroutine(playShow(isRemake));
-    }
-    private IEnumerator playShow(bool isRemake)
+    private IEnumerator playShow(bool isRemake, int amount)
     {
         while(gm.IsVisualBusy)
         {
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
+        if (appearEffect.activeSelf) appearEffect.SetActive(false);
+        if (greatEffect.activeSelf) greatEffect.SetActive(false);
+
         if (isRemake)
         {
+            print("small");
             appearEffect.SetActive(true);
+        }
+
+        if (amount > 3)
+        {
+            print("big");
+            greatEffect.SetActive(true);
         }
 
         visualsPack.transform.localPosition = Vector3.zero;
@@ -117,8 +129,10 @@ public class Frame : MonoBehaviour
         visualsPack.transform.DOKill();
         visualsPack.transform.localScale = Vector3.one;
         visualsPack.transform.DOShakeScale(0.2f, 0.8f, 30).SetEase(Ease.OutElastic);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
+
         if (appearEffect.activeSelf) appearEffect.SetActive(false);
+        if (greatEffect.activeSelf) greatEffect.SetActive(false);
     }
 
     
