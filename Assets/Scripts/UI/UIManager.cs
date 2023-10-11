@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image[] informForFutureImages;
     [SerializeField] private GameObject informerPanel;
     [SerializeField] private Transform framePointer;
+    [SerializeField] private RectTransform informerImage1;
+    private Vector2 informerImage1Base;
 
     [Header("Houses sprites")]
     [SerializeField] private Sprite eventOneSprite;
@@ -21,6 +23,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Sprite eventSevenSprite;
     [SerializeField] private Sprite eventDeleteSprite;
     [SerializeField] private Sprite eventUpSprite;
+    [SerializeField] private Sprite blanck;
 
     [Header("Houses sprites")]
     [SerializeField] private Button bonusButton;
@@ -29,12 +32,17 @@ public class UIManager : MonoBehaviour
 
     private Queue<GameEventsType> gameEventsPack = new Queue<GameEventsType>();
     private GameManager gm;
+    private bool isInitial;
+    private bool isChangingInProgress;
 
     private void Start()
     {
         informerPanel.SetActive(false);
         bonusButton.gameObject.SetActive(false);
         bonusFVX.SetActive(false);
+
+        informerImage1 = informForFutureImages[0].GetComponent<RectTransform>();
+        informerImage1Base = informerImage1.sizeDelta;
     }
 
     public void SetData(Queue<GameEventsType> gameEventsPack)
@@ -45,6 +53,8 @@ public class UIManager : MonoBehaviour
         bonusProgressImage.fillAmount = 0;
         this.gameEventsPack = gameEventsPack;
         gm.OnEventUpdated += eventUpdated;
+        isInitial = false;
+        isChangingInProgress = false;
 
         StartCoroutine(playShake(framePointer));
         eventUpdated();
@@ -52,6 +62,31 @@ public class UIManager : MonoBehaviour
 
     private void eventUpdated()
     {
+        StartCoroutine(playEventUpdate());
+    }
+    private IEnumerator playEventUpdate()
+    {
+        while (isChangingInProgress)
+        {
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        isChangingInProgress = true;
+        yield return new WaitForSeconds(0);
+
+        if (isInitial)
+        {            
+            informForFutureImages[0].sprite = blanck;
+            for (int i = 1; i < 15; i++)
+            {
+                informerImage1.sizeDelta = new Vector2(informerImage1Base.x, informerImage1Base.y / i);
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
+        }
+
+        isInitial = true;
+        informerImage1.sizeDelta = informerImage1Base;
+
         int index = 0;
         foreach (var item in gameEventsPack)
         {
@@ -61,6 +96,8 @@ public class UIManager : MonoBehaviour
                 index++;
             }
         }
+
+        isChangingInProgress = false;
     }
 
     private Sprite getSpriteByGameEvent(GameEventsType _type) 
