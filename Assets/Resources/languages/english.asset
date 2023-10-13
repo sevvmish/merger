@@ -15,3 +15,7 @@ MonoBehaviour:
   PlayText: PLAY!
   BonusText: Bonus
   CustomGameText: Custom Game
+  WinText: PERFECT!
+  LoseText: BAD LUCK!
+  LevelText: Level
+  TutorialText: Tutorial

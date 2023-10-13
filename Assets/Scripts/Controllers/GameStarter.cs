@@ -5,6 +5,7 @@ using GamePush;
 using System;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameStarter : MonoBehaviour
 {
@@ -13,10 +14,6 @@ public class GameStarter : MonoBehaviour
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private Ambient ambient;
     [SerializeField] private Button playButton;
-
-    [SerializeField] private Button testRewarded;
-    [SerializeField] private GameObject OK;
-    [SerializeField] private GameObject NO;
 
     [Header("Custom Game")]
     [SerializeField] private Button customGameButton;
@@ -52,9 +49,6 @@ public class GameStarter : MonoBehaviour
         customGameButton.gameObject.SetActive(false);
         rewardedIcon.SetActive(false);
 
-        OK.SetActive(false);
-        NO.SetActive(false);
-
         playButton.onClick.AddListener(() => 
         {
             InitSimpleGame();
@@ -63,32 +57,38 @@ public class GameStarter : MonoBehaviour
         customGameButton.onClick.AddListener(() =>
         {            
             if (Globals.CurrentLevel < 1) return;
-            InitCustomGame();
-        });
 
-        testRewarded.onClick.AddListener(() => 
-        {
-            rewarded.ShowRewardedVideo();
+            if (Globals.IsCustomGameOpened)
+            {
+                InitCustomGame();
+            }
+            else
+            {
+                startRewardedForCustomGame();
+            }            
         });
 
         if (Globals.IsInitiated)
         {
+            Localize();
             InitMainMenu();
         }
 
-        rewarded.OnRewardedEndedOK = OKw;
-        rewarded.OnError = NOw;
+        
 
     }
 
-    private void OKw()
+    
+    private void startRewardedForCustomGame()
     {
-        OK.SetActive(true);
+        rewarded.OnRewardedEndedOK = rewardedOKForCustomGame;
+        rewarded.ShowRewardedVideo();
     }
 
-    private void NOw()
+    private void rewardedOKForCustomGame()
     {
-        NO.SetActive(true);
+        Globals.IsCustomGameOpened = true;
+        InitCustomGame();
     }
 
     public void StartAmbient()
@@ -112,10 +112,10 @@ public class GameStarter : MonoBehaviour
 
             if (GP_Platform.Type().ToString() == "YANDEX")
             {
-                if (!Globals.IsMobilePlatform)
-                {
+                //if (!Globals.IsMobilePlatform)
+                //{
                     GP_Ads.ShowSticky();
-                }
+                //}
             }
             else
             {
@@ -135,14 +135,7 @@ public class GameStarter : MonoBehaviour
 
             print("sound is: " + Globals.IsSoundOn);
 
-            for (int i = 0; i < Globals.MainPlayerData.Progress1.Count; i++)
-            {
-                if (Globals.MainPlayerData.Progress1[i] == 0)
-                {
-                    Globals.CurrentLevel = i;
-                    break;
-                }
-            }
+            Globals.CurrentLevel = Globals.MainPlayerData.Progress1;
 
             if (Globals.TimeWhenStartedPlaying == DateTime.MinValue)
             {
@@ -155,6 +148,14 @@ public class GameStarter : MonoBehaviour
             Localize();
 
             InitMainMenu();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Globals.MainPlayerData.Progress1 = 0;
+            SaveLoadManager.Save();
+            Globals.IsInitiated = false;
+            SceneManager.LoadScene("new main");
         }
         
     }
@@ -178,15 +179,17 @@ public class GameStarter : MonoBehaviour
 
     private void InitSimpleGame()
     {
-        mainMenuPanel.SetActive(false);
-        GP_Game.GameplayStart();
-        GameManager.Instance.InitTheGame();
+        Globals.IsPlayingCustomGame = false;
+        Globals.IsPlayingSimpleGame = true;
+        mainMenuPanel.SetActive(false);        
+        GameManager.Instance.StartSimpleGame();
     }
 
     private void InitCustomGame()
     {
-        GP_Game.GameplayStart();
-        mainMenuPanel.SetActive(false);
+        Globals.IsPlayingCustomGame = true;
+        Globals.IsPlayingSimpleGame = false;
+        mainMenuPanel.SetActive(false);                
     }
 
     private void Localize()

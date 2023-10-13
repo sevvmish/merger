@@ -8,10 +8,7 @@ public class Rewarded : MonoBehaviour
 {
     public Action OnRewardedEndedOK;
     public Action OnError;
-        
-    private bool isRewardedOK;
-
-
+ 
     private void Start()
     {
         GP_Ads.OnRewardedStart += rewardStarted;
@@ -20,11 +17,8 @@ public class Rewarded : MonoBehaviour
     }
 
     public void ShowRewardedVideo()
-    {
-        isRewardedOK = false;
-
-        GP_Ads.ShowRewarded("rew");
-        
+    {        
+        GP_Ads.ShowRewarded("rew");        
     }
 
     private void rewardStarted()
@@ -42,8 +36,7 @@ public class Rewarded : MonoBehaviour
         //155
         if (value == "rew")
         {
-            print("11111");
-            isRewardedOK = true;
+            
         }
 
         Globals.TimeWhenLastRewardedWas = DateTime.Now;
@@ -60,15 +53,12 @@ public class Rewarded : MonoBehaviour
 
         if (isOK)
         {
-            print("2222");
             OnRewardedEndedOK?.Invoke();
         }
         else
         {
-            print("33333");
             OnError?.Invoke();
-        }           
-        
+        }        
     }
 
 }

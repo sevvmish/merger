@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Linq;
+using GamePush;
 
 public class SaveLoadManager
 {
     
-    private const string ID = "Player28";
+    private const string ID = "Player29";
 
     public static void Save()
     {        
@@ -20,7 +21,8 @@ public class SaveLoadManager
 
         try
         {
-            
+            GP_Player.Set("save", data);
+            GP_Player.Sync();
             //YandexGame.SaveProgress();
         }
         catch (System.Exception ex)
@@ -37,7 +39,18 @@ public class SaveLoadManager
         //YandexGame.LoadProgress();
 
         try
-        {            
+        {
+            if (GP_Player.Has("save"))
+            {                
+                fromSave = GP_Player.GetString("save");
+            }
+            else
+            {
+                Globals.MainPlayerData = new PlayerData();
+                return;
+            }
+            
+            Debug.Log(fromSave);
             //fromSave = YandexGame.savesData.PlayerMainData1;
         }
         catch (System.Exception ex)

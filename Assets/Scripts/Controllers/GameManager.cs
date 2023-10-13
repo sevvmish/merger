@@ -1,4 +1,5 @@
 using DG.Tweening;
+using GamePush;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     public bool IsGameStarted = false;
     public bool IsVisualBusy;
     public float PointerClickedCount;
+
     
     public int Score { get; private set; }
     public float BonusProgress => (float)CurrentBonus / ((float)bonusNeeded + 0.001f);
@@ -51,6 +53,8 @@ public class GameManager : MonoBehaviour
     private Dictionary<Vector2, Frame> buildingsLocations;
     private Queue<GameEventsType> gameEventsPack;
 
+    private float _timer;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -63,9 +67,51 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void InitTheGame()
+    public void StartSimpleGame()
     {
+        StartCoroutine(playLevelIntro());
+    }
+    private IEnumerator playLevelIntro()
+    {
+        UI.SetMessagingLevel(true);
+        yield return new WaitForSeconds(2);
+        UI.SetMessagingLevel(false);
+        initTheGame();
+    }
+
+    public void Restart()
+    {
+        stopTheGame();
+
+        if (Globals.IsPlayingSimpleGame && !Globals.IsPlayingCustomGame)
+        {
+            StartSimpleGame();
+        }
+        else if (!Globals.IsPlayingSimpleGame && Globals.IsPlayingCustomGame)
+        {
+
+        }
+    }
+
+    private void stopTheGame()
+    {
+        GP_Game.GameplayStop();
+        IsGameStarted = false;
+        OnEventUpdated = null;
+        options.TurnAllOff();
+        frameMaker.Off();
+        UI.Off();
+    }
+
+    private void initTheGame()
+    {
+        GP_Game.GameplayStart();
         IsGameStarted = true;
+        _timer = 0;
+        Score = 0;
+        bonus = 0;
+        IsVisualBusy = false;
+        PointerClickedCount = 0;
 
         //different inits
         inputController.SetData(cameraMain);
@@ -92,6 +138,8 @@ public class GameManager : MonoBehaviour
         UI.SetData(gameEventsPack);
         showCurrentGameEvent();
     }
+    
+
 
     public void UpdateState(Frame lastModifiedFrame)
     {
@@ -198,7 +246,52 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {        
-        if (PointerClickedCount > 0) PointerClickedCount -= Time.deltaTime;                            
+        if (PointerClickedCount > 0) PointerClickedCount -= Time.deltaTime;
+
+        if (_timer > 0.3f && IsGameStarted)
+        {
+            _timer = 0;
+
+            if (Score >= neededScore)
+            {
+                Globals.CurrentLevel++;
+
+                if (Globals.MainPlayerData.Progress1 < Globals.CurrentLevel) 
+                {
+                    Globals.MainPlayerData.Progress1 = Globals.CurrentLevel;
+                    GP_Analytics.Goal("level", Globals.CurrentLevel.ToString());
+                    SaveLoadManager.Save();
+                }
+                
+                stopTheGame();
+                UI.SetMessagingWin();
+                return;
+            }
+
+
+            bool isOK = true;
+            for (int i = 0; i < baseFrames.Count; i++)
+            {
+                if (baseFrames[i].IsEmpty())
+                {
+                    isOK = false;
+                    break;
+                }
+            }
+
+            if (isOK && Score < neededScore)
+            {
+                GP_Analytics.Goal("lost", Globals.CurrentLevel.ToString());
+                stopTheGame();
+                UI.SetMessagingLose();
+                return;
+            }
+            
+        }
+        else
+        {
+            _timer += Time.deltaTime;
+        }
     }
 
     public GameEventsType getNextGameEvent()

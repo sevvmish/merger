@@ -56,7 +56,7 @@ public class GameLogic : MonoBehaviour
 
     public static int GetNeededScoreByLevel(int level)
     {
-        int[] scores = new int[] {1200, 50, 100, 150, 200 };
+        int[] scores = new int[] {30, 50, 100, 150, 200 };
 
         return scores[level];
     }

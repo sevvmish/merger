@@ -15,6 +15,10 @@ public class Globals : MonoBehaviour
     public static bool IsMobilePlatform = false;
     public static bool IsSoundOn;
     public static bool IsInitiated = false;
+    public static bool IsInitiatedPlayer = false;
+    public static bool IsCustomGameOpened = false;
+    public static bool IsPlayingSimpleGame = false;
+    public static bool IsPlayingCustomGame = false;
     public static DateTime TimeWhenStartedPlaying;
     public static DateTime TimeWhenLastInterstitialWas;
     public static DateTime TimeWhenLastRewardedWas;

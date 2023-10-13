@@ -9,5 +9,10 @@ public class Translation : ScriptableObject
     public string BonusText;
     public string CustomGameText;
 
+    public string WinText;
+    public string LoseText;
+    public string LevelText;
+    public string TutorialText;
+
     public Translation() { }
 }

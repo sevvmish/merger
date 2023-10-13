@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
@@ -15,13 +16,12 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] private Button restartButton;
     [SerializeField] private Sprite soundOnSprite;
     [SerializeField] private Sprite soundOffSprite;
-
-    private bool IsOptionsButtonShown;
+      
 
     // Start is called before the first frame update
     void Start()
     {
-        //optionsButton.gameObject.SetActive(false);
+        optionsButton.gameObject.SetActive(false);
         optionsPanel.SetActive(false);
 
         
@@ -84,12 +84,12 @@ public class OptionsMenu : MonoBehaviour
 
         homeButton.onClick.AddListener(() =>
         {
-            
+            SceneManager.LoadScene("new main");
         });
 
         restartButton.onClick.AddListener(() =>
         {
-            
+            gm.Restart();
         });
     }
 

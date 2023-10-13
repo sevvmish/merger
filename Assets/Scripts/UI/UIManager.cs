@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using GamePush;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,6 +15,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform framePointer;
     [SerializeField] private RectTransform informerImage1;
     private Vector2 informerImage1Base;
+
+    [Header("Level messaging")]
+    [SerializeField] private GameObject messagingPanel;
+    [SerializeField] private TextMeshProUGUI mainTexterText;
+    [SerializeField] private RectTransform mainTextRect;
+    [SerializeField] private Button continueButton;
+    [SerializeField] private Button restartButton;
+
 
     [Header("Score")]
     [SerializeField] private GameObject scorePanel;
@@ -36,18 +46,22 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image bonusProgressImage;
     [SerializeField] private GameObject bonusFVX;
 
+    [SerializeField] private Interstitial interstitial;
+
     private Queue<GameEventsType> gameEventsPack = new Queue<GameEventsType>();
     private GameManager gm;
     private bool isInitial;
     private bool isChangingInProgress;
+    private Translation lang;
 
     private void Start()
     {
         gm = GameManager.Instance;
-        informerPanel.SetActive(false);
-        bonusButton.gameObject.SetActive(false);
-        bonusFVX.SetActive(false);
-        scorePanel.SetActive(false);
+
+        Off();
+
+        
+        lang = Localization.GetInstanse(Globals.CurrentLanguage).GetCurrentTranslation();
 
         informerImage1 = informForFutureImages[0].GetComponent<RectTransform>();
         informerImage1Base = informerImage1.sizeDelta;
@@ -58,6 +72,124 @@ public class UIManager : MonoBehaviour
                         
             gm.SpendBonusActivated();
         });
+
+        continueButton.onClick.AddListener(() =>
+        {
+            Off();
+            if (Globals.CurrentLevel > 1 
+            && (DateTime.Now - Globals.TimeWhenLastInterstitialWas).TotalSeconds > Globals.INTERSTITIAL_COOLDOWN)
+            {
+                interstitial.OnEnded = GameManager.Instance.StartSimpleGame;
+                interstitial.ShowInterstitialVideo();
+            }
+            else
+            {
+                GameManager.Instance.StartSimpleGame();
+            }
+            
+        });
+
+        restartButton.onClick.AddListener(() =>
+        {
+            Off();
+            if (Globals.CurrentLevel > 1
+            && (DateTime.Now - Globals.TimeWhenLastInterstitialWas).TotalSeconds > Globals.INTERSTITIAL_COOLDOWN)
+            {
+                interstitial.OnEnded = GameManager.Instance.StartSimpleGame;
+                interstitial.ShowInterstitialVideo();
+            }
+            else
+            {
+                GameManager.Instance.StartSimpleGame();
+            }
+        });
+    }
+
+    public void SetMessagingLevel(bool isON)
+    {
+        if (isON)
+        {
+            messagingPanel.SetActive(true);
+
+            if (Globals.CurrentLevel == 0)
+            {
+                mainTexterText.text = lang.TutorialText;
+            }
+            else
+            {
+                mainTexterText.text = lang.LevelText + " " + Globals.CurrentLevel;
+            }
+
+            
+            mainTextRect.localScale = Vector3.zero;
+            mainTextRect.DOScale(Vector3.one, 0.3f).SetEase(Ease.InOutElastic);
+        }
+        else
+        {
+            Off();
+        }
+        
+    }
+
+    public void SetMessagingWin()
+    {
+        messagingPanel.SetActive(true);
+        mainTexterText.text = lang.WinText;
+        StartCoroutine(playWin());
+    }
+    private IEnumerator playWin()
+    {
+        mainTextRect.localScale = Vector3.zero;
+        mainTextRect.DOScale(Vector3.one, 0.3f).SetEase(Ease.InOutElastic);
+        yield return new WaitForSeconds(0.31f);
+
+        mainTextRect.DOShakeScale(0.3f, 0.1f, 30).SetEase(Ease.InOutElastic);
+        yield return new WaitForSeconds(0.31f);
+
+        yield return new WaitForSeconds(0.5f);
+
+        mainTextRect.DOAnchorPos(new Vector2(0,100), 0.3f).SetEase(Ease.InOutElastic);
+        yield return new WaitForSeconds(0.31f);
+
+        continueButton.gameObject.SetActive(true);
+
+    }
+
+    public void SetMessagingLose()
+    {
+        print("here");
+        messagingPanel.SetActive(true);
+        mainTexterText.text = lang.LoseText;
+        StartCoroutine(playLose());
+
+    }
+    private IEnumerator playLose()
+    {
+        mainTextRect.localScale = Vector3.zero;
+        mainTextRect.DOScale(Vector3.one, 0.3f).SetEase(Ease.InOutElastic);
+        yield return new WaitForSeconds(0.31f);
+
+        mainTextRect.DOShakeScale(0.3f, 0.1f, 30).SetEase(Ease.InOutElastic);
+        yield return new WaitForSeconds(0.31f);
+
+        yield return new WaitForSeconds(0.5f);
+
+        mainTextRect.DOAnchorPos(new Vector2(0,100), 0.3f).SetEase(Ease.InOutElastic);
+        yield return new WaitForSeconds(0.31f);
+
+        restartButton.gameObject.SetActive(true);
+    }
+
+    public void Off()
+    {
+        mainTextRect.DOAnchorPos(Vector2.zero, 0);
+        informerPanel.SetActive(false);
+        bonusButton.gameObject.SetActive(false);
+        bonusFVX.SetActive(false);
+        scorePanel.SetActive(false);
+        messagingPanel.SetActive(false);
+        continueButton.gameObject.SetActive(false);
+        restartButton.gameObject.SetActive(false);
     }
 
     public void SetData(Queue<GameEventsType> gameEventsPack)
