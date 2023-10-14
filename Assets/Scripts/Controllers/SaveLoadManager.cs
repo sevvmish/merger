@@ -41,8 +41,7 @@ public class SaveLoadManager
         try
         {
             if (GP_Player.Has("save"))
-            {
-                Debug.Log("yes? have key");
+            {                
                 fromSave = GP_Player.GetString("save");
 
                 if (string.IsNullOrEmpty(fromSave))

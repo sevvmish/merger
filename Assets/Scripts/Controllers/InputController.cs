@@ -35,6 +35,7 @@ public class InputController : MonoBehaviour
                 
                 if (hit.collider.gameObject.TryGetComponent(out Frame frame))
                 {
+                    
                     gm.ReactOnFrameClick(frame);
                     //frame.HideGhost();
                     currentFrame = frame;

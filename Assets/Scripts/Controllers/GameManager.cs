@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class GameManager : MonoBehaviour
 {
@@ -136,7 +135,7 @@ public class GameManager : MonoBehaviour
         //===================================
 
         options.TurnAllOn();
-        frameMaker.SetFrames(Globals.Horizontals, Globals.Verticals, baseFrames, cameraMain);
+        frameMaker.SetFrames(baseFrames, cameraMain);
 
         for (int i = 0; i < baseFrames.Count; i++)
         {
@@ -177,6 +176,7 @@ public class GameManager : MonoBehaviour
             //print("score: " + scoreCount);
             Score += scoreCount;
             CurrentBonus += scoreCount;
+            UI.ShowBonusAddedText(scoreCount);
             lastModifiedFrame.AddBuilding(newFrame, true, buildingToAct.Count);
             UpdateState(lastModifiedFrame);
         }
@@ -257,7 +257,7 @@ public class GameManager : MonoBehaviour
     {        
         if (PointerClickedCount > 0) PointerClickedCount -= Time.deltaTime;
 
-        if (_timer > 0.3f && IsGameStarted)
+        if (_timer > 0.3f && IsGameStarted && !IsVisualBusy && PointerClickedCount <= 0)
         {
             _timer = 0;
 

@@ -151,6 +151,8 @@ public class Frame : MonoBehaviour
     {
         if (!IsEmpty()) return;
 
+        
+
         resetGhost();
 
         if (isRemake)
@@ -175,23 +177,24 @@ public class Frame : MonoBehaviour
     }
     private IEnumerator playShow(bool isRemake, int amount)
     {
+        
         while(gm.IsVisualBusy)
         {
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
+        gm.IsVisualBusy = true;
+
         if (appearEffect.activeSelf) appearEffect.SetActive(false);
         if (greatEffect.activeSelf) greatEffect.SetActive(false);
 
         if (isRemake)
-        {
-            print("small");
+        {            
             appearEffect.SetActive(true);
         }
 
         if (amount > 3)
-        {
-            print("big");
+        {            
             greatEffect.SetActive(true);
         }
 
@@ -199,7 +202,9 @@ public class Frame : MonoBehaviour
         activateVisualByType(FrameType);
         visualsPack.transform.localScale = Vector3.zero;
         visualsPack.transform.DOScale(Vector3.one, Globals.CREATE_DELETE_TIME);
-        yield return new WaitForSeconds(Globals.CREATE_DELETE_TIME * 0.8f);
+        yield return new WaitForSeconds(Globals.CREATE_DELETE_TIME);
+
+        gm.IsVisualBusy = false;
 
         visualsPack.transform.DOKill();
         visualsPack.transform.localScale = Vector3.one;

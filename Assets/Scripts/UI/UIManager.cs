@@ -49,15 +49,23 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Interstitial interstitial;
 
+    [Header("bonus texter")]
+    [SerializeField] private GameObject bonusTextExample;
+    [SerializeField] private Transform locationaForBonusText;
+    private ObjectPool bonusPlusDataPool;
+    private bool isShowLeft;
+
     private Queue<GameEventsType> gameEventsPack = new Queue<GameEventsType>();
     private GameManager gm;
     private bool isInitial;
     private bool isChangingInProgress;
     private Translation lang;
+    
 
     private void Start()
     {
         gm = GameManager.Instance;
+        bonusPlusDataPool = new ObjectPool(5, bonusTextExample, locationaForBonusText);
 
         Off();
 
@@ -69,13 +77,19 @@ public class UIManager : MonoBehaviour
 
         bonusButton.onClick.AddListener(() => 
         {
-            if (gm.BonusProgress < 0.99f) return;
-                        
+            if (gm.BonusProgress < 0.99f)
+            {
+                SoundController.Instance.PlayUISound(SoundsUI.error);
+                return;
+            }
+
+            SoundController.Instance.PlayUISound(SoundsUI.click);
             gm.SpendBonusActivated();
         });
 
         continueButton.onClick.AddListener(() =>
         {
+            SoundController.Instance.PlayUISound(SoundsUI.click);
             Off();
             if (Globals.CurrentLevel > 1 
             && (DateTime.Now - Globals.TimeWhenLastInterstitialWas).TotalSeconds > Globals.INTERSTITIAL_COOLDOWN)
@@ -92,6 +106,7 @@ public class UIManager : MonoBehaviour
 
         restartButton.onClick.AddListener(() =>
         {
+            SoundController.Instance.PlayUISound(SoundsUI.click);
             Off();
             if (Globals.CurrentLevel > 1
             && (DateTime.Now - Globals.TimeWhenLastInterstitialWas).TotalSeconds > Globals.INTERSTITIAL_COOLDOWN)
@@ -134,6 +149,7 @@ public class UIManager : MonoBehaviour
 
     public void SetMessagingWin()
     {
+        SoundController.Instance.PlayUISound(SoundsUI.win);
         messagingPanel.SetActive(true);
         mainTexterText.text = lang.WinText;
         StartCoroutine(playWin());
@@ -158,7 +174,7 @@ public class UIManager : MonoBehaviour
 
     public void SetMessagingLose()
     {
-        print("here");
+        SoundController.Instance.PlayUISound(SoundsUI.lose);
         messagingPanel.SetActive(true);
         mainTexterText.text = lang.LoseText;
         StartCoroutine(playLose());
@@ -179,6 +195,40 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(0.31f);
 
         restartButton.gameObject.SetActive(true);
+    }
+
+    public void ShowBonusAddedText(int amount)
+    {
+        
+        StartCoroutine(playShowBonus(amount));
+    }
+    private IEnumerator playShowBonus(int amount)
+    {
+        RectTransform rect = bonusPlusDataPool.GetObject().GetComponent<RectTransform>();
+        rect.gameObject.SetActive(true);
+        rect.GetComponent<TextMeshProUGUI>().text = amount.ToString();
+        rect.anchoredPosition = Vector3.zero;
+        rect.localScale = Vector3.one * 0.1f;
+        Vector2 endPos = Vector2.zero;
+        if (isShowLeft)
+        {
+            isShowLeft = false;
+            endPos = new Vector2(UnityEngine.Random.Range(170, 190), UnityEngine.Random.Range(120, 150));
+        }
+        else
+        {
+            isShowLeft = true;
+            endPos = new Vector2(UnityEngine.Random.Range(120, 150), UnityEngine.Random.Range(170, 190));
+        }
+            
+
+        rect.DOAnchorPos(endPos, 1f).SetEase(Ease.OutQuad);
+        rect.DOScale(Vector3.one * 1.5f, 0.7f).SetEase(Ease.InOutElastic);
+        yield return new WaitForSeconds(0.7f);
+        rect.DOScale(Vector3.zero, 0.3f);
+        yield return new WaitForSeconds(0.3f);
+
+        bonusPlusDataPool.ReturnObject(rect.gameObject);
     }
 
     public void Off()

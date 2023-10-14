@@ -51,12 +51,15 @@ public class GameStarter : MonoBehaviour
 
         playButton.onClick.AddListener(() => 
         {
+            SoundController.Instance.PlayUISound(SoundsUI.click);
             InitSimpleGame();
         });
 
         customGameButton.onClick.AddListener(() =>
         {            
             if (Globals.CurrentLevel < 1) return;
+
+            SoundController.Instance.PlayUISound(SoundsUI.click);
 
             if (Globals.IsCustomGameOpened)
             {
@@ -178,6 +181,7 @@ public class GameStarter : MonoBehaviour
 
     private void InitSimpleGame()
     {
+        Globals.CurrentLevel = 10;
         Globals.IsPlayingCustomGame = false;
         Globals.IsPlayingSimpleGame = true;
         mainMenuPanel.SetActive(false);        
