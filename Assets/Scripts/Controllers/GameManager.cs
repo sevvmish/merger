@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     
     public int Score { get; private set; }
+    public float ScoreProgress => (float)Score / ((float)neededScore + 0.001f);
     public float BonusProgress => (float)CurrentBonus / ((float)bonusNeeded + 0.001f);
     public int CurrentBonus {
         get { return bonus; }
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
     private FrameMaker frameMaker;    
     private Dictionary<Vector2, Frame> buildingsLocations;
     private Queue<GameEventsType> gameEventsPack;
+    private Frame frameToReplaceForReplacement;
 
     private float _timer;
 
@@ -65,6 +68,11 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    public void StartCustomGame()
+    {
+        StartCoroutine(playLevelIntro());
     }
 
     public void StartSimpleGame()
@@ -89,7 +97,7 @@ public class GameManager : MonoBehaviour
         }
         else if (!Globals.IsPlayingSimpleGame && Globals.IsPlayingCustomGame)
         {
-
+            StartCustomGame();
         }
     }
 
@@ -114,6 +122,7 @@ public class GameManager : MonoBehaviour
         PointerClickedCount = 0;
 
         //different inits
+        frameToReplaceForReplacement = null;
         inputController.SetData(cameraMain);
         OnEventUpdated = null;
         baseFrames = new List<Frame>();
@@ -304,23 +313,170 @@ public class GameManager : MonoBehaviour
 
     public bool ReactOnFrameClick(Frame frame)
     {
-        if (!frame.IsEmpty())
+        if ((int)CurrentGameEventToProceed>0 && (int)CurrentGameEventToProceed <= 7)
         {
-            return false;
+            if (!frame.IsEmpty())
+            {
+                return false;
+            }
+
+            GameEventsType nextEvent = getNextGameEvent();
+            FrameTypes isBuilding = IsEventBuildingType(nextEvent);
+            if (isBuilding != FrameTypes.none)
+            {
+                frame.AddBuilding(isBuilding);
+            }
+
+            //UpdateState(frame);
+            StartCoroutine(playUpdateStateAfterSec(Globals.CREATE_DELETE_TIME, frame));
+
+            return true;
         }
 
-        GameEventsType nextEvent = getNextGameEvent();
-        FrameTypes isBuilding = IsEventBuildingType(nextEvent);
-        if (isBuilding != FrameTypes.none)
+        if (CurrentGameEventToProceed == GameEventsType.delete_house)
         {
-            frame.AddBuilding(isBuilding);
+            bool isOK = false;
+            for (int i = 0; i < baseFrames.Count; i++)
+            {
+                if (!baseFrames[i].IsEmpty())
+                {
+                    isOK = true;
+                    break;
+                }
+            }
+            if (!isOK)
+            {
+                getNextGameEvent();
+                return true;
+            }
+
+            //========================
+
+            if (frame.IsEmpty())
+            {
+                SoundController.Instance.PlayUISound(SoundsUI.error);
+                return false;
+            }
+
+            
+
+            GameEventsType nextEvent = getNextGameEvent();
+            frame.DeleteBuilding();
+            UpdateState(frame);
+            return true;
         }
-                        
-        UpdateState(frame);
+
+        if (CurrentGameEventToProceed == GameEventsType.up_house)
+        {
+            bool isOK = false;
+            for (int i = 0; i < baseFrames.Count; i++)
+            {
+                if (!baseFrames[i].IsEmpty() && (int)baseFrames[i].FrameType < (int)FrameTypes.seven)
+                {
+                    isOK = true;
+                    break;
+                }
+            }
+            if (!isOK)
+            {
+                getNextGameEvent();
+                return true;
+            }
+
+            //===========================
+
+
+            if (frame.IsEmpty() || frame.FrameType == FrameTypes.seven)
+            {
+                SoundController.Instance.PlayUISound(SoundsUI.error);
+                return false;
+            }
+
+            
+
+            GameEventsType nextEvent = getNextGameEvent();
+            frame.UpdateBuilding();
+            StartCoroutine(playUpdateStateAfterSec(Globals.CREATE_DELETE_TIME, frame));
+            return true;
+        }
+
+        if (CurrentGameEventToProceed == GameEventsType.replace_house)
+        {
+            bool isOK = false;
+            for (int i = 0; i < baseFrames.Count; i++)
+            {
+                if (!baseFrames[i].IsEmpty())
+                {
+                    isOK = true;
+                    break;
+                }
+            }
+            if (!isOK)
+            {
+                getNextGameEvent();
+                return true;
+            }
+
+            //=============================
+
+            
+            if (frameToReplaceForReplacement == null)
+            {
+                if (frame.IsEmpty())
+                {
+                    SoundController.Instance.PlayUISound(SoundsUI.error);
+                    return false;
+                }
+
+                frameToReplaceForReplacement = frame;
+                frame.SetShake(true);
+            }
+            else
+            {
+                if (frame.IsEmpty())
+                {
+                    FrameTypes newFrame = frameToReplaceForReplacement.FrameType;
+                    frameToReplaceForReplacement.DeleteBuilding();
+                    frame.AddBuilding(newFrame);
+                }
+                else if (!frame.IsEmpty() && frame.FrameType == frameToReplaceForReplacement.FrameType)
+                {
+                    SoundController.Instance.PlayUISound(SoundsUI.error);
+                    return false;
+                }
+                else
+                {
+                    FrameTypes newFrame = frameToReplaceForReplacement.FrameType;
+                    frameToReplaceForReplacement.ChangeBuilding(frame.FrameType);
+                    frame.ChangeBuilding(newFrame);
+                }
+
+
+                StartCoroutine(playUpdateStateAfterSec(Globals.CREATE_DELETE_TIME * 2f,frame));
+                getNextGameEvent();
+                frameToReplaceForReplacement = null;
+                return true;
+            }
+
+            //GameEventsType nextEvent = getNextGameEvent();
+            //frame.UpdateBuilding();
+            //UpdateState(frame);
+            //return true;
+        }
+
 
         return true;
     }
-   
+
+    private IEnumerator playUpdateStateAfterSec(float secs, Frame frame)
+    {
+        //IsVisualBusy = true;
+        yield return new WaitForSeconds(secs);
+        UpdateState(frame);
+        //IsVisualBusy = false;
+    }
+
+
     private void showCurrentGameEvent()
     {
         CurrentGameEventToProceed = gameEventsPack.Peek();
@@ -382,7 +538,7 @@ public enum GameEventsType
     house_five,
     house_six,
     house_seven,
-    house_eight,
     delete_house,
-    up_house
+    up_house,
+    replace_house
 }

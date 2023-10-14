@@ -36,14 +36,14 @@ public class InputController : MonoBehaviour
                 if (hit.collider.gameObject.TryGetComponent(out Frame frame))
                 {
                     gm.ReactOnFrameClick(frame);
-                    frame.HideGhost();
+                    //frame.HideGhost();
                     currentFrame = frame;
                 }
                 
             }
         }
 
-        if (!Globals.IsMobilePlatform) check();
+        if (Globals.IsMobilePlatform && gm.CurrentGameEventToProceed != GameEventsType.replace_house) check();
     }
 
     private void check()

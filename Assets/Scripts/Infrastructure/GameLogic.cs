@@ -40,8 +40,8 @@ public class GameLogic : MonoBehaviour
 
     private GameEventsType GetCurrentEvent()
     {
-        GameEventsType result = (GameEventsType)UnityEngine.Random.Range(1, 5);
-        
+        GameEventsType result = (GameEventsType)UnityEngine.Random.Range(4, 11);
+        print(result + " =>");
         return result;
         /*
         switch(Globals.CurrentLevel)
@@ -56,7 +56,7 @@ public class GameLogic : MonoBehaviour
 
     public static int GetNeededScoreByLevel(int level)
     {
-        int[] scores = new int[] {30, 50, 100, 150, 200 };
+        int[] scores = new int[] {1000, 50, 100, 150, 200 };
 
         return scores[level];
     }

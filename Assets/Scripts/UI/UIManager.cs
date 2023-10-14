@@ -39,6 +39,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Sprite eventSevenSprite;
     [SerializeField] private Sprite eventDeleteSprite;
     [SerializeField] private Sprite eventUpSprite;
+    [SerializeField] private Sprite eventReplaceSprite;
     [SerializeField] private Sprite blanck;
 
     [Header("Houses sprites")]
@@ -254,7 +255,15 @@ public class UIManager : MonoBehaviour
     {        
         if (gm.IsGameStarted && lastScore != gm.Score)
         {
-            scoreText.text = gm.Score.ToString();
+            if (Globals.IsPlayingSimpleGame && !Globals.IsPlayingCustomGame)
+            {
+                scoreText.text = (gm.ScoreProgress * 100).ToString("f0") + "%";
+            }
+            else if (!Globals.IsPlayingSimpleGame && Globals.IsPlayingCustomGame)
+            {
+                scoreText.text = gm.Score.ToString();
+            }
+                                    
             lastScore = gm.Score;
         }
 
@@ -305,6 +314,9 @@ public class UIManager : MonoBehaviour
 
             case GameEventsType.delete_house:
                 return eventDeleteSprite;
+
+            case GameEventsType.replace_house:
+                return eventReplaceSprite;
         }
 
         return null;

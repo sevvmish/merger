@@ -8,6 +8,7 @@ public class Frame : MonoBehaviour
     [SerializeField] private GameObject visualsPack;
     [SerializeField] private GameObject appearEffect;
     [SerializeField] private GameObject greatEffect;
+    [SerializeField] private GameObject deleteEffect;
     [SerializeField] private GameObject[] ghosts;
     public FrameTypes FrameType { get; private set; } = FrameTypes.none;
     public Vector2 Location => new Vector2(transform.localPosition.x, transform.localPosition.z);
@@ -15,12 +16,14 @@ public class Frame : MonoBehaviour
     public bool IsBuildingGhostShown { get; private set; }
 
     private GameManager gm;
+    private bool isShaking;
 
     private void Start()
     {
         gm = GameManager.Instance;
         appearEffect.SetActive(false);
         greatEffect.SetActive(false);
+        deleteEffect.SetActive(false);
     }
 
     public bool ShowGhost()
@@ -44,6 +47,27 @@ public class Frame : MonoBehaviour
         resetGhost();
     }
        
+    public void SetShake(bool isOK)
+    {
+        if (isOK)
+        {
+            isShaking = true;
+            StartCoroutine(playShake());
+        }
+        else
+        {
+            isShaking = false;
+        }
+    }
+
+    private IEnumerator playShake()
+    {
+        while (isShaking)
+        {
+            visualsPack.transform.DOShakeScale(0.3f, 0.3f, 30).SetEase(Ease.OutQuad);
+            yield return new WaitForSeconds(0.5f);
+        }        
+    }
 
 
     private void resetVisual()
@@ -60,6 +84,7 @@ public class Frame : MonoBehaviour
             ghosts[i].SetActive(false);
         }
         IsBuildingGhostShown = false;
+        isShaking = false;
     }
 
     private void hideVisual()
@@ -68,9 +93,59 @@ public class Frame : MonoBehaviour
         resetGhost();
     }
 
+
+    public void UpdateBuilding()
+    {
+        FrameTypes newType = (FrameTypes)((int)FrameType + 1);
+
+        resetGhost();
+
+        SoundController.Instance.PlayUISound(SoundsUI.positive);
+        FrameType = newType;
+        hideVisual();
+        StartCoroutine(playShow(true, 6));
+    }
+
+    public void ChangeBuilding(FrameTypes newFrame)
+    {        
+        resetGhost();
+
+        SoundController.Instance.PlayUISound(SoundsUI.positive);
+        FrameType = newFrame;
+        hideVisual();
+        StartCoroutine(playShow(true, 6));
+    }
+
+    public void DeleteBuilding()
+    {
+        resetGhost();
+        FrameType = FrameTypes.none;
+
+        SoundController.Instance.PlayUISound(SoundsUI.swallow);
+
+        StartCoroutine(playDelete());
+    }
+    private IEnumerator playDelete()
+    {
+        gm.IsVisualBusy = true;
+        deleteEffect.SetActive(false);
+        deleteEffect.SetActive(true);
+        visualsPack.transform.DOScale(Vector3.zero, Globals.CREATE_DELETE_TIME);
+        yield return new WaitForSeconds(Globals.CREATE_DELETE_TIME);
+        hideVisual();
+        activateVisualByType(FrameTypes.none);
+
+        gm.IsVisualBusy = false;
+
+        yield return new WaitForSeconds(1f);        
+        visualsPack.transform.localScale = Vector3.one;
+        deleteEffect.SetActive(false);
+    }
+
     public void AddBuilding(FrameTypes _type)
     {
         AddBuilding(_type, false, 0);
+
     }
     public void AddBuilding(FrameTypes _type, bool isRemake, int amount)
     {

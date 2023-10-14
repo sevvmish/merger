@@ -41,26 +41,47 @@ public class SaveLoadManager
         try
         {
             if (GP_Player.Has("save"))
-            {                
+            {
+                Debug.Log("yes? have key");
                 fromSave = GP_Player.GetString("save");
+
+                if (string.IsNullOrEmpty(fromSave))
+                {
+                    Globals.MainPlayerData = new PlayerData();
+                }
+                else
+                {
+                    Globals.MainPlayerData = JsonUtility.FromJson<PlayerData>(fromSave);
+                }
+
+                
+                Debug.Log("result - "+fromSave);
             }
             else
             {
-                Globals.MainPlayerData = new PlayerData();
-                return;
+                fromSave = PlayerPrefs.GetString(ID);
+
+                if (string.IsNullOrEmpty(fromSave))
+                {
+                    Globals.MainPlayerData = new PlayerData();
+                }
+                else
+                {
+                    Globals.MainPlayerData = JsonUtility.FromJson<PlayerData>(fromSave);
+                }
+                
             }
             
-            Debug.Log(fromSave);
-            //fromSave = YandexGame.savesData.PlayerMainData1;
+            
         }
         catch (System.Exception ex)
         {
             Debug.LogError(ex);
             Debug.LogError("error loading data, defaults loaded");
-            
+            Globals.MainPlayerData = new PlayerData();
         }
             
-            
+          /*  
         if (!string.IsNullOrEmpty(fromSave))
         {
             
@@ -89,7 +110,7 @@ public class SaveLoadManager
             {
                 Globals.MainPlayerData = JsonUtility.FromJson<PlayerData>(fromSave);
             }
-        }       
+        }       */
     }
 
 }

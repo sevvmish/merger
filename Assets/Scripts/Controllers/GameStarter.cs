@@ -72,9 +72,7 @@ public class GameStarter : MonoBehaviour
         {
             Localize();
             InitMainMenu();
-        }
-
-        
+        }       
 
     }
 
@@ -122,6 +120,7 @@ public class GameStarter : MonoBehaviour
                 print("wrong platform - " + GP_Platform.Type().ToString());
             }
 
+            
             if (Globals.MainPlayerData.S == 1)
             {
                 Globals.IsSoundOn = true;
@@ -189,7 +188,8 @@ public class GameStarter : MonoBehaviour
     {
         Globals.IsPlayingCustomGame = true;
         Globals.IsPlayingSimpleGame = false;
-        mainMenuPanel.SetActive(false);                
+        mainMenuPanel.SetActive(false);
+        GameManager.Instance.StartCustomGame();
     }
 
     private void Localize()

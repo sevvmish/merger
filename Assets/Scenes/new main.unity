@@ -1084,8 +1084,9 @@ MonoBehaviour:
   eventFiveSprite: {fileID: 21300000, guid: 6cfdced70dcc6214b8d3de8713116805, type: 3}
   eventSixSprite: {fileID: 21300000, guid: ae89ae5e65234c44eac251862f001f6a, type: 3}
   eventSevenSprite: {fileID: 21300000, guid: 348ba593417f9f34497848eca46d1b41, type: 3}
-  eventDeleteSprite: {fileID: 0}
-  eventUpSprite: {fileID: 0}
+  eventDeleteSprite: {fileID: 21300000, guid: 0b76490e53e9c3c4a885faa716a272bd, type: 3}
+  eventUpSprite: {fileID: 21300000, guid: 648ea5113d83a4f408dce2bd8a4ca1e6, type: 3}
+  eventReplaceSprite: {fileID: 21300000, guid: 3069f6e0055f58743841e9dc8c9c1b4e, type: 3}
   blanck: {fileID: 21300000, guid: 573bddae7af6a4148b4072c67476409a, type: 3}
   bonusButton: {fileID: 1772625056}
   bonusProgressImage: {fileID: 1772625057}
