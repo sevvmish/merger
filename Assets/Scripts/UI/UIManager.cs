@@ -204,27 +204,37 @@ public class UIManager : MonoBehaviour
     }
     private IEnumerator playShowBonus(int amount)
     {
+        if (isShowLeft)
+        {
+            yield return new WaitForSeconds(0);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.2f);
+        }
+        
+
         RectTransform rect = bonusPlusDataPool.GetObject().GetComponent<RectTransform>();
         rect.gameObject.SetActive(true);
         rect.GetComponent<TextMeshProUGUI>().text = amount.ToString();
         rect.anchoredPosition = Vector3.zero;
-        rect.localScale = Vector3.one * 0.1f;
+        rect.localScale = Vector3.one * 0.2f;
         Vector2 endPos = Vector2.zero;
         if (isShowLeft)
         {
             isShowLeft = false;
-            endPos = new Vector2(UnityEngine.Random.Range(170, 190), UnityEngine.Random.Range(120, 150));
+            endPos = new Vector2(UnityEngine.Random.Range(180, 200), UnityEngine.Random.Range(110, 130));
         }
         else
         {
             isShowLeft = true;
-            endPos = new Vector2(UnityEngine.Random.Range(120, 150), UnityEngine.Random.Range(170, 190));
+            endPos = new Vector2(UnityEngine.Random.Range(110, 130), UnityEngine.Random.Range(180, 200));
         }
             
 
-        rect.DOAnchorPos(endPos, 1f).SetEase(Ease.OutQuad);
-        rect.DOScale(Vector3.one * 1.5f, 0.7f).SetEase(Ease.InOutElastic);
-        yield return new WaitForSeconds(0.7f);
+        rect.DOAnchorPos(endPos, 1.5f).SetEase(Ease.OutQuad);
+        rect.DOScale(Vector3.one * 1.5f, 1f).SetEase(Ease.InOutElastic);
+        yield return new WaitForSeconds(1.5f);
         rect.DOScale(Vector3.zero, 0.3f);
         yield return new WaitForSeconds(0.3f);
 

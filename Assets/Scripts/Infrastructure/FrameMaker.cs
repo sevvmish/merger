@@ -10,12 +10,15 @@ public class FrameMaker : MonoBehaviour
     [SerializeField] private GameObject environment;
     [SerializeField] private GameObject one;
     [SerializeField] private GameObject two;
+    [SerializeField] private GameObject[] obstacles;
 
     private int horizontal = 3;
     private int vertical = 3;
     private Vector3 cameraPos = Vector3.zero;
     private Vector3 backScale = Vector3.one;
     private Vector3 backPos = Vector3.one;
+
+    private List<Frame> frames = new List<Frame>();
 
     public void Off()
     {
@@ -30,8 +33,10 @@ public class FrameMaker : MonoBehaviour
         }
     }
 
-    public void SetFrames(List<Frame> frames, Camera cameraMain)
+    public void SetFrames(List<Frame> framesLink, Camera cameraMain)
     {
+        frames = framesLink;
+
         setScreen(cameraMain.transform);
         environment.SetActive(true);
 
@@ -95,9 +100,26 @@ public class FrameMaker : MonoBehaviour
             }
         }
 
-        print(frames[1].Location);
-        Destroy(frames[1].gameObject);
-        frames.Remove(frames[1]);
+        //print(frames[1].Location);
+        //Destroy(frames[1].gameObject);
+        //frames.Remove(frames[1]);
+        setObstacles();
+    }
+
+    private void setObstacles()
+    {
+        if (obstacles.Length == 0) return;
+
+    }
+
+    private void obstacle(Frame frame)
+    {
+        if (obstacles.Length == 0) return;
+        Vector3 pos = frame.Location;
+        Destroy(frame.gameObject);
+        frames.Remove(frame);
+        GameObject g = Instantiate(obstacles[UnityEngine.Random.Range(0, obstacles.Length)], location);
+        g.transform.position = pos;
     }
 
     private void setScreen(Transform screenTransform)
