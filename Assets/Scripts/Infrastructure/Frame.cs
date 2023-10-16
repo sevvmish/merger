@@ -17,6 +17,7 @@ public class Frame : MonoBehaviour
 
     private GameManager gm;
     private bool isShaking;
+    private int howManyDeletings;
 
     private void Start()
     {
@@ -24,6 +25,18 @@ public class Frame : MonoBehaviour
         appearEffect.SetActive(false);
         greatEffect.SetActive(false);
         deleteEffect.SetActive(false);
+    }
+
+    public void SetStatusOnlyForTutorial(bool isBusy)
+    {
+        if (isBusy)
+        {
+            FrameType = FrameTypes.seven;
+        }
+        else
+        {
+            FrameType = FrameTypes.none;
+        }
     }
 
     public bool ShowGhost()
@@ -128,6 +141,7 @@ public class Frame : MonoBehaviour
     private IEnumerator playDelete()
     {
         gm.IsVisualBusy = true;
+        howManyDeletings++;
         deleteEffect.SetActive(false);
         deleteEffect.SetActive(true);
         visualsPack.transform.DOScale(Vector3.zero, Globals.CREATE_DELETE_TIME);
@@ -139,6 +153,7 @@ public class Frame : MonoBehaviour
 
         yield return new WaitForSeconds(1f);        
         visualsPack.transform.localScale = Vector3.one;
+        howManyDeletings--;
         deleteEffect.SetActive(false);
     }
 
@@ -179,6 +194,11 @@ public class Frame : MonoBehaviour
     {
         
         while(gm.IsVisualBusy)
+        {
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        while (howManyDeletings > 0)
         {
             yield return new WaitForSeconds(Time.deltaTime);
         }

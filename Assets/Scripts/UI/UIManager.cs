@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform framePointer;
     [SerializeField] private RectTransform informerImage1;
     private Vector2 informerImage1Base;
+    private bool isFrameShaking;
 
     [Header("Level messaging")]
     [SerializeField] private GameObject messagingPanel;
@@ -22,6 +23,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private RectTransform mainTextRect;
     [SerializeField] private Button continueButton;
     [SerializeField] private Button restartButton;
+    [SerializeField] private Button skipButton;
+    [SerializeField] private TextMeshProUGUI skipButtonText;
 
 
     [Header("Score")]
@@ -48,19 +51,30 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject bonusFVX;
 
     [SerializeField] private Interstitial interstitial;
+    [SerializeField] private Rewarded rewarded;
 
     [Header("bonus texter")]
     [SerializeField] private GameObject bonusTextExample;
     [SerializeField] private Transform locationaForBonusText;
     private ObjectPool bonusPlusDataPool;
     private bool isShowLeft;
+    [SerializeField] private GameObject bonusesPanel;
+    [SerializeField] private Button[] bonusesButtons;
+    [SerializeField] private GameObject[] bonusesButtonsRewardedIcons;
+    [SerializeField] private HorizontalLayoutGroup bonusesButtonsHorLayout;
+    private int buttonBonusNumber;
 
     private Queue<GameEventsType> gameEventsPack = new Queue<GameEventsType>();
+    private Queue<GameEventsType> bonusEventsPack = new Queue<GameEventsType>();
     private GameManager gm;
     private bool isInitial;
     private bool isChangingInProgress;
-    private Translation lang;
-    
+    private bool isBonusTaken;
+    private HashSet<int> buttonsForReward = new HashSet<int>();
+
+    [SerializeField] private GameObject arrowExample;
+    private GameObject arrow;
+    private bool isArrow;
 
     private void Start()
     {
@@ -69,13 +83,13 @@ public class UIManager : MonoBehaviour
 
         Off();
 
-        
-        lang = Localization.GetInstanse(Globals.CurrentLanguage).GetCurrentTranslation();
+        arrow = Instantiate(arrowExample);
+        arrow.SetActive(false);
 
         informerImage1 = informForFutureImages[0].GetComponent<RectTransform>();
         informerImage1Base = informerImage1.sizeDelta;
 
-        bonusButton.onClick.AddListener(() => 
+        bonusButton.onClick.AddListener(() =>
         {
             if (gm.BonusProgress < 0.99f)
             {
@@ -84,30 +98,94 @@ public class UIManager : MonoBehaviour
             }
 
             SoundController.Instance.PlayUISound(SoundsUI.click);
-            gm.SpendBonusActivated();
+
+            bonusesPanel.SetActive(true);
+
+            GameEventsType[] pack = gm.GetCurrentBonuses;
+            isBonusTaken = false;
+
+            if (pack.Length <= 2)
+            {
+                buttonsForReward.Clear();
+            }
+            else if (pack.Length <= 3)
+            {
+                buttonsForReward.Add(2);
+            }
+            else if (pack.Length <= 4)
+            {
+                buttonsForReward.Add(2);
+                buttonsForReward.Add(3);
+            }
+            else if (pack.Length <= 5)
+            {                
+                buttonsForReward.Add(3);
+                buttonsForReward.Add(4);
+            }
+
+            if ((DateTime.Now - Globals.TimeWhenLastRewardedWas).TotalSeconds < Globals.REWARDED_COOLDOWN)
+            {
+                buttonsForReward.Clear();
+            }
+
+            foreach (var item in buttonsForReward)
+            {
+                print("IN: " + item);
+            }
+
+            for (int i = 0; i < bonusesButtons.Length; i++)
+            {
+                if (i < pack.Length)
+                {
+                    bonusesButtons[i].gameObject.SetActive(true);
+                    bonusesButtons[i].GetComponent<Image>().sprite = getSpriteByGameEvent(pack[i]);
+                    if (buttonsForReward.Contains(i))
+                    {
+                        bonusesButtonsRewardedIcons[i].SetActive(true);
+                    }
+                    else
+                    {
+                        bonusesButtonsRewardedIcons[i].SetActive(false);
+                    }
+                }
+                else
+                {
+                    bonusesButtonsRewardedIcons[i].SetActive(false);
+                    bonusesButtons[i].gameObject.SetActive(false);
+                }
+            }
         });
+
+        //===============BONUSES========================
+        bonusesButtons[0].onClick.AddListener(() =>
+        {
+            handleButton(0);
+        });
+        bonusesButtons[1].onClick.AddListener(() =>
+        {
+            handleButton(1);
+        });
+        bonusesButtons[2].onClick.AddListener(() =>
+        {
+            handleButton(2);
+        });
+        bonusesButtons[3].onClick.AddListener(() =>
+        {
+            handleButton(3);
+        });
+        bonusesButtons[4].onClick.AddListener(() =>
+        {
+            handleButton(4);
+        });
+        //==============================================
 
         continueButton.onClick.AddListener(() =>
         {
             SoundController.Instance.PlayUISound(SoundsUI.click);
             Off();
-            if (Globals.CurrentLevel > 1 
-            && (DateTime.Now - Globals.TimeWhenLastInterstitialWas).TotalSeconds > Globals.INTERSTITIAL_COOLDOWN)
-            {
-                interstitial.OnEnded = GameManager.Instance.StartSimpleGame;
-                interstitial.ShowInterstitialVideo();
-            }
-            else
-            {
-                GameManager.Instance.StartSimpleGame();
-            }
-            
-        });
-
-        restartButton.onClick.AddListener(() =>
-        {
-            SoundController.Instance.PlayUISound(SoundsUI.click);
-            Off();
+#if UNITY_EDITOR
+            GameManager.Instance.StartSimpleGame();
+#elif UNITY_WEBGL
             if (Globals.CurrentLevel > 1
             && (DateTime.Now - Globals.TimeWhenLastInterstitialWas).TotalSeconds > Globals.INTERSTITIAL_COOLDOWN)
             {
@@ -118,7 +196,164 @@ public class UIManager : MonoBehaviour
             {
                 GameManager.Instance.StartSimpleGame();
             }
+#endif
+
         });
+
+        restartButton.onClick.AddListener(() =>
+        {
+            SoundController.Instance.PlayUISound(SoundsUI.click);
+            Off();
+
+
+            if (Globals.CurrentLevel > 1
+            && (DateTime.Now - Globals.TimeWhenLastInterstitialWas).TotalSeconds > Globals.INTERSTITIAL_COOLDOWN)
+            {
+                interstitial.OnEnded = GameManager.Instance.StartSimpleGame;
+                interstitial.ShowInterstitialVideo();
+            }
+            else
+            {
+                GameManager.Instance.StartSimpleGame();
+            }
+
+        });
+
+        skipButton.onClick.AddListener(() =>
+        {
+            SoundController.Instance.PlayUISound(SoundsUI.click);
+            rewarded.OnError = GameManager.Instance.StartSimpleGame;
+            rewarded.OnRewardedEndedOK = skipAndContinue;
+            rewarded.ShowRewardedVideo();
+        });
+    }
+
+    private void handleButton(int buttonNumber)
+    {
+        if (isBonusTaken) return;
+        isBonusTaken = true;
+        buttonBonusNumber = buttonNumber;
+
+        
+
+        if (bonusesButtonsRewardedIcons[buttonNumber].activeSelf)
+        {
+            rewarded.OnError = () => { isBonusTaken = false; };
+            rewarded.OnRewardedEndedOK = agreeButtonBonus;
+            rewarded.ShowRewardedVideo();
+        }
+        else
+        {
+            agreeButtonBonus();
+        }        
+    }
+
+    private void agreeButtonBonus()
+    {
+        gm.SpendBonusActivated();
+        showBonusButtonEffect(bonusesButtons[buttonBonusNumber]);
+        addBonus(gm.GetCurrentBonuses[buttonBonusNumber]);
+
+        if (Globals.CurrentLevel > 0 && Globals.CurrentLevel <= 3 && !isArrow)
+        {
+            isArrow = true;
+            
+            arrow.SetActive(true);
+            
+            for (int i = 0; i < gm.GetBaseFrames.Count; i++)
+            {
+                if (!gm.GetBaseFrames[i].IsEmpty())
+                {
+                    arrow.transform.position = gm.GetBaseFrames[i].gameObject.transform.position + Vector3.up * 1.5f;
+                    break;
+                }
+            }
+        }
+    }
+
+    private void addBonus(GameEventsType bonus)
+    {
+        SoundController.Instance.PlayUISound(SoundsUI.positive);
+        gm.AddBonus(bonus);
+
+        int index = 0;
+        foreach (var item in gm.GetCurrentEventPack)
+        {
+            if (index < informForFutureImages.Length)
+            {
+                informForFutureImages[index].sprite = getSpriteByGameEvent(item);
+                index++;
+            }
+        }
+
+
+        //gm.CurrentGameEventToProceed = bonus;
+
+
+        /*
+        gm.AddBonus(bonus);
+             
+        if (bonus == GameEventsType.delete_house || bonus == GameEventsType.up_house || bonus == GameEventsType.replace_house)
+        {
+            informForFutureImages[0].sprite = getSpriteByGameEvent(gm.CurrentGameEventToProceed);
+
+            int index = 1;
+            foreach (var item in gm.GetCurrentEventPack)
+            {
+                if (index < informForFutureImages.Length)
+                {
+                    informForFutureImages[index].sprite = getSpriteByGameEvent(item);
+                    index++;
+                }
+            }
+        }
+        else
+        {            
+            int index = 0;
+            foreach (var item in gm.GetCurrentEventPack)
+            {
+                if (index < informForFutureImages.Length)
+                {
+                    informForFutureImages[index].sprite = getSpriteByGameEvent(item);
+                    index++;
+                }
+            }
+        }*/
+
+    }
+
+    private void showBonusButtonEffect(Button button)
+    {
+        StartCoroutine(playBonusButtonEffect(button.GetComponent<RectTransform>()));
+    }
+    private IEnumerator playBonusButtonEffect(RectTransform rect)
+    {
+        bonusesButtonsHorLayout.enabled = false;
+        Vector2 oldPos = rect.anchoredPosition;
+        rect.DOAnchorPos(new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y + 250), 0.4f).SetEase(Ease.InOutQuad);
+        rect.DOScale(Vector3.one * 2.5f, 0.4f).SetEase(Ease.InOutElastic);
+        yield return new WaitForSeconds(0.4f);
+
+        rect.GetComponent<Image>().DOFade(0, 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        rect.anchoredPosition = oldPos;
+        rect.localScale = Vector3.one;
+        rect.GetComponent<Image>().DOFade(1, 0);
+        bonusesPanel.SetActive(false);
+        bonusesButtonsHorLayout.enabled = true;
+    }
+
+    private void skipAndContinue()
+    {
+        Off();
+        GP_Analytics.Goal("skip", Globals.CurrentLevel.ToString());
+        Globals.CurrentLevel++;
+        if (Globals.MainPlayerData.Progress1 < Globals.CurrentLevel)
+        {
+            Globals.MainPlayerData.Progress1 = Globals.CurrentLevel;
+            SaveLoadManager.Save();
+        }
+        GameManager.Instance.StartSimpleGame();
     }
 
     public void SetMessagingLevel(bool isON)
@@ -129,11 +364,11 @@ public class UIManager : MonoBehaviour
 
             if (Globals.CurrentLevel == 0)
             {
-                mainTexterText.text = lang.TutorialText;
+                mainTexterText.text = Globals.lang.TutorialText;
             }
             else
             {
-                mainTexterText.text = lang.LevelText + " " + Globals.CurrentLevel;
+                mainTexterText.text = Globals.lang.LevelText + " " + Globals.CurrentLevel;
             }
 
             
@@ -151,7 +386,7 @@ public class UIManager : MonoBehaviour
     {
         SoundController.Instance.PlayUISound(SoundsUI.win);
         messagingPanel.SetActive(true);
-        mainTexterText.text = lang.WinText;
+        mainTexterText.text = Globals.lang.WinText;
         StartCoroutine(playWin());
     }
     private IEnumerator playWin()
@@ -176,7 +411,8 @@ public class UIManager : MonoBehaviour
     {
         SoundController.Instance.PlayUISound(SoundsUI.lose);
         messagingPanel.SetActive(true);
-        mainTexterText.text = lang.LoseText;
+        mainTexterText.text = Globals.lang.LoseText;
+        skipButtonText.text = Globals.lang.SkipText;
         StartCoroutine(playLose());
 
     }
@@ -195,6 +431,12 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(0.31f);
 
         restartButton.gameObject.SetActive(true);
+
+        if (Globals.CurrentLevel > 1
+            && (DateTime.Now - Globals.TimeWhenLastRewardedWas).TotalSeconds > Globals.REWARDED_COOLDOWN && Globals.IsPlayingSimpleGame)
+        {
+            skipButton.gameObject.SetActive(true);
+        }
     }
 
     public void ShowBonusAddedText(int amount)
@@ -243,6 +485,8 @@ public class UIManager : MonoBehaviour
 
     public void Off()
     {
+        bonusesButtonsHorLayout.enabled = true;
+        buttonsForReward.Clear();
         mainTextRect.DOAnchorPos(Vector2.zero, 0);
         informerPanel.SetActive(false);
         bonusButton.gameObject.SetActive(false);
@@ -251,6 +495,9 @@ public class UIManager : MonoBehaviour
         messagingPanel.SetActive(false);
         continueButton.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(false);
+        skipButton.gameObject.SetActive(false);
+        bonusesPanel.SetActive(false);
+        isArrow = false;
     }
 
     public void SetData(Queue<GameEventsType> gameEventsPack)
@@ -273,6 +520,11 @@ public class UIManager : MonoBehaviour
 
     private void eventUpdated()
     {
+        if (Globals.CurrentLevel > 0 && Globals.CurrentLevel <= 3 && isArrow)
+        {
+            if (arrow.activeSelf) arrow.SetActive(false);
+        }
+
         StartCoroutine(playEventUpdate());
     }
     private IEnumerator playEventUpdate()
@@ -384,10 +636,13 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator playShake(Transform _transform)
     {
+        if (isFrameShaking) yield break;
+        isFrameShaking = true;
         while (true)
         {
             _transform.DOShakeScale(0.3f, 0.1f, 30).SetEase(Ease.InOutElastic);
             yield return new WaitForSeconds(1f);
+            _transform.localScale = Vector3.one;
         }
     }
 }

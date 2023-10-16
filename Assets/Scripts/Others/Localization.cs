@@ -26,14 +26,17 @@ public class Localization
         switch (lang)
         {
             case "Russian":
+                
                 translation = Resources.Load<Translation>("languages/russian");
                 break;
 
             case "English":
+                
                 translation = Resources.Load<Translation>("languages/english");
                 break;
 
             default:
+                
                 translation = Resources.Load<Translation>("languages/russian");
                 break;
         }
@@ -41,9 +44,9 @@ public class Localization
 
     private static Localization instance;
     public static Localization GetInstanse(string lang)
-    {
+    {        
         if (instance == null)
-        {
+        {            
             instance = new Localization(lang);
         }
 

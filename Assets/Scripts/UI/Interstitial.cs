@@ -16,7 +16,7 @@ public class Interstitial : MonoBehaviour
 
     public void ShowInterstitialVideo()
     {
-        GP_Ads.ShowFullscreen(advStarted, advClosed);        
+        GP_Ads.ShowFullscreen(advStarted, advClosed);
     }
 
     private void advStarted()

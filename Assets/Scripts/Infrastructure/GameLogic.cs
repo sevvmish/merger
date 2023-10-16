@@ -52,15 +52,9 @@ public class GameLogic : MonoBehaviour
         return result;        
     }
 
-    private GameEventsType GetCurrentBonus()
-    {
-        GameEventsType result = GameEventsType.house_one;
-
-        result = (GameEventsType)UnityEngine.Random.Range(4, 11);
-
-        gameEventsArchive.Add(result);
-
-        return result;
+    public GameEventsType[] GetCurrentBonuses()
+    {                        
+        return bonusContainer;
     }
 
     private void customize()
@@ -68,35 +62,71 @@ public class GameLogic : MonoBehaviour
         if (Globals.CurrentLevel < 5)
         {
             levelContainer = new GameEventsType[] { GameEventsType.house_one };
-            bonusContainer = new GameEventsType[] { GameEventsType.house_one };
+
+            switch(Globals.CurrentLevel)
+            {
+                case 1:
+                    bonusContainer = new GameEventsType[] { GameEventsType.up_house};
+                    break;
+                case 2:
+                    bonusContainer = new GameEventsType[] { GameEventsType.delete_house};
+                    break;
+                case 3:
+                    bonusContainer = new GameEventsType[] { GameEventsType.replace_house};
+                    break;
+                case 4:
+                    bonusContainer = new GameEventsType[] { GameEventsType.replace_house, GameEventsType.up_house };
+                    break;
+                
+            }
         }
         else if(Globals.CurrentLevel < 10)
         {
-            levelContainer = new GameEventsType[] { GameEventsType.house_one, GameEventsType.house_two };
-            bonusContainer = new GameEventsType[] { GameEventsType.house_one };
+            levelContainer = new GameEventsType[] { GameEventsType.house_two, GameEventsType.house_two, GameEventsType.house_one };
+            
+            if (Globals.CurrentLevel < 7)
+            {
+                bonusContainer = new GameEventsType[] { GameEventsType.house_two, GameEventsType.replace_house, GameEventsType.delete_house };
+            }
+            else
+            {
+                bonusContainer = new GameEventsType[] { GameEventsType.house_two, GameEventsType.house_three, (GameEventsType)UnityEngine.Random.Range(9,11), GameEventsType.delete_house };
+            }
+            
         }
-        else if (Globals.CurrentLevel < 15)
+        else if (Globals.CurrentLevel < 60)
         {
-            levelContainer = new GameEventsType[] { GameEventsType.house_one, GameEventsType.house_two , GameEventsType.house_three};
-            bonusContainer = new GameEventsType[] { GameEventsType.house_one };
+            levelContainer = new GameEventsType[] { GameEventsType.house_one, GameEventsType.house_two , GameEventsType.house_three, GameEventsType.house_one, GameEventsType.house_two };
+            
+            if (Globals.CurrentLevel < 35)
+            {
+                bonusContainer = new GameEventsType[] { GameEventsType.house_two, GameEventsType.house_three, (GameEventsType)UnityEngine.Random.Range(9, 11), GameEventsType.delete_house };
+            }
+            else
+            {
+                bonusContainer = new GameEventsType[] { GameEventsType.house_two, GameEventsType.house_three, GameEventsType.up_house, GameEventsType.replace_house, GameEventsType.delete_house };
+            }
         }
-        else if (Globals.CurrentLevel < 20)
-        {
-            levelContainer = new GameEventsType[] { GameEventsType.house_one };
-            bonusContainer = new GameEventsType[] { GameEventsType.house_one };
-        }
+       
     }
 
     public static int GetNeededScoreByLevel(int level)
     {
-        int[] scores = new int[] {20, 50, 100, 150, 200, 250, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 };
+        int[] scores = new int[] {1000, 
+            18,  18,  18,  30, 30, 35, 30, 30, 30, 40, //1 - 10
+            40,  40,  50,  40, 45, 45, 45, 45, 45, 50, //11 - 20
+            300, 300, 300, 300, 300, 300, 300 };
 
         return scores[level];
     }
 
     public static int GetNeededBonusByLevel(int level)
     {
-        int[] scores = new int[] { 20, 30, 40, 50, 60, 70, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80 };
+        int[] scores = new int[] { 500, 
+            10,  10,  10, 12, 12, 12, 12, 12, 12, 15, //1-10
+            15,  15,  15, 18, 20, 20, 20, 20, 20, 20, //11-20
+            80, 80, 80, 80, 80, 80, 80, 80, 80, 80, //21-30
+            80, 80, 80 };
 
         return scores[level];
     }

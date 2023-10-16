@@ -19,3 +19,13 @@ MonoBehaviour:
   LoseText: BAD LUCK!
   LevelText: Level
   TutorialText: Tutorial
+  SkipText: Skip difficult level.
+  TutorialText1: Tap on the free field in order to create new building.
+  TutorialText2: Watch and consider the order of location of the new buildings.
+  TutorialText3: Similar buildings merge if they are more then 2 and located near
+    each other horizontally and/or vertically.
+  TutorialText4: For win you need to merge as more buildings as possible. Watch your
+    progress.
+  TutorialText5: And... Don't forget the bonus. It can be activated after merging
+    enought buildings.
+  TutorialText6: It is time to test yourself.

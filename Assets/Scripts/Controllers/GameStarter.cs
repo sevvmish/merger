@@ -31,6 +31,8 @@ public class GameStarter : MonoBehaviour
     [SerializeField] private Rewarded rewarded;
     [SerializeField] private Interstitial interstitial;
 
+
+    [SerializeField] private GameObject tutorial;
     private Translation lang;
 
     // Start is called before the first frame update
@@ -48,6 +50,7 @@ public class GameStarter : MonoBehaviour
         playButton.gameObject.SetActive(false);
         customGameButton.gameObject.SetActive(false);
         rewardedIcon.SetActive(false);
+        tutorial.SetActive(false);
 
         playButton.onClick.AddListener(() => 
         {
@@ -113,10 +116,10 @@ public class GameStarter : MonoBehaviour
 
             if (GP_Platform.Type().ToString() == "YANDEX")
             {
-                //if (!Globals.IsMobilePlatform)
-                //{
+                if (!Globals.IsMobilePlatform)
+                {
                     GP_Ads.ShowSticky();
-                //}
+                }
             }
             else
             {
@@ -144,7 +147,6 @@ public class GameStarter : MonoBehaviour
                 Globals.TimeWhenStartedPlaying = DateTime.Now;
                 Globals.TimeWhenLastInterstitialWas = DateTime.Now;
                 Globals.TimeWhenLastRewardedWas = DateTime.Now;
-                Globals.TimeWhenLastRewardedInMainMenuWas = DateTime.Now;
             }
 
             Localize();
@@ -172,9 +174,12 @@ public class GameStarter : MonoBehaviour
         {
             customGameImage.sprite = activeButtonSprite;
             rewardedIcon.SetActive(true);
+            tutorial.SetActive(false);
         }
         else
         {
+            tutorial.SetActive(true);
+            tutorial.GetComponent<Tutorial>().SetTutorial();
             customGameImage.sprite = inactiveButtonSprite;
         }
     }
@@ -199,6 +204,7 @@ public class GameStarter : MonoBehaviour
     private void Localize()
     {
         lang = Localization.GetInstanse(Globals.CurrentLanguage).GetCurrentTranslation();
+        Globals.lang = lang;
 
         playButtonText.text = lang.PlayText;
         bonusButtonText.text = lang.BonusText;

@@ -44,7 +44,7 @@ public class InputController : MonoBehaviour
             }
         }
 
-        if (Globals.IsMobilePlatform && gm.CurrentGameEventToProceed != GameEventsType.replace_house) check();
+        if (!Globals.IsMobilePlatform && gm.CurrentGameEventToProceed != GameEventsType.replace_house) check();
     }
 
     private void check()

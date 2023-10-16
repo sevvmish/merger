@@ -3,6 +3,7 @@ using GamePush;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,8 +23,9 @@ public class GameManager : MonoBehaviour
     public bool IsGameStarted = false;
     public bool IsVisualBusy;
     public float PointerClickedCount;
+    public List<Frame> GetBaseFrames => baseFrames;
+    public GameEventsType[] GetCurrentBonuses => gameLogic.GetCurrentBonuses();
 
-    
     public int Score { get; private set; }
     public float ScoreProgress => (float)Score / ((float)neededScore + 0.001f);
     public float BonusProgress => (float)CurrentBonus / ((float)bonusNeeded + 0.001f);
@@ -44,7 +46,9 @@ public class GameManager : MonoBehaviour
     private int neededScore;
     private int bonusNeeded;
 
-    public GameEventsType CurrentGameEventToProceed { get; private set; }
+    public Queue<GameEventsType> GetCurrentEventPack => gameEventsPack;
+
+    public GameEventsType CurrentGameEventToProceed => gameEventsPack.Peek();
     public Action OnEventUpdated;
     public Action OnGameEnded;
 
@@ -100,6 +104,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void StopForTutorial()
+    {
+        stopTheGame();
+    }
+
     private void stopTheGame()
     {
         GP_Game.GameplayStop();
@@ -129,7 +138,7 @@ public class GameManager : MonoBehaviour
         frameMaker = GetComponent<FrameMaker>();
         buildingsLocations = new Dictionary<Vector2, Frame>();
         gameEventsPack = new Queue<GameEventsType>();
-        OnEventUpdated += showCurrentGameEvent;
+        //OnEventUpdated += showCurrentGameEvent;
         neededScore = GameLogic.GetNeededScoreByLevel(Globals.CurrentLevel);
         bonusNeeded = GameLogic.GetNeededBonusByLevel(Globals.CurrentLevel);
         //===================================
@@ -144,10 +153,35 @@ public class GameManager : MonoBehaviour
 
         gameLogic.SetData(baseFrames, gameEventsPack);
         UI.SetData(gameEventsPack);
-        showCurrentGameEvent();
+        //showCurrentGameEvent();
     }
     
+    
+    public void AddBonus(GameEventsType bonus)
+    {
+        List<GameEventsType> currentBonuses = new List<GameEventsType>(gameEventsPack.ToArray());
+        currentBonuses.Insert(0, bonus);
+        gameEventsPack.Clear();
 
+        for (int i = 0; i < currentBonuses.Count-1; i++)
+        {
+            gameEventsPack.Enqueue(currentBonuses[i]);            
+        }
+
+        
+        /*
+        if (bonus == GameEventsType.delete_house || bonus == GameEventsType.up_house || bonus == GameEventsType.replace_house)
+        {
+            //CurrentGameEventToProceed = gameEventsPack.Peek();
+            getNextGameEvent();
+        }        
+        else
+        {
+            //CurrentGameEventToProceed = gameEventsPack.Peek();
+            getNextGameEvent();
+        }*/
+    }
+    
 
     public void UpdateState(Frame lastModifiedFrame)
     {
@@ -176,6 +210,7 @@ public class GameManager : MonoBehaviour
             //print("score: " + scoreCount);
             Score += scoreCount;
             CurrentBonus += scoreCount;
+            print("SCORE: " + Score);
             UI.ShowBonusAddedText(scoreCount);
             lastModifiedFrame.AddBuilding(newFrame, true, buildingToAct.Count);
             UpdateState(lastModifiedFrame);
@@ -255,6 +290,24 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {        
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Score += 1000000;
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            print("curr: " + CurrentGameEventToProceed);
+
+            int index = 0;
+            foreach (var item in gameEventsPack)
+            {
+                print(index + ": " + item);
+                index++;
+            }
+        }
+
+
         if (PointerClickedCount > 0) PointerClickedCount -= Time.deltaTime;
 
         if (_timer > 0.3f && IsGameStarted && !IsVisualBusy && PointerClickedCount <= 0)
@@ -477,10 +530,10 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void showCurrentGameEvent()
-    {
-        CurrentGameEventToProceed = gameEventsPack.Peek();
-    }
+    //private void showCurrentGameEvent()
+    //{
+     //   CurrentGameEventToProceed = gameEventsPack.Peek();
+    //}
     
 
     private IEnumerator playShake(Transform _transform)
