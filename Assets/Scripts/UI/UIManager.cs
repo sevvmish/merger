@@ -43,6 +43,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Sprite eventDeleteSprite;
     [SerializeField] private Sprite eventUpSprite;
     [SerializeField] private Sprite eventReplaceSprite;
+    [SerializeField] private Sprite eventRandSmallSprite;
+    [SerializeField] private Sprite eventRandBigSprite;
     [SerializeField] private Sprite blanck;
 
     [Header("Houses sprites")]
@@ -204,8 +206,9 @@ public class UIManager : MonoBehaviour
         {
             SoundController.Instance.PlayUISound(SoundsUI.click);
             Off();
-
-
+#if UNITY_EDITOR
+            GameManager.Instance.StartSimpleGame();
+#elif UNITY_WEBGL
             if (Globals.CurrentLevel > 1
             && (DateTime.Now - Globals.TimeWhenLastInterstitialWas).TotalSeconds > Globals.INTERSTITIAL_COOLDOWN)
             {
@@ -216,6 +219,7 @@ public class UIManager : MonoBehaviour
             {
                 GameManager.Instance.StartSimpleGame();
             }
+#endif
 
         });
 
@@ -629,6 +633,15 @@ public class UIManager : MonoBehaviour
 
             case GameEventsType.replace_house:
                 return eventReplaceSprite;
+
+            case GameEventsType.random_small:
+                return eventRandSmallSprite;
+
+            case GameEventsType.random_big:
+                return eventRandBigSprite;
+
+            case GameEventsType.random_medium:
+                return eventRandSmallSprite;
         }
 
         return null;

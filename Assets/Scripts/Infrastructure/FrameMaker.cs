@@ -141,23 +141,31 @@ public class FrameMaker : MonoBehaviour
         {
             obstacle(new[] { frames[0], frames[3], frames[12], frames[15] });
         }
+        else if (Globals.CurrentLevel < 34)
+        {
+            obstacle(new[] { frames[3], frames[12], frames[15], frames[UnityEngine.Random.Range(4, 12)] });
+        }
+        else if (Globals.CurrentLevel < 38)
+        {
+            obstacle(new[] { frames[0], frames[3], frames[12], frames[UnityEngine.Random.Range(4, 12)] });
+        }
         else if (Globals.CurrentLevel < 50)
         {
             obstacle(new[] { frames[0], frames[3], frames[12], frames[15], frames[UnityEngine.Random.Range(4, 12)] });
         }
-        else if (Globals.CurrentLevel < 60)
-        {
-            obstacle(new[] { frames[0], frames[3], frames[12], frames[UnityEngine.Random.Range(4, 9)], frames[UnityEngine.Random.Range(8, 12)] });            
-        }
-        else if (Globals.CurrentLevel < 70)
+        else if (Globals.CurrentLevel < 60) //5 * 5
         {
             obstacle(new[] { frames[0], frames[4], frames[20], frames[24] });            
         }
-        else if (Globals.CurrentLevel < 80)
+        else if (Globals.CurrentLevel < 70) //with centered
         {
             obstacle(new[] { frames[0], frames[4], frames[20], frames[24], frames[12] });            
         }
-        else if (Globals.CurrentLevel < 100)
+        else if (Globals.CurrentLevel < 80) //random centred 1
+        {
+            obstacle(new[] { frames[0], frames[4], frames[20], frames[24], frames[UnityEngine.Random.Range(5, 20)] });            
+        }
+        else if (Globals.CurrentLevel < 90)
         {
             obstacle(new[] { frames[0], frames[4], frames[20], frames[24], frames[12], frames[UnityEngine.Random.Range(5, 12)], frames[UnityEngine.Random.Range(13, 20)] });            
         }

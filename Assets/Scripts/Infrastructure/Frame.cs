@@ -9,9 +9,12 @@ public class Frame : MonoBehaviour
     [SerializeField] private GameObject appearEffect;
     [SerializeField] private GameObject greatEffect;
     [SerializeField] private GameObject deleteEffect;
+    [SerializeField] private GameObject smallRandomEffect;
+    [SerializeField] private GameObject bigRandomEffect;
     [SerializeField] private GameObject[] ghosts;
     public FrameTypes FrameType { get; private set; } = FrameTypes.none;
     public Vector2 Location => new Vector2(transform.localPosition.x, transform.localPosition.z);
+        
     public bool IsEmpty() => FrameType == FrameTypes.none;
     public bool IsBuildingGhostShown { get; private set; }
 
@@ -25,6 +28,8 @@ public class Frame : MonoBehaviour
         appearEffect.SetActive(false);
         greatEffect.SetActive(false);
         deleteEffect.SetActive(false);
+        smallRandomEffect.SetActive(false);
+        bigRandomEffect.SetActive(false);
     }
 
     public void SetStatusOnlyForTutorial(bool isBusy)
@@ -82,6 +87,13 @@ public class Frame : MonoBehaviour
         }        
     }
 
+    public void CheckBuilding()
+    {
+        if (!isActivatedVisualByType(FrameType))
+        {
+            activateVisualByType(FrameType);
+        }
+    }
 
     private void resetVisual()
     {
@@ -119,6 +131,58 @@ public class Frame : MonoBehaviour
         StartCoroutine(playShow(true, 6));
     }
 
+    public void AddRandom(GameEventsType _type)
+    {
+        StartCoroutine(playRandom(_type));
+    }
+    private IEnumerator playRandom(GameEventsType _type)
+    {
+        while (gm.IsVisualBusy)
+        {
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        while (howManyDeletings > 0)
+        {
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        gm.IsVisualBusy = true;
+        GameObject g = default;
+        FrameTypes building = FrameTypes.none;
+
+        switch(_type)
+        {
+            case GameEventsType.random_small:
+                g = smallRandomEffect;
+                building = (FrameTypes)UnityEngine.Random.Range(1, 4);
+                break;
+
+            case GameEventsType.random_big:
+                g = bigRandomEffect;
+                building = (FrameTypes)UnityEngine.Random.Range(4, 7);
+                break;
+
+            case GameEventsType.random_medium:
+                g = smallRandomEffect;
+                building = (FrameTypes)UnityEngine.Random.Range(3, 5);
+                break;
+        }
+
+        g.SetActive(true);
+        g.transform.localScale = Vector3.zero;
+        g.transform.DOScale(Vector3.one, Globals.CREATE_DELETE_TIME).SetEase(Ease.InOutElastic);
+        yield return new WaitForSeconds(Globals.CREATE_DELETE_TIME);
+        AddBuilding(building);
+        gm.IsVisualBusy = false;
+        yield return new WaitForSeconds(0.5f);
+        g.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.Linear);
+        yield return new WaitForSeconds(0.3f);
+
+        g.transform.localScale = Vector3.one;
+        g.SetActive(false);        
+    }
+
     public void ChangeBuilding(FrameTypes newFrame)
     {        
         resetGhost();
@@ -150,10 +214,11 @@ public class Frame : MonoBehaviour
         activateVisualByType(FrameTypes.none);
 
         gm.IsVisualBusy = false;
+        howManyDeletings--;
 
         yield return new WaitForSeconds(1f);        
         visualsPack.transform.localScale = Vector3.one;
-        howManyDeletings--;
+        
         deleteEffect.SetActive(false);
     }
 
@@ -229,6 +294,10 @@ public class Frame : MonoBehaviour
         visualsPack.transform.DOKill();
         visualsPack.transform.localScale = Vector3.one;
         visualsPack.transform.DOShakeScale(0.2f, 0.8f, 30).SetEase(Ease.OutElastic);
+
+        yield return new WaitForSeconds(Globals.CREATE_DELETE_TIME);
+        if (Globals.CurrentLevel > 0) gm.CheckFramesForError();
+
         yield return new WaitForSeconds(1.5f);
 
         if (appearEffect.activeSelf) appearEffect.SetActive(false);
@@ -258,6 +327,11 @@ public class Frame : MonoBehaviour
     private void activateVisualByType(FrameTypes _type)
     {        
         visualsPack.transform.GetChild((int)_type).gameObject.SetActive(true);
+    }
+
+    private bool isActivatedVisualByType(FrameTypes _type)
+    {
+        return visualsPack.transform.GetChild((int)_type).gameObject.activeSelf;
     }
 
     private void activateGhostByType(FrameTypes _type)

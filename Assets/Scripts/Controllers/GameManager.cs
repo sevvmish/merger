@@ -90,6 +90,17 @@ public class GameManager : MonoBehaviour
         initTheGame();
     }
 
+    public void CheckFramesForError()
+    {
+        for (int i = 0; i < baseFrames.Count; i++)
+        {
+            if (!baseFrames[i].IsEmpty())
+            {
+                baseFrames[i].CheckBuilding();
+            }
+        }
+    }
+
     public void Restart()
     {
         stopTheGame();
@@ -122,6 +133,9 @@ public class GameManager : MonoBehaviour
     private void initTheGame()
     {
         GP_Game.GameplayStart();
+
+        if (Globals.IsSoundOn) StartCoroutine(muteLittle());
+
         IsGameStarted = true;
         _timer = 0;
         Score = 0;
@@ -154,6 +168,12 @@ public class GameManager : MonoBehaviour
         gameLogic.SetData(baseFrames, gameEventsPack);
         UI.SetData(gameEventsPack);
         //showCurrentGameEvent();
+    }
+    private IEnumerator muteLittle()
+    {
+        AudioListener.volume = 0;
+        yield return new WaitForSeconds(0.5f);
+        AudioListener.volume = 1;
     }
     
     
@@ -370,6 +390,7 @@ public class GameManager : MonoBehaviour
         {
             if (!frame.IsEmpty())
             {
+                SoundController.Instance.PlayUISound(SoundsUI.error);
                 return false;
             }
 
@@ -399,6 +420,7 @@ public class GameManager : MonoBehaviour
             }
             if (!isOK)
             {
+                SoundController.Instance.PlayUISound(SoundsUI.error);
                 getNextGameEvent();
                 return true;
             }
@@ -432,6 +454,7 @@ public class GameManager : MonoBehaviour
             }
             if (!isOK)
             {
+                SoundController.Instance.PlayUISound(SoundsUI.error);
                 getNextGameEvent();
                 return true;
             }
@@ -466,6 +489,7 @@ public class GameManager : MonoBehaviour
             }
             if (!isOK)
             {
+                SoundController.Instance.PlayUISound(SoundsUI.error);
                 getNextGameEvent();
                 return true;
             }
@@ -510,13 +534,21 @@ public class GameManager : MonoBehaviour
                 frameToReplaceForReplacement = null;
                 return true;
             }
-
-            //GameEventsType nextEvent = getNextGameEvent();
-            //frame.UpdateBuilding();
-            //UpdateState(frame);
-            //return true;
         }
 
+        if (CurrentGameEventToProceed == GameEventsType.random_small || CurrentGameEventToProceed == GameEventsType.random_big || CurrentGameEventToProceed == GameEventsType.random_medium)
+        {
+            if (!frame.IsEmpty())
+            {
+                SoundController.Instance.PlayUISound(SoundsUI.error);
+                return false;
+            }
+
+            frame.AddRandom(CurrentGameEventToProceed);
+            getNextGameEvent();
+            StartCoroutine(playUpdateStateAfterSec(Globals.CREATE_DELETE_TIME * 2.2f, frame));
+            return true;
+        }
 
         return true;
     }
@@ -593,5 +625,8 @@ public enum GameEventsType
     house_seven,
     delete_house,
     up_house,
-    replace_house
+    replace_house,
+    random_small,
+    random_big,
+    random_medium
 }

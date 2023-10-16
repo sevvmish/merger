@@ -32,4 +32,5 @@ public class Globals : MonoBehaviour
     public const float CREATE_DELETE_TIME = 0.2f;
     public const int EVENT_PACK_LIMIT = 5;
     public const int MAX_BUILDINGS = 7;
+    public const int RANDOM_CHANCE = 7;
 }
