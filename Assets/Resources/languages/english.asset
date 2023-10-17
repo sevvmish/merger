@@ -29,3 +29,6 @@ MonoBehaviour:
   TutorialText5: And... Don't forget the bonus. It can be activated after merging
     enought buildings.
   TutorialText6: It is time to test yourself.
+  TutorialTextDel: You can delete any building.
+  TutorialTextUp: You can upgrade any building to next level.
+  TutorialTextReplace: You can move building to any point or swap two buildings.

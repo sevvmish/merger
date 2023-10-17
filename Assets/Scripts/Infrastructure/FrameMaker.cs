@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class FrameMaker : MonoBehaviour
 {
@@ -121,13 +120,27 @@ public class FrameMaker : MonoBehaviour
         {
 
         }
-        else if (Globals.CurrentLevel > 3 && Globals.CurrentLevel < 7)
+        else if (Globals.CurrentLevel > 3 && Globals.CurrentLevel < 10)
         {
-            obstacle(frames[UnityEngine.Random.Range(0, frames.Count)]);
-        }
-        else if (Globals.CurrentLevel < 10)
-        {
-            obstacle(frames[4]);
+            switch(Globals.CurrentLevel)
+            {
+                case 5:
+                    obstacle(frames[8]);
+                    break;
+                case 6:
+                    obstacle(frames[0]);
+                    break;
+                case 7:
+                    obstacle(frames[2]);
+                    break;
+                case 8:
+                    obstacle(frames[6]);
+                    break;
+                case 9:
+                    obstacle(frames[4]);
+                    break;
+            }                        
+            
         }
         else if (Globals.CurrentLevel < 15)
         {
@@ -255,11 +268,11 @@ public class FrameMaker : MonoBehaviour
 
             if (Globals.IsMobilePlatform)
             {
-                cameraPos = new Vector3(-8, 68, -40);
+                cameraPos = new Vector3(-10, 70, -41);
             }
             else
             {
-                cameraPos = new Vector3(-9.6f, 81.6f, -48);
+                cameraPos = new Vector3(-12f, 84f, -49.2f);
             }
 
             backScale = Vector3.one * 26;

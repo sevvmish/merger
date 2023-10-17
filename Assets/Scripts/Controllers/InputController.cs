@@ -30,7 +30,7 @@ public class InputController : MonoBehaviour
         {            
             ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                         
-            if (Physics.Raycast(ray, out hit, 100))
+            if (Physics.Raycast(ray, out hit, 300))
             {             
                 
                 if (hit.collider.gameObject.TryGetComponent(out Frame frame))
@@ -51,7 +51,7 @@ public class InputController : MonoBehaviour
     {
         ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, 100))
+        if (Physics.Raycast(ray, out hit, 300))
         {
             if (hit.collider.gameObject.TryGetComponent(out Frame frame))
             {

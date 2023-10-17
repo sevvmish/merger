@@ -113,13 +113,14 @@ public class GameStarter : MonoBehaviour
 
             Globals.IsMobilePlatform = GP_Device.IsMobile();
             print("platform mobile: " + Globals.IsMobilePlatform);
+                        
 
             if (GP_Platform.Type().ToString() == "YANDEX")
             {
-                if (!Globals.IsMobilePlatform)
-                {
+                //if (!Globals.IsMobilePlatform)
+                //{
                     GP_Ads.ShowSticky();
-                }
+                //}
             }
             else
             {
@@ -141,6 +142,7 @@ public class GameStarter : MonoBehaviour
             print("sound is: " + Globals.IsSoundOn);
 
             Globals.CurrentLevel = Globals.MainPlayerData.Progress1;
+            
 
             if (Globals.TimeWhenStartedPlaying == DateTime.MinValue)
             {
@@ -148,7 +150,7 @@ public class GameStarter : MonoBehaviour
                 Globals.TimeWhenLastInterstitialWas = DateTime.Now;
                 Globals.TimeWhenLastRewardedWas = DateTime.Now;
             }
-
+            
             Localize();
 
             InitMainMenu();
@@ -170,23 +172,31 @@ public class GameStarter : MonoBehaviour
         playButton.gameObject.SetActive(true);
         customGameButton.gameObject.SetActive(true);
 
-        if (Globals.CurrentLevel > 0)
-        {
-            customGameImage.sprite = activeButtonSprite;
-            rewardedIcon.SetActive(true);
+        if (Globals.CurrentLevel > 3)
+        {            
             tutorial.SetActive(false);
         }
         else
         {
             tutorial.SetActive(true);
-            tutorial.GetComponent<Tutorial>().SetTutorial();
+            tutorial.GetComponent<Tutorial>().SetTutorial();            
+        }
+
+
+        if (Globals.CurrentLevel > 0)
+        {
+            customGameImage.sprite = activeButtonSprite;
+            rewardedIcon.SetActive(true);
+        }
+        else
+        {            
             customGameImage.sprite = inactiveButtonSprite;
         }
     }
 
     private void InitSimpleGame()
     {
-        //Globals.CurrentLevel = 2;
+        //Globals.CurrentLevel = 65;
         Globals.IsPlayingCustomGame = false;
         Globals.IsPlayingSimpleGame = true;
         mainMenuPanel.SetActive(false);

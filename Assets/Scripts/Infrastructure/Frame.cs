@@ -36,7 +36,7 @@ public class Frame : MonoBehaviour
     {
         if (isBusy)
         {
-            FrameType = FrameTypes.seven;
+            if (FrameType == FrameTypes.none) FrameType = FrameTypes.seven;
         }
         else
         {

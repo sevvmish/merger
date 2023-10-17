@@ -101,6 +101,12 @@ public class UIManager : MonoBehaviour
 
             SoundController.Instance.PlayUISound(SoundsUI.click);
 
+            if (bonusesPanel.activeSelf)
+            {
+                bonusesPanel.SetActive(false);
+                return;
+            }
+
             bonusesPanel.SetActive(true);
 
             GameEventsType[] pack = gm.GetCurrentBonuses;
@@ -129,12 +135,7 @@ public class UIManager : MonoBehaviour
             {
                 buttonsForReward.Clear();
             }
-
-            foreach (var item in buttonsForReward)
-            {
-                print("IN: " + item);
-            }
-
+                        
             for (int i = 0; i < bonusesButtons.Length; i++)
             {
                 if (i < pack.Length)
@@ -289,40 +290,6 @@ public class UIManager : MonoBehaviour
                 index++;
             }
         }
-
-
-        //gm.CurrentGameEventToProceed = bonus;
-
-
-        /*
-        gm.AddBonus(bonus);
-             
-        if (bonus == GameEventsType.delete_house || bonus == GameEventsType.up_house || bonus == GameEventsType.replace_house)
-        {
-            informForFutureImages[0].sprite = getSpriteByGameEvent(gm.CurrentGameEventToProceed);
-
-            int index = 1;
-            foreach (var item in gm.GetCurrentEventPack)
-            {
-                if (index < informForFutureImages.Length)
-                {
-                    informForFutureImages[index].sprite = getSpriteByGameEvent(item);
-                    index++;
-                }
-            }
-        }
-        else
-        {            
-            int index = 0;
-            foreach (var item in gm.GetCurrentEventPack)
-            {
-                if (index < informForFutureImages.Length)
-                {
-                    informForFutureImages[index].sprite = getSpriteByGameEvent(item);
-                    index++;
-                }
-            }
-        }*/
 
     }
 
@@ -544,9 +511,12 @@ public class UIManager : MonoBehaviour
         if (isInitial)
         {            
             informForFutureImages[0].sprite = blanck;
+            float delta = 1;
             for (int i = 1; i < 15; i++)
             {
-                informerImage1.sizeDelta = new Vector2(informerImage1Base.x, informerImage1Base.y / i);
+                informerImage1.sizeDelta = new Vector2(informerImage1Base.x, informerImage1Base.y * delta);
+                delta -= (1f/15f);
+                delta = delta > 0 ? delta : 0;
                 yield return new WaitForSeconds(Time.deltaTime);
             }
         }

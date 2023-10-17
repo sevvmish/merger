@@ -92,6 +92,8 @@ public class GameManager : MonoBehaviour
 
     public void CheckFramesForError()
     {
+        if (Globals.CurrentLevel == 0) return;
+
         for (int i = 0; i < baseFrames.Count; i++)
         {
             if (!baseFrames[i].IsEmpty())
@@ -315,6 +317,14 @@ public class GameManager : MonoBehaviour
             Score += 1000000;
         }
 
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            for (int i = 0; i < baseFrames.Count; i++)
+            {
+                print(i + ": " + baseFrames[i].IsEmpty());
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.I))
         {
             print("curr: " + CurrentGameEventToProceed);
@@ -330,7 +340,7 @@ public class GameManager : MonoBehaviour
 
         if (PointerClickedCount > 0) PointerClickedCount -= Time.deltaTime;
 
-        if (_timer > 0.3f && IsGameStarted && !IsVisualBusy && PointerClickedCount <= 0)
+        if (_timer > 0.3f && IsGameStarted && !IsVisualBusy && PointerClickedCount <= 0 && Globals.CurrentLevel > 0)
         {
             _timer = 0;
 
