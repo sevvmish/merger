@@ -512,10 +512,10 @@ public class UIManager : MonoBehaviour
         {            
             informForFutureImages[0].sprite = blanck;
             float delta = 1;
-            for (int i = 1; i < 15; i++)
+            for (int i = 1; i < 12; i++)
             {
                 informerImage1.sizeDelta = new Vector2(informerImage1Base.x, informerImage1Base.y * delta);
-                delta -= (1f/15f);
+                delta -= (1f/12f);
                 delta = delta > 0 ? delta : 0;
                 yield return new WaitForSeconds(Time.deltaTime);
             }
