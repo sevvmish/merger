@@ -243,7 +243,7 @@ public class Tutorial : MonoBehaviour
             if (isAct6Started && !message6.activeSelf && !isAct7Started)
             {
                 isAct7Started = true;
-                GP_Analytics.Goal("tutorial", 0);
+                //GP_Analytics.Goal("tutorial", 0);
                 Globals.CurrentLevel++;
                 if (Globals.MainPlayerData.Progress1 < Globals.CurrentLevel)
                 {

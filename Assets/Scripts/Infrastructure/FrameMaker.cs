@@ -37,7 +37,7 @@ public class FrameMaker : MonoBehaviour
     {
         frames = framesLink;
 
-        setScreen(cameraMain.transform);
+        setScreen(cameraMain.transform, Globals.CurrentLevel);
         environment.SetActive(true);
 
         //clean
@@ -50,6 +50,7 @@ public class FrameMaker : MonoBehaviour
         }
 
         cameraMain.transform.localPosition = cameraPos;
+        cameraMain.transform.eulerAngles = new Vector3(60, 15, 0);
 
         GameObject g = Instantiate(backFace.gameObject, location);
         g.transform.localPosition = backPos;
@@ -100,29 +101,25 @@ public class FrameMaker : MonoBehaviour
             }
         }
 
-        setObstacles();
+        setObstacles(Globals.CurrentLevel);        
     }
 
-    private void setObstacles()
+    private void setObstacles(int level)
     {
         if (obstacles.Length == 0) return;
 
-        /*
-        switch(Globals.CurrentLevel)
-        {            
-            case 100:
-                obstacle(frames[0]);
-                obstacle(frames[2]);
-                obstacle(frames[frames.Count-1]);
-                break;
-        }*/
-        if (Globals.CurrentLevel <= 3)
+        if (!Globals.IsPlayingSimpleGame && Globals.IsPlayingCustomGame)
+        {
+            level = 1;
+        }
+      
+        if (level <= 3)
         {
 
         }
-        else if (Globals.CurrentLevel > 3 && Globals.CurrentLevel < 10)
+        else if (level > 3 && level < 10)
         {
-            switch(Globals.CurrentLevel)
+            switch(level)
             {
                 case 5:
                     obstacle(frames[8]);
@@ -142,45 +139,61 @@ public class FrameMaker : MonoBehaviour
             }                        
             
         }
-        else if (Globals.CurrentLevel < 15)
+        else if (level < 15)
         {
             obstacle(new[] { frames[0], frames[15] });
         }
-        else if (Globals.CurrentLevel < 20)
+        else if (level < 20)
         {
             obstacle(new[] { frames[3], frames[12] });
         }
-        else if (Globals.CurrentLevel < 30)
+        else if (level < 30)
         {
             obstacle(new[] { frames[0], frames[3], frames[12], frames[15] });
         }
-        else if (Globals.CurrentLevel < 34)
+        else if (level < 34)
         {
             obstacle(new[] { frames[3], frames[12], frames[15], frames[UnityEngine.Random.Range(4, 12)] });
         }
-        else if (Globals.CurrentLevel < 38)
+        else if (level < 38)
         {
             obstacle(new[] { frames[0], frames[3], frames[12], frames[UnityEngine.Random.Range(4, 12)] });
         }
-        else if (Globals.CurrentLevel < 50)
+        else if (level < 50)
         {
             obstacle(new[] { frames[0], frames[3], frames[12], frames[15], frames[UnityEngine.Random.Range(4, 12)] });
         }
-        else if (Globals.CurrentLevel < 60) //5 * 5
+        else if (level < 60) //5 * 5
         {
             obstacle(new[] { frames[0], frames[4], frames[20], frames[24] });            
         }
-        else if (Globals.CurrentLevel < 70) //with centered
+        else if (level < 70) //with centered
         {
             obstacle(new[] { frames[0], frames[4], frames[20], frames[24], frames[12] });            
         }
-        else if (Globals.CurrentLevel < 80) //random centred 1
+        else if (level < 80) //random centred 1
         {
             obstacle(new[] { frames[0], frames[4], frames[20], frames[24], frames[UnityEngine.Random.Range(5, 20)] });            
         }
-        else if (Globals.CurrentLevel < 90)
+        else if (level < 90)
         {
-            obstacle(new[] { frames[0], frames[4], frames[20], frames[24], frames[12], frames[UnityEngine.Random.Range(5, 12)], frames[UnityEngine.Random.Range(13, 20)] });            
+            obstacle(new[] { frames[0], frames[4], frames[20], frames[24], frames[12], frames[UnityEngine.Random.Range(5, 12)] });            
+        }
+        else if (level < 100)
+        {
+            obstacle(new[] { frames[0], frames[4], frames[20], frames[24], frames[UnityEngine.Random.Range(5, 13)], frames[UnityEngine.Random.Range(13, 20)] });
+        }
+        else if (level < 120)
+        {
+            obstacle(new[] { frames[0], frames[5], frames[30], frames[35] });
+        }
+        else if (level < 140)
+        {
+            obstacle(new[] { frames[0], frames[5], frames[30], frames[35], frames[UnityEngine.Random.Range(6, 20)], frames[UnityEngine.Random.Range(19, 30)] });
+        }
+        else if (level < 160)
+        {
+            obstacle(new[] { frames[0], frames[5], frames[30], frames[35], frames[14], frames[15], frames[20], frames[21] });
         }
 
     }
@@ -219,9 +232,14 @@ public class FrameMaker : MonoBehaviour
         frames.Remove(framesToDel);        
     }
 
-    private void setScreen(Transform screenTransform)
+    private void setScreen(Transform screenTransform, int level)
     {
-        if (Globals.CurrentLevel < 10)
+        if (!Globals.IsPlayingSimpleGame && Globals.IsPlayingCustomGame)
+        {
+            level = 1000;
+        }
+
+        if (level < 10)
         {
             horizontal = 3;
             vertical = 3;
@@ -240,7 +258,7 @@ public class FrameMaker : MonoBehaviour
             backScale = Vector3.one * 16;
             backPos = new Vector3(-1, -0.1f, -1);
         }
-        else if (Globals.CurrentLevel < 50)
+        else if (level < 50)
         {
             horizontal = 4;
             vertical = 4;
@@ -259,7 +277,7 @@ public class FrameMaker : MonoBehaviour
             backScale = Vector3.one * 21;
             backPos = new Vector3(-0.5f, -0.1f, -0.5f);
         }
-        else if (Globals.CurrentLevel < 100)        
+        else if (level < 100)        
         {
             horizontal = 5;
             vertical = 5;
@@ -268,7 +286,7 @@ public class FrameMaker : MonoBehaviour
 
             if (Globals.IsMobilePlatform)
             {
-                cameraPos = new Vector3(-10, 70, -41);
+                cameraPos = new Vector3(-8.5f, 70, -41.2f);
             }
             else
             {
@@ -277,6 +295,25 @@ public class FrameMaker : MonoBehaviour
 
             backScale = Vector3.one * 26;
             backPos = new Vector3(0, -0.1f, 0);
+        }
+        else
+        {
+            horizontal = 6;
+            vertical = 6;
+
+            backFace.localScale = Vector3.one;
+
+            if (Globals.IsMobilePlatform)
+            {
+                cameraPos = new Vector3(-9f, 83, -48f);
+            }
+            else
+            {
+                cameraPos = new Vector3(-10.8f, 99.6f, -57.6f);
+            }
+
+            backScale = Vector3.one * 31;
+            backPos = new Vector3(0.5f, -0.1f, 0.5f);
         }
 
 

@@ -85,7 +85,7 @@ public class UIManager : MonoBehaviour
 
         Off();
 
-        arrow = Instantiate(arrowExample);
+        if (arrow == null) arrow = Instantiate(arrowExample);
         arrow.SetActive(false);
 
         informerImage1 = informForFutureImages[0].GetComponent<RectTransform>();
@@ -267,9 +267,12 @@ public class UIManager : MonoBehaviour
             
             for (int i = 0; i < gm.GetBaseFrames.Count; i++)
             {
-                if (!gm.GetBaseFrames[i].IsEmpty())
+                if (!gm.GetBaseFrames[i].IsEmpty() && (gm.GetBaseFrames[i].FrameType == FrameTypes.one || gm.GetBaseFrames[i].FrameType == FrameTypes.two))
                 {
-                    arrow.transform.position = gm.GetBaseFrames[i].gameObject.transform.position + Vector3.up * 1.5f;
+                    
+                    //arrow.transform.position = gm.GetBaseFrames[i].gameObject.transform.position + Vector3.up * 1.5f;
+                    arrow.transform.position = new Vector3(gm.GetBaseFrames[i].Location.x, 1.5f, gm.GetBaseFrames[i].Location.y);
+                    //print(i + ": " + gm.GetBaseFrames[i].IsEmpty() + gm.GetBaseFrames[i].Location + " = " + arrow.transform.position);
                     break;
                 }
             }
@@ -342,7 +345,11 @@ public class UIManager : MonoBehaviour
                 mainTexterText.text = Globals.lang.LevelText + " " + Globals.CurrentLevel;
             }
 
-            
+            if (!Globals.IsPlayingSimpleGame && Globals.IsPlayingCustomGame)
+            {
+                mainTexterText.text = Globals.lang.CustomGameText + "!";
+            }
+
             mainTextRect.localScale = Vector3.zero;
             mainTextRect.DOScale(Vector3.one, 0.3f).SetEase(Ease.InOutElastic);
         }

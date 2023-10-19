@@ -135,7 +135,11 @@ public class GameManager : MonoBehaviour
     private void initTheGame()
     {
         GP_Game.GameplayStart();
-
+        if (Globals.IsMobilePlatform && Globals.CurrentLevel > 9 && !GP_Ads.IsStickyPlaying())
+        {
+            GP_Ads.ShowSticky();
+        }
+        GameStarter.Instance.StartAmbient();
         if (Globals.IsSoundOn) StartCoroutine(muteLittle());
 
         IsGameStarted = true;
@@ -234,7 +238,7 @@ public class GameManager : MonoBehaviour
             CurrentBonus += scoreCount;
             print("SCORE: " + Score);
             UI.ShowBonusAddedText(scoreCount);
-            lastModifiedFrame.AddBuilding(newFrame, true, buildingToAct.Count);
+            if (newFrame != (FrameTypes)8) lastModifiedFrame.AddBuilding(newFrame, true, buildingToAct.Count);
             UpdateState(lastModifiedFrame);
         }
     }
@@ -312,6 +316,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {        
+        /*
         if (Input.GetKeyDown(KeyCode.W))
         {
             Score += 1000000;
@@ -335,7 +340,7 @@ public class GameManager : MonoBehaviour
                 print(index + ": " + item);
                 index++;
             }
-        }
+        }*/
 
 
         if (PointerClickedCount > 0) PointerClickedCount -= Time.deltaTime;
@@ -348,10 +353,16 @@ public class GameManager : MonoBehaviour
             {
                 Globals.CurrentLevel++;
 
-                if (Globals.MainPlayerData.Progress1 < Globals.CurrentLevel) 
+                if (Globals.MainPlayerData.Progress1 < Globals.CurrentLevel && !Globals.IsPlayingCustomGame) 
                 {
                     Globals.MainPlayerData.Progress1 = Globals.CurrentLevel;
-                    GP_Analytics.Goal("level", Globals.CurrentLevel.ToString());
+                    
+                    if (Globals.CurrentLevel % 5 == 0)
+                    {
+                        GP_Analytics.Goal("level" + Globals.CurrentLevel, "");
+                    }
+                    
+                    
                     SaveLoadManager.Save();
                 }
                 
@@ -373,7 +384,7 @@ public class GameManager : MonoBehaviour
 
             if (isOK && Score < neededScore)
             {
-                GP_Analytics.Goal("lost", Globals.CurrentLevel.ToString());
+                //GP_Analytics.Goal("lost", Globals.CurrentLevel.ToString());
                 stopTheGame();
                 UI.SetMessagingLose();
                 return;

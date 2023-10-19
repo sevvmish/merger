@@ -6,6 +6,7 @@ using System;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GameStarter : MonoBehaviour
 {
@@ -30,6 +31,10 @@ public class GameStarter : MonoBehaviour
     [Header("Advs")]
     [SerializeField] private Rewarded rewarded;
     [SerializeField] private Interstitial interstitial;
+
+    [SerializeField] private GameObject introEnv;
+    [SerializeField] private Transform cameraPos;
+    [SerializeField] private Transform cameraTransform;
 
 
     [SerializeField] private GameObject tutorial;
@@ -113,14 +118,15 @@ public class GameStarter : MonoBehaviour
 
             Globals.IsMobilePlatform = GP_Device.IsMobile();
             print("platform mobile: " + Globals.IsMobilePlatform);
-                        
+
+           
 
             if (GP_Platform.Type().ToString() == "YANDEX")
             {
-                //if (!Globals.IsMobilePlatform)
-                //{
-                    GP_Ads.ShowSticky();
-                //}
+                if (!Globals.IsMobilePlatform)
+                {
+                    GP_Ads.ShowSticky();                    
+                }
             }
             else
             {
@@ -156,6 +162,7 @@ public class GameStarter : MonoBehaviour
             InitMainMenu();
         }
 
+        /*
         if (Input.GetKeyDown(KeyCode.R))
         {
             Globals.MainPlayerData.Progress1 = 0;
@@ -163,11 +170,23 @@ public class GameStarter : MonoBehaviour
             Globals.IsInitiated = false;
             SceneManager.LoadScene("new main");
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Globals.IsCustomGameOpened = true;
+        }*/
+
     }
 
     private void InitMainMenu()
     {
+        introEnv.SetActive(true);
+        introEnv.transform.localScale = Vector3.zero;
+        introEnv.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutSine);
+
+        cameraTransform.DOMove(cameraPos.position, 0.3f).SetEase(Ease.OutSine);
+        cameraTransform.DORotate(cameraPos.eulerAngles, 0.3f).SetEase(Ease.OutSine);
+
         mainMenuPanel.SetActive(true);
         playButton.gameObject.SetActive(true);
         customGameButton.gameObject.SetActive(true);
@@ -186,7 +205,7 @@ public class GameStarter : MonoBehaviour
         if (Globals.CurrentLevel > 0)
         {
             customGameImage.sprite = activeButtonSprite;
-            rewardedIcon.SetActive(true);
+            if (!Globals.IsCustomGameOpened) rewardedIcon.SetActive(true);
         }
         else
         {            
@@ -196,7 +215,8 @@ public class GameStarter : MonoBehaviour
 
     private void InitSimpleGame()
     {
-        //Globals.CurrentLevel = 65;
+        introEnv.SetActive(false);
+        //Globals.CurrentLevel = 56;
         Globals.IsPlayingCustomGame = false;
         Globals.IsPlayingSimpleGame = true;
         mainMenuPanel.SetActive(false);
@@ -206,6 +226,7 @@ public class GameStarter : MonoBehaviour
 
     private void InitCustomGame()
     {
+        introEnv.SetActive(false);
         Globals.IsPlayingCustomGame = true;
         Globals.IsPlayingSimpleGame = false;
         mainMenuPanel.SetActive(false);
