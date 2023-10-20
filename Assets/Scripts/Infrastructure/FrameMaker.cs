@@ -143,25 +143,25 @@ public class FrameMaker : MonoBehaviour
         {
             obstacle(new[] { frames[0], frames[15] });
         }
-        else if (level < 20)
+        else if (level < 23)
         {
             obstacle(new[] { frames[3], frames[12] });
         }
-        else if (level < 30)
+        else if (level < 32)
+        {
+            obstacle(new[] { frames[0], frames[3], frames[12]});
+        }
+        else if (level < 40)
+        {
+            obstacle(new[] { frames[3], frames[12], frames[15] });
+        }
+        else if (level < 45)
         {
             obstacle(new[] { frames[0], frames[3], frames[12], frames[15] });
         }
-        else if (level < 34)
-        {
-            obstacle(new[] { frames[3], frames[12], frames[15], frames[UnityEngine.Random.Range(4, 12)] });
-        }
-        else if (level < 38)
-        {
-            obstacle(new[] { frames[0], frames[3], frames[12], frames[UnityEngine.Random.Range(4, 12)] });
-        }
         else if (level < 50)
         {
-            obstacle(new[] { frames[0], frames[3], frames[12], frames[15], frames[UnityEngine.Random.Range(4, 12)] });
+            obstacle(new[] { frames[0], frames[3], frames[12], frames[15] });
         }
         else if (level < 60) //5 * 5
         {

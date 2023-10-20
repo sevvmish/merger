@@ -266,9 +266,16 @@ public class GameLogic : MonoBehaviour
         };
 
         if (!Globals.IsPlayingSimpleGame && Globals.IsPlayingCustomGame) return int.MaxValue;
-        if (level > 120) return 500;
+        if (level > 120) return 500 + Globals.Wins * 10;
 
-        return scores[level];
+        int result = scores[level];
+
+        if (Globals.CurrentLevel > 10)
+        {
+            result = (int)(result * (1f + Globals.Wins * Globals.DIFFICULTY));
+        }
+
+        return result;
     }
 
     public static int GetNeededBonusByLevel(int level)

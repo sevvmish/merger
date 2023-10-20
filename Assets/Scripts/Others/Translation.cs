@@ -26,5 +26,7 @@ public class Translation : ScriptableObject
     public string TutorialTextUp;
     public string TutorialTextReplace;
 
+    public string ResetText;
+
     public Translation() { }
 }

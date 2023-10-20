@@ -38,6 +38,16 @@ public class GameStarter : MonoBehaviour
 
 
     [SerializeField] private GameObject tutorial;
+
+
+    [Header("reset")]
+    [SerializeField] private GameObject resetPanel;
+    [SerializeField] private Button resetButton;
+    [SerializeField] private Button resetOK;
+    [SerializeField] private Button resetNO;
+    [SerializeField] private TextMeshProUGUI resetText;
+
+
     private Translation lang;
 
     // Start is called before the first frame update
@@ -56,11 +66,33 @@ public class GameStarter : MonoBehaviour
         customGameButton.gameObject.SetActive(false);
         rewardedIcon.SetActive(false);
         tutorial.SetActive(false);
+        resetPanel.SetActive(false);
 
         playButton.onClick.AddListener(() => 
         {
             SoundController.Instance.PlayUISound(SoundsUI.click);
             InitSimpleGame();
+        });
+
+        resetButton.onClick.AddListener(() =>
+        {
+            SoundController.Instance.PlayUISound(SoundsUI.click);
+            if (!resetPanel.activeSelf) resetPanel.SetActive(true);
+        });
+
+        resetOK.onClick.AddListener(() =>
+        {
+            SoundController.Instance.PlayUISound(SoundsUI.click);
+            Globals.MainPlayerData.Progress1 = 0;
+            SaveLoadManager.Save();
+            Globals.IsInitiated = false;
+            SceneManager.LoadScene("new main");
+        });
+
+        resetNO.onClick.AddListener(() =>
+        {
+            SoundController.Instance.PlayUISound(SoundsUI.click);
+            if (resetPanel.activeSelf) resetPanel.SetActive(false);
         });
 
         customGameButton.onClick.AddListener(() =>
@@ -216,7 +248,7 @@ public class GameStarter : MonoBehaviour
     private void InitSimpleGame()
     {
         introEnv.SetActive(false);
-        //Globals.CurrentLevel = 56;
+        //Globals.CurrentLevel = 45;
         Globals.IsPlayingCustomGame = false;
         Globals.IsPlayingSimpleGame = true;
         mainMenuPanel.SetActive(false);
@@ -238,6 +270,7 @@ public class GameStarter : MonoBehaviour
         lang = Localization.GetInstanse(Globals.CurrentLanguage).GetCurrentTranslation();
         Globals.lang = lang;
 
+        resetText.text = lang.ResetText;
         playButtonText.text = lang.PlayText;
         bonusButtonText.text = lang.BonusText;
         customGameButtonText.text = lang.CustomGameText;

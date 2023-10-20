@@ -10,9 +10,12 @@ public class Globals : MonoBehaviour
     public static int Verticals;
 
     public static int CurrentLevel;
+    public static int Wins;
 
     public static string CurrentLanguage;
     public static Translation lang;
+
+
 
     public static bool IsMobilePlatform = false;
     public static bool IsSoundOn;
@@ -33,4 +36,5 @@ public class Globals : MonoBehaviour
     public const int EVENT_PACK_LIMIT = 5;
     public const int MAX_BUILDINGS = 7;
     public const int RANDOM_CHANCE = 7;
+    public const float DIFFICULTY = 0.05f;
 }

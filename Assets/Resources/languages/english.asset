@@ -32,3 +32,4 @@ MonoBehaviour:
   TutorialTextDel: You can delete any building.
   TutorialTextUp: You can upgrade any building to next level.
   TutorialTextReplace: You can move building to any point or swap two buildings.
+  ResetText: You are going to reset all game progress. Continue?

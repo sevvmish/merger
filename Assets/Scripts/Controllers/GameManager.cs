@@ -160,6 +160,7 @@ public class GameManager : MonoBehaviour
         gameEventsPack = new Queue<GameEventsType>();
         //OnEventUpdated += showCurrentGameEvent;
         neededScore = GameLogic.GetNeededScoreByLevel(Globals.CurrentLevel);
+        //print(neededScore + " !!!!!!!!!!!!!!!!!!!!!!!!!");
         bonusNeeded = GameLogic.GetNeededBonusByLevel(Globals.CurrentLevel);
         //===================================
 
@@ -236,7 +237,7 @@ public class GameManager : MonoBehaviour
             //print("score: " + scoreCount);
             Score += scoreCount;
             CurrentBonus += scoreCount;
-            print("SCORE: " + Score);
+            //print("SCORE: " + Score);
             UI.ShowBonusAddedText(scoreCount);
             if (newFrame != (FrameTypes)8) lastModifiedFrame.AddBuilding(newFrame, true, buildingToAct.Count);
             UpdateState(lastModifiedFrame);
@@ -352,6 +353,7 @@ public class GameManager : MonoBehaviour
             if (Score >= neededScore)
             {
                 Globals.CurrentLevel++;
+                Globals.Wins++;
 
                 if (Globals.MainPlayerData.Progress1 < Globals.CurrentLevel && !Globals.IsPlayingCustomGame) 
                 {
@@ -387,6 +389,7 @@ public class GameManager : MonoBehaviour
                 //GP_Analytics.Goal("lost", Globals.CurrentLevel.ToString());
                 stopTheGame();
                 UI.SetMessagingLose();
+                Globals.Wins = 0;
                 return;
             }
             
