@@ -62,6 +62,7 @@ public class GameStarter : MonoBehaviour
             Instance = this;
         }
 
+        
         playButton.gameObject.SetActive(false);
         customGameButton.gameObject.SetActive(false);
         rewardedIcon.SetActive(false);

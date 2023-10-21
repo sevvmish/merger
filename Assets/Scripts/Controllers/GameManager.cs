@@ -355,6 +355,20 @@ public class GameManager : MonoBehaviour
                 Globals.CurrentLevel++;
                 Globals.Wins++;
 
+                if (Globals.Wins > 9)
+                {
+                    int chance = UnityEngine.Random.Range(0, 100);
+
+                    if (chance < 15)
+                    {
+                        Globals.Wins = 5;
+                    }
+                    else if (chance < 30)
+                    {
+                        Globals.Wins = 3;
+                    }
+                }
+
                 if (Globals.MainPlayerData.Progress1 < Globals.CurrentLevel && !Globals.IsPlayingCustomGame) 
                 {
                     Globals.MainPlayerData.Progress1 = Globals.CurrentLevel;
@@ -389,7 +403,7 @@ public class GameManager : MonoBehaviour
                 //GP_Analytics.Goal("lost", Globals.CurrentLevel.ToString());
                 stopTheGame();
                 UI.SetMessagingLose();
-                Globals.Wins = 0;
+                Globals.Wins /= 2;
                 return;
             }
             
