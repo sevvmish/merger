@@ -26,7 +26,7 @@ public class InputController : MonoBehaviour
     {
         if (!gm.IsGameStarted) return;
 
-        if (Input.GetMouseButtonDown(0) && !gm.IsVisualBusy && gm.PointerClickedCount <= 0)
+        if (Input.GetMouseButtonDown(0) && !gm.IsVisualBusy && gm.PointerClickedCount <= 0 && gm.IsInputOn)
         {            
             ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                         

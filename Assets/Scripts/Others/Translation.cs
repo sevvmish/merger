@@ -21,6 +21,7 @@ public class Translation : ScriptableObject
     public string TutorialText4;
     public string TutorialText5;
     public string TutorialText6;
+    public string TutorialText7;
 
     public string TutorialTextDel;
     public string TutorialTextUp;

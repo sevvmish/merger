@@ -222,6 +222,12 @@ public class Frame : MonoBehaviour
         deleteEffect.SetActive(false);
     }
 
+    public void ResetFrame()
+    {
+        resetGhost();
+        FrameType = FrameTypes.none;
+        resetVisual();
+    }
     public void AddBuilding(FrameTypes _type)
     {
         AddBuilding(_type, false, 0);

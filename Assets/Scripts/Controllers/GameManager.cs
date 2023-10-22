@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public AssetManager GetAssets => assetManager;    
     public bool IsGameStarted = false;
     public bool IsVisualBusy;
+    public bool IsInputOn = true;
     public float PointerClickedCount;
     public List<Frame> GetBaseFrames => baseFrames;
     public GameEventsType[] GetCurrentBonuses => gameLogic.GetCurrentBonuses();
@@ -403,7 +404,16 @@ public class GameManager : MonoBehaviour
                 //GP_Analytics.Goal("lost", Globals.CurrentLevel.ToString());
                 stopTheGame();
                 UI.SetMessagingLose();
-                Globals.Wins /= 2;
+                
+                if (Globals.Wins > 1)
+                {
+                    Globals.Wins /= 2;
+                }
+                else
+                {
+                    Globals.Wins = 0;
+                }
+                
                 return;
             }
             

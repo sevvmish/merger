@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerData
 {
     public int Progress1;
+    public int W;
     public string L;
     public int M;
     public int S;
@@ -15,6 +16,7 @@ public class PlayerData
     public PlayerData()
     {
         Progress1 = 0;
+        W = 0;
         L = ""; //prefered language
         M = 1; //mobile platform? 1 - true;
         S = 1; // sound on? 1 - true;        

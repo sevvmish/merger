@@ -12,6 +12,7 @@ public class SaveLoadManager
         Globals.MainPlayerData.L = Globals.CurrentLanguage;
         Globals.MainPlayerData.M = Globals.IsMobilePlatform ? 1 : 0;
         Globals.MainPlayerData.S = Globals.IsSoundOn ? 1 : 0;
+        Globals.MainPlayerData.W = Globals.Wins;
 
         string data = JsonUtility.ToJson(Globals.MainPlayerData);
         //Debug.Log("saved: " + data);
@@ -79,37 +80,7 @@ public class SaveLoadManager
             Debug.LogError("error loading data, defaults loaded");
             Globals.MainPlayerData = new PlayerData();
         }
-            
-          /*  
-        if (!string.IsNullOrEmpty(fromSave))
-        {
-            
-
-            Debug.Log("loaded: " + fromSave);
-            try
-            {
-                Globals.MainPlayerData = JsonUtility.FromJson<PlayerData>(fromSave);
-            }
-            catch (System.Exception)
-            {
-                Globals.MainPlayerData = new PlayerData();
-            }
-                        
-        }
-        else
-        {
-            
-            fromSave = PlayerPrefs.GetString(ID);
-                        
-            if (string.IsNullOrEmpty(fromSave))
-            {
-                Globals.MainPlayerData = new PlayerData();
-            }
-            else
-            {
-                Globals.MainPlayerData = JsonUtility.FromJson<PlayerData>(fromSave);
-            }
-        }       */
+     
     }
 
 }

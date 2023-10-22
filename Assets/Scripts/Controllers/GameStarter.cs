@@ -249,7 +249,7 @@ public class GameStarter : MonoBehaviour
     private void InitSimpleGame()
     {
         introEnv.SetActive(false);
-        //Globals.CurrentLevel = 45;
+        //Globals.CurrentLevel = 65;
         Globals.IsPlayingCustomGame = false;
         Globals.IsPlayingSimpleGame = true;
         mainMenuPanel.SetActive(false);

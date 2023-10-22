@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using GamePush;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class Tutorial : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class Tutorial : MonoBehaviour
     [SerializeField] private TextMeshProUGUI message5Text;
     [SerializeField] private GameObject message6;
     [SerializeField] private TextMeshProUGUI message6Text;
+    [SerializeField] private GameObject message7;
+    [SerializeField] private TextMeshProUGUI message7Text;
 
     [SerializeField] private GameObject messageDel;
     [SerializeField] private TextMeshProUGUI messageDelText;
@@ -33,7 +36,9 @@ public class Tutorial : MonoBehaviour
 
 
     [SerializeField] private GameObject arrowExample;
+    [SerializeField] private GameObject crossExample;
     private List<GameObject> arrows = new List<GameObject> ();
+    private GameObject cross;
 
     private bool isAct1Started;
     private bool isAct2Started;
@@ -42,6 +47,7 @@ public class Tutorial : MonoBehaviour
     private bool isAct5Started;
     private bool isAct6Started;
     private bool isAct7Started;
+    private bool isCombination;
 
     private bool isDel;
     private bool isRep;
@@ -74,6 +80,7 @@ public class Tutorial : MonoBehaviour
         message4Text.text = lang.TutorialText4;
         message5Text.text = lang.TutorialText5;
         message6Text.text = lang.TutorialText6;
+        message7Text.text = lang.TutorialText7;
         messageDelText.text = lang.TutorialTextDel;
         messageUpText.text = lang.TutorialTextUp;
         messageReplaceText.text = lang.TutorialTextReplace;
@@ -88,9 +95,11 @@ public class Tutorial : MonoBehaviour
         messageUp.SetActive(false);
         messageReplace.SetActive(false);
         bonusReminder.SetActive(false);
+        message7.SetActive(false);
 
-
-
+        cross = Instantiate(crossExample);
+        cross.transform.position = Vector3.zero;
+        cross.SetActive(false);
     }
 
     private void DisableAllFrames()
@@ -194,22 +203,28 @@ public class Tutorial : MonoBehaviour
                 if (!isAct2Started && isThirdLine && gm.Score >= 9)
                 {
                     isAct2Started = true;
-                    message2.SetActive(true);
+
+                    StartCoroutine(playVariations());
                 }
-                
+
+                if (isCombination)
+                {
+                    //isAct2Started = true;
+                    message2.SetActive(true);
+                    message7.SetActive(false);
+                }
+
             }
 
-            if (isAct2Started && !isAct3Started && GameManager.Instance.Score >=9)
+            if (isAct2Started && !isAct3Started && GameManager.Instance.Score >=9 && isCombination)
             {
-                if (_timer2 > 1.5f)
+                if (_timer2 > 1f)
                 {
                     isAct3Started = true;
                     message3.SetActive(true);
                     //message2.SetActive(false);
 
-                    arrows[6].SetActive(false);
-                    arrows[7].SetActive(false);
-                    arrows[8].SetActive(false);
+                    
 
                     DisableAllFrames();
                 }
@@ -321,5 +336,84 @@ public class Tutorial : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private IEnumerator playVariations()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        gm.IsInputOn = false;
+
+        arrows[6].SetActive(false);
+        arrows[7].SetActive(false);
+        arrows[8].SetActive(false);
+
+        for (int i = 0; i < frames.Count; i++)
+        {
+            frames[i].ResetFrame();
+        }
+
+        for (int i = 0; i < frames.Count; i++)
+        {
+            frames[i].AddBuilding(FrameTypes.none);
+        }
+               
+
+
+        yield return new WaitForSeconds(0.5f);
+        message7.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+
+        //11111111111111111111
+        cross.transform.position = frames[2].transform.position;
+        cross.SetActive(true);        
+        SoundController.Instance.PlayUISound(SoundsUI.positive);
+        yield return new WaitForSeconds(1.5f);
+
+        gm.ReactOnFrameClick(frames[4]);
+        yield return new WaitForSeconds(0.5f);
+        gm.ReactOnFrameClick(frames[5]);
+        cross.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        gm.ReactOnFrameClick(frames[2]);
+        yield return new WaitForSeconds(0.5f);
+        
+        yield return new WaitForSeconds(1.5f);
+
+        //2222222222222222222222222222222222
+        cross.transform.position = frames[0].transform.position;
+        cross.SetActive(true);        
+        SoundController.Instance.PlayUISound(SoundsUI.positive);
+        yield return new WaitForSeconds(1.5f);
+
+        gm.ReactOnFrameClick(frames[4]);
+        yield return new WaitForSeconds(0.5f);
+        gm.ReactOnFrameClick(frames[1]);
+        cross.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        gm.ReactOnFrameClick(frames[0]);
+        yield return new WaitForSeconds(0.5f);
+        
+        yield return new WaitForSeconds(1.5f);
+
+        //3333333333333333333333333333333
+        cross.transform.position = frames[1].transform.position;
+        cross.SetActive(true);
+        SoundController.Instance.PlayUISound(SoundsUI.positive);
+        yield return new WaitForSeconds(1.5f);
+
+        gm.ReactOnFrameClick(frames[7]);
+        yield return new WaitForSeconds(0.5f);
+        gm.ReactOnFrameClick(frames[4]);
+        cross.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        gm.ReactOnFrameClick(frames[1]);
+        yield return new WaitForSeconds(0.5f);
+        
+        yield return new WaitForSeconds(1.5f);
+
+        isCombination = true;
+        gm.IsInputOn = true;
+        message7.SetActive(false);
     }
 }

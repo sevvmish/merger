@@ -362,6 +362,7 @@ public class UIManager : MonoBehaviour
 
     public void SetMessagingWin()
     {
+        scoreText.text = "100%";
         SoundController.Instance.PlayUISound(SoundsUI.win);
         messagingPanel.SetActive(true);
         mainTexterText.text = Globals.lang.WinText;
@@ -550,7 +551,19 @@ public class UIManager : MonoBehaviour
         {
             if (Globals.IsPlayingSimpleGame && !Globals.IsPlayingCustomGame)
             {
-                scoreText.text = (gm.ScoreProgress * 100).ToString("f0") + "%";
+                if (gm.ScoreProgress > 1)
+                {
+                    scoreText.text = "100%";
+                }
+                else if (gm.ScoreProgress>=0.99 && gm.ScoreProgress < 1)
+                {
+                    scoreText.text = "99%";
+                }
+                else
+                {
+                    scoreText.text = (gm.ScoreProgress * 100).ToString("f0") + "%";
+                }
+                
             }
             else if (!Globals.IsPlayingSimpleGame && Globals.IsPlayingCustomGame)
             {
