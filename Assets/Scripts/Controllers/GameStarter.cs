@@ -98,18 +98,16 @@ public class GameStarter : MonoBehaviour
 
         customGameButton.onClick.AddListener(() =>
         {            
-            if (Globals.CurrentLevel < 1) return;
+            if (Globals.CurrentLevel < 1)
+            {
+                SoundController.Instance.PlayUISound(SoundsUI.error);
+                return;
+            }
+                
 
             SoundController.Instance.PlayUISound(SoundsUI.click);
 
-            if (Globals.IsCustomGameOpened)
-            {
-                InitCustomGame();
-            }
-            else
-            {
-                startRewardedForCustomGame();
-            }            
+            InitCustomGame();
         });
 
         if (Globals.IsInitiated)
@@ -222,7 +220,7 @@ public class GameStarter : MonoBehaviour
 
         mainMenuPanel.SetActive(true);
         playButton.gameObject.SetActive(true);
-        customGameButton.gameObject.SetActive(true);
+        
 
         if (Globals.CurrentLevel > 3)
         {            
@@ -235,21 +233,25 @@ public class GameStarter : MonoBehaviour
         }
 
 
-        if (Globals.CurrentLevel > 0)
+        if (Globals.CurrentLevel >= 1)
         {
             customGameImage.sprite = activeButtonSprite;
-            if (!Globals.IsCustomGameOpened) rewardedIcon.SetActive(true);
+            customGameButton.gameObject.SetActive(true);
+            //customGameButton.interactable = true;
+            //if (!Globals.IsCustomGameOpened) rewardedIcon.SetActive(true);
         }
         else
-        {            
+        {
+            //customGameButton.interactable = false;
             customGameImage.sprite = inactiveButtonSprite;
+            customGameButton.gameObject.SetActive(false);
         }
     }
 
     private void InitSimpleGame()
     {
         introEnv.SetActive(false);
-        //Globals.CurrentLevel = 65;
+        //Globals.CurrentLevel = 15;
         Globals.IsPlayingCustomGame = false;
         Globals.IsPlayingSimpleGame = true;
         mainMenuPanel.SetActive(false);

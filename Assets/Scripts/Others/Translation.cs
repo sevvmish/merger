@@ -7,7 +7,7 @@ public class Translation : ScriptableObject
 {
     public string PlayText;
     public string BonusText;
-    public string CustomGameText;
+    public string CustomGameText;    
 
     public string WinText;
     public string LoseText;

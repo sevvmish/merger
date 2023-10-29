@@ -180,7 +180,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator muteLittle()
     {
         AudioListener.volume = 0;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         AudioListener.volume = 1;
     }
     

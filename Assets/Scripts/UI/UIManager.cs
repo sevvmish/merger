@@ -148,7 +148,7 @@ public class UIManager : MonoBehaviour
                     }
                     else
                     {
-                        bonusesButtonsRewardedIcons[i].SetActive(false);
+                        bonusesButtonsRewardedIcons[i].SetActive(false);                        
                     }
                 }
                 else
