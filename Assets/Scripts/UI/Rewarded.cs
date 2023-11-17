@@ -17,7 +17,13 @@ public class Rewarded : MonoBehaviour
     }
 
     public void ShowRewardedVideo()
-    {        
+    {
+        Time.timeScale = 0;
+        if (Globals.IsSoundOn)
+        {
+            AudioListener.volume = 0;
+        }
+
         GP_Ads.ShowRewarded("rew");        
     }
 
@@ -58,7 +64,10 @@ public class Rewarded : MonoBehaviour
         else
         {
             OnError?.Invoke();
-        }        
+        }
+
+        OnRewardedEndedOK = null;
+        OnError = null;
     }
 
 }

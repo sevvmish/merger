@@ -150,6 +150,8 @@ public class GameManager : MonoBehaviour
         IsVisualBusy = false;
         PointerClickedCount = 0;
 
+        UI.IsSkipTaken = false;
+
         //different inits
         frameToReplaceForReplacement = null;
         inputController.SetData(cameraMain);

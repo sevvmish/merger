@@ -16,6 +16,12 @@ public class Interstitial : MonoBehaviour
 
     public void ShowInterstitialVideo()
     {
+        Time.timeScale = 0;
+        if (Globals.IsSoundOn)
+        {
+            AudioListener.volume = 0;
+        }
+
         GP_Ads.ShowFullscreen(advStarted, advClosed);
     }
 

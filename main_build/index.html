@@ -43,7 +43,7 @@
       gp.player.ready.finally(_gpAwaiter.done);
 
       await _unityAwaiter.ready;
-      gp.gameStart();
+      setTimeout(() => gp.gameStart(), 2200);
     };
   </script>
 

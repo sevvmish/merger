@@ -78,6 +78,8 @@ public class UIManager : MonoBehaviour
     private GameObject arrow;
     private bool isArrow;
 
+    public bool IsSkipTaken;
+
     private void Start()
     {
         gm = GameManager.Instance;
@@ -131,10 +133,12 @@ public class UIManager : MonoBehaviour
                 buttonsForReward.Add(4);
             }
 
+            /*
             if ((DateTime.Now - Globals.TimeWhenLastRewardedWas).TotalSeconds < Globals.REWARDED_COOLDOWN)
             {
                 buttonsForReward.Clear();
             }
+            */
                         
             for (int i = 0; i < bonusesButtons.Length; i++)
             {
@@ -142,13 +146,18 @@ public class UIManager : MonoBehaviour
                 {
                     bonusesButtons[i].gameObject.SetActive(true);
                     bonusesButtons[i].GetComponent<Image>().sprite = getSpriteByGameEvent(pack[i]);
-                    if (buttonsForReward.Contains(i))
+                    if (buttonsForReward.Contains(i) && (DateTime.Now - Globals.TimeWhenLastRewardedWas).TotalSeconds >= Globals.REWARDED_COOLDOWN)
                     {
                         bonusesButtonsRewardedIcons[i].SetActive(true);
                     }
+                    else if(buttonsForReward.Contains(i) && (DateTime.Now - Globals.TimeWhenLastRewardedWas).TotalSeconds < Globals.REWARDED_COOLDOWN)
+                    {
+                        bonusesButtonsRewardedIcons[i].SetActive(false);
+                        bonusesButtons[i].gameObject.SetActive(false);
+                    }
                     else
                     {
-                        bonusesButtonsRewardedIcons[i].SetActive(false);                        
+                        bonusesButtonsRewardedIcons[i].SetActive(false);
                     }
                 }
                 else
@@ -226,6 +235,13 @@ public class UIManager : MonoBehaviour
 
         skipButton.onClick.AddListener(() =>
         {
+            if (IsSkipTaken)
+            {
+                return;
+            }
+
+            IsSkipTaken = true;
+
             SoundController.Instance.PlayUISound(SoundsUI.click);
             rewarded.OnError = GameManager.Instance.StartSimpleGame;
             rewarded.OnRewardedEndedOK = skipAndContinue;
@@ -328,6 +344,7 @@ public class UIManager : MonoBehaviour
             SaveLoadManager.Save();
         }
         GameManager.Instance.StartSimpleGame();
+        IsSkipTaken = false;
     }
 
     public void SetMessagingLevel(bool isON)
