@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Camera cameraMain;
     [SerializeField] private InputController inputController;
 
-    public AssetManager GetAssets => assetManager;    
+    public AssetManager GetAssets => assetManager;
     public bool IsGameStarted = false;
     public bool IsVisualBusy;
     public bool IsInputOn = true;
@@ -28,7 +28,19 @@ public class GameManager : MonoBehaviour
     public GameEventsType[] GetCurrentBonuses => gameLogic.GetCurrentBonuses();
 
     public int Score { get; private set; }
-    public float ScoreProgress => (float)Score / ((float)neededScore + 0.001f);
+    public float ScoreProgress {
+        get
+        {
+            if (Score >= neededScore)
+            {
+                return 1;
+            }
+            else
+            {
+                return (float)Score / ((float)neededScore + 0.001f);
+            }
+        }
+    } //(float)Score / ((float)neededScore + 0.001f);
     public float BonusProgress => (float)CurrentBonus / ((float)bonusNeeded + 0.001f);
     public int CurrentBonus {
         get { return bonus; }
@@ -61,6 +73,8 @@ public class GameManager : MonoBehaviour
     private Frame frameToReplaceForReplacement;
 
     private float _timer;
+
+    private bool isWinProceedStarted;
 
     void Awake()
     {
@@ -136,7 +150,7 @@ public class GameManager : MonoBehaviour
     private void initTheGame()
     {
         GP_Game.GameplayStart();
-        if (Globals.IsMobilePlatform && Globals.CurrentLevel > 9 && !GP_Ads.IsStickyPlaying())
+        if (Globals.IsMobilePlatform && Globals.CurrentLevel > 4 && !GP_Ads.IsStickyPlaying())
         {
             GP_Ads.ShowSticky();
         }
@@ -149,6 +163,7 @@ public class GameManager : MonoBehaviour
         bonus = 0;
         IsVisualBusy = false;
         PointerClickedCount = 0;
+        isWinProceedStarted = false;
 
         UI.IsSkipTaken = false;
 
@@ -320,73 +335,17 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {        
-        /*
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            Score += 1000000;
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            for (int i = 0; i < baseFrames.Count; i++)
-            {
-                print(i + ": " + baseFrames[i].IsEmpty());
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            print("curr: " + CurrentGameEventToProceed);
-
-            int index = 0;
-            foreach (var item in gameEventsPack)
-            {
-                print(index + ": " + item);
-                index++;
-            }
-        }*/
-
-
+        
         if (PointerClickedCount > 0) PointerClickedCount -= Time.deltaTime;
 
         if (_timer > 0.3f && IsGameStarted && !IsVisualBusy && PointerClickedCount <= 0 && Globals.CurrentLevel > 0)
         {
             _timer = 0;
 
-            if (Score >= neededScore)
+            if (Score >= neededScore && !isWinProceedStarted)
             {
-                Globals.CurrentLevel++;
-                Globals.Wins++;
-
-                if (Globals.Wins > 9)
-                {
-                    int chance = UnityEngine.Random.Range(0, 100);
-
-                    if (chance < 15)
-                    {
-                        Globals.Wins = 5;
-                    }
-                    else if (chance < 30)
-                    {
-                        Globals.Wins = 3;
-                    }
-                }
-
-                if (Globals.MainPlayerData.Progress1 < Globals.CurrentLevel && !Globals.IsPlayingCustomGame) 
-                {
-                    Globals.MainPlayerData.Progress1 = Globals.CurrentLevel;
-                    
-                    if (Globals.CurrentLevel % 5 == 0)
-                    {
-                        GP_Analytics.Goal("level" + Globals.CurrentLevel, "");
-                    }
-                    
-                    
-                    SaveLoadManager.Save();
-                }
-                
-                stopTheGame();
-                UI.SetMessagingWin();
+                isWinProceedStarted = true;
+                StartCoroutine(gameWinProcceed());
                 return;
             }
 
@@ -401,20 +360,10 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (isOK && Score < neededScore)
+            if (isOK && Score < neededScore && !isWinProceedStarted)
             {
-                //GP_Analytics.Goal("lost", Globals.CurrentLevel.ToString());
-                stopTheGame();
-                UI.SetMessagingLose();
-                
-                if (Globals.Wins > 1)
-                {
-                    Globals.Wins /= 2;
-                }
-                else
-                {
-                    Globals.Wins = 0;
-                }
+                isWinProceedStarted = true;
+                StartCoroutine(gameLoseProcceed());
                 
                 return;
             }
@@ -424,6 +373,63 @@ public class GameManager : MonoBehaviour
         {
             _timer += Time.deltaTime;
         }
+    }
+    private IEnumerator gameLoseProcceed()
+    {
+        PointerClickedCount = 10;
+        yield return new WaitForSeconds(0.7f);
+
+        stopTheGame();
+        UI.SetMessagingLose();
+
+        if (Globals.Wins > 1)
+        {
+            Globals.Wins /= 2;
+        }
+        else
+        {
+            Globals.Wins = 0;
+        }
+    }
+    private IEnumerator gameWinProcceed()
+    {
+        PointerClickedCount = 10;
+        UI.Show100();
+        yield return new WaitForSeconds(0.7f);
+        
+
+        Globals.CurrentLevel++;
+        if (Globals.CurrentLevel > 3) Globals.Wins += 2;
+
+        if (Globals.Wins > 15)
+        {
+            int chance = UnityEngine.Random.Range(0, 100);
+
+            if (chance < 15)
+            {
+                Globals.Wins /= 2;
+            }
+            else if (chance < 30)
+            {
+                Globals.Wins /= 3;
+            }
+        }
+
+        if (Globals.MainPlayerData.Progress1 < Globals.CurrentLevel && !Globals.IsPlayingCustomGame)
+        {
+            Globals.MainPlayerData.Progress1 = Globals.CurrentLevel;
+
+            if (Globals.CurrentLevel % 5 == 0)
+            {
+                GP_Analytics.Goal("level" + Globals.CurrentLevel, "");
+            }
+
+
+            SaveLoadManager.Save();
+        }
+
+        stopTheGame();
+        UI.SetMessagingWin();
     }
 
     public GameEventsType getNextGameEvent()

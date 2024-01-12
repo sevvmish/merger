@@ -113,31 +113,50 @@ public class FrameMaker : MonoBehaviour
             level = 1;
         }
       
-        if (level <= 3)
+        if (level <= 1)
         {
 
         }
-        else if (level > 3 && level < 10)
+        else if (level > 1 && level < 5)
         {
-            switch(level)
+            int rnd = UnityEngine.Random.Range(0, 4);
+
+            switch(rnd)
             {
-                case 5:
+                case 0:
                     obstacle(frames[8]);
                     break;
-                case 6:
+                case 1:
                     obstacle(frames[0]);
                     break;
-                case 7:
+                case 2:
                     obstacle(frames[2]);
                     break;
-                case 8:
+                case 3:
                     obstacle(frames[6]);
                     break;
-                case 9:
-                    obstacle(frames[4]);
-                    break;
+                
             }                        
             
+        }
+        else if (level < 10)
+        {
+            int rnd = UnityEngine.Random.Range(0, 3);
+
+            switch (rnd)
+            {
+                case 0:
+                    obstacle(frames[0]);
+                    break;
+                case 1:
+                    obstacle(frames[15]);
+                    break;
+                case 2:
+                    obstacle(frames[3]);
+                    break;
+                
+
+            }
         }
         else if (level < 15)
         {
@@ -239,7 +258,7 @@ public class FrameMaker : MonoBehaviour
             level = 1000;
         }
 
-        if (level < 10)
+        if (level < 5)
         {
             horizontal = 3;
             vertical = 3;

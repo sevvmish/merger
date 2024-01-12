@@ -36,5 +36,5 @@ public class Globals : MonoBehaviour
     public const int EVENT_PACK_LIMIT = 5;
     public const int MAX_BUILDINGS = 7;
     public const int RANDOM_CHANCE = 7;
-    public const float DIFFICULTY = 0.05f;
+    public const float DIFFICULTY = 0.08f;
 }

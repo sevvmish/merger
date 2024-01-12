@@ -128,36 +128,47 @@ public class GameLogic : MonoBehaviour
 
         if (level < 5)
         {
-            levelContainer = new GameEventsType[] { GameEventsType.house_one };
+            
 
             switch(level)
             {
+                case 0:
+                    levelContainer = new GameEventsType[] { GameEventsType.house_one };
+                    break;
+
                 case 1:
                     bonusContainer = new GameEventsType[] { GameEventsType.up_house};
+                    levelContainer = new GameEventsType[] { GameEventsType.house_one };
                     break;
                 case 2:
                     bonusContainer = new GameEventsType[] { GameEventsType.delete_house};
+
+                    levelContainer = new GameEventsType[] { GameEventsType.house_one, GameEventsType.house_one, GameEventsType.house_one , GameEventsType.house_one , GameEventsType.house_two };
                     break;
                 case 3:
                     bonusContainer = new GameEventsType[] { GameEventsType.replace_house};
+
+                    levelContainer = new GameEventsType[] { GameEventsType.house_one, GameEventsType.house_one, GameEventsType.house_one, GameEventsType.house_one, GameEventsType.house_two };
                     break;
                 case 4:
                     bonusContainer = new GameEventsType[] { GameEventsType.replace_house, GameEventsType.up_house };
+
+                    levelContainer = new GameEventsType[] { GameEventsType.house_two, GameEventsType.house_two, GameEventsType.house_one, GameEventsType.house_one };
                     break;
                 
             }
-        }
+        }        
         else if(level < 10)
         {
             levelContainer = new GameEventsType[] { GameEventsType.house_two, GameEventsType.house_two, GameEventsType.house_one };
             
             if (level < 7)
             {
-                bonusContainer = new GameEventsType[] { GameEventsType.house_two, GameEventsType.replace_house, GameEventsType.delete_house };
+                bonusContainer = new GameEventsType[] { GameEventsType.house_one, GameEventsType.replace_house, GameEventsType.delete_house };
             }
             else
             {
-                bonusContainer = new GameEventsType[] { GameEventsType.house_two, GameEventsType.house_three, (GameEventsType)UnityEngine.Random.Range(9,11), GameEventsType.delete_house };
+                bonusContainer = new GameEventsType[] { GameEventsType.house_one, GameEventsType.house_two, (GameEventsType)UnityEngine.Random.Range(9,11), GameEventsType.delete_house };
             }
             
         }
@@ -251,9 +262,9 @@ public class GameLogic : MonoBehaviour
     public static int GetNeededScoreByLevel(int level)
     {
         int[] scores = new int[] {1000, 
-            9,  9,  9,  12, 13, 15, 16, 18, 20, 30, //1 - 10
-            30,  35,  35,  40, 50, 40, 40, 45, 45, 50, //11 - 20
-            55,  55,  55,  70, 65, 65, 65, 70, 60, 60, // 21-30
+            9,   12,  12,  20, 35, 35, 50, 50, 50, 50, //1 - 10
+            50,  50,  70,  50, 50, 50, 50, 80, 55, 55, //11 - 20
+            55,  60,  60,  70, 65, 65, 65, 70, 60, 60, // 21-30
             65,  65,  65,  55, 70, 60, 60, 70, 60, 60, // 31 - 40
             70,  65,  65,  65, 65, 80, 65, 65, 80, 120, // 41 - 50
             120,  120,  130,  170, 130,  140,  140,  150,  150,  220, // 51 - 60
@@ -270,7 +281,7 @@ public class GameLogic : MonoBehaviour
 
         int result = scores[level];
 
-        if (Globals.CurrentLevel > 10)
+        if (Globals.CurrentLevel > 4)
         {
             result = (int)(result * (1f + Globals.Wins * Globals.DIFFICULTY));
         }
@@ -281,10 +292,10 @@ public class GameLogic : MonoBehaviour
     public static int GetNeededBonusByLevel(int level)
     {
         int[] scores = new int[] { 500, 
-            6,  6,   6,  10, 10, 10, 10, 10, 10, 15, //1-10
-            15,  15,  15, 15, 15, 15, 15, 20, 20, 20, //11-20
-            22,  22,  22, 25, 25, 25, 25, 25, 25, 25, //21-30
-            22,  22,  22, 25, 25, 25, 25, 25, 25, 25, //31-40
+            3,   3,   3,  10, 15, 20, 20, 20, 20, 20, //1-10
+            25,  25,  25, 25, 25, 25, 25, 25, 25, 25, //11-20
+            25,  25,  25, 25, 25, 25, 25, 25, 25, 25, //21-30
+            25,  25,  25, 25, 25, 25, 25, 25, 25, 25, //31-40
             25,  25,  25, 25, 25, 25, 25, 25, 25, 30, //41-50
             30,  30,  30, 30, 30, 30, 30, 30, 30, 30, //51-60
             30,  30,  30, 40, 40, 40, 40, 40, 40, 40, //61-70

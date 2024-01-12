@@ -101,6 +101,7 @@ public class UIManager : MonoBehaviour
                 return;
             }
 
+            
             SoundController.Instance.PlayUISound(SoundsUI.click);
 
             if (bonusesPanel.activeSelf)
@@ -377,6 +378,11 @@ public class UIManager : MonoBehaviour
         
     }
 
+    public void Show100()
+    {
+        scoreText.text = "100%";
+    }
+
     public void SetMessagingWin()
     {
         scoreText.text = "100%";
@@ -594,7 +600,7 @@ public class UIManager : MonoBehaviour
         {
             bonusProgressImage.fillAmount = gm.BonusProgress;
 
-            if (gm.BonusProgress >= 0.99f && !bonusFVX.activeSelf)
+            if (gm.BonusProgress >= 0.99f && !bonusFVX.activeSelf && gm.ScoreProgress < 1)
             {
                 bonusFVX.SetActive(true);
                 bonusButton.transform.DOShakeScale(0.75f, 0.5f, 30).SetEase(Ease.InOutElastic);
